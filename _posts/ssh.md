@@ -8,6 +8,8 @@ categories: [奇技淫巧]
 
 本篇文章只做一个神经网络入门知识的梳理和个人的理解。
 
+对于ssh的深入理解。
+
 <!-- more -->
 
 
@@ -45,6 +47,39 @@ ssh -D 2222 user@remotehost
 # 接下来，不关闭终端，更改本地浏览器的代理服务器设置，流量便通过代理服务器进行转发
 ```
 
+ssh参数详解
+
+```bash
+-L [bind_address:]port:host:hostport
+
+Specifies that connections to the given TCP port or Unix socket on the local (client) host are to be forwarded to the given host and port, or Unix socket, on the remote side.  This works by allocating a socket to listen to either a TCP port on the local side, optionally bound to the specified bind_address, or to a Unix socket.  Whenever a connection is made to the local port or socket, the connection is forwarded over the secure channel, and a connection is made to either host port hostport, or the Unix socket remote_socket, from the remote machine.
+
+Port forwardings can also be specified in the configuration file. Only the superuser can forward privileged ports.  IPv6 addresses can be specified by enclosing the address in square brackets.
+
+By default, the local port is bound in accordance with the GatewayPorts setting.  However, an explicit bind_address may be used to bind the connection to a specific address.  The bind_address of “localhost” indicates that the listening port be bound for local use only, while an empty address or ‘*’ indicates that the port should be available from all interfaces.
+
+将本地主机转发到远程主机和端口。也可以直接在配置文件中指定。默认本地端口是根据GatewayPorts设置绑定的，可以直接使用bind_address将连接绑定到指定地址。如果bind_address为localhost表示监听端口只在本地使用，如果不填或*表示应用所有端口
+
+-R [bind_address:]port:host:hostport
+
+Specifies that connections to the given TCP port or Unix socket on the remote (server) host are to be forwarded to the given host and port, or Unix socket, on the local side.  This works by allocating a socket to listen to either a TCP port or to a Unix socket on the remote side. Whenever a connection is made to this port or Unix socket, the connection is forwarded over the secure channel, and a connection is made to either host port hostport, or local_socket, from the local machine.
+
+Port forwardings can also be specified in the configuration file. Privileged ports can be forwarded only when logging in as root on the remote machine. IPv6 addresses can be specified by enclosing the address in square brackets.
+
+By default, TCP listening sockets on the server will be bound to the loopback interface only.  This may be overridden by specifying a bind_address.  An empty bind_address, or the address ‘*’, indicates that the remote socket should listen on all interfaces.  Specifying a remote bind_address will only succeed if the server's GatewayPorts option is enabled (see sshd_config(5)).
+
+If the port argument is ‘0’, the listen port will be dynamically allocated on the server and reported to the client at run time.  When used together with -O forward the allocated port will be printed to the standard output.
+
+基本同-L参数命令，如果port为0，监听端口将会动态进行分配。
+
+-D [bind_address:]port
+
+Specifies a local “dynamic” application-level port forwarding.  This works by allocating a socket to listen to port on the local side, optionally bound to the specified bind_address.  Whenever a connection is made to this port, the connection is forwarded over the secure chan‐ nel, and the application protocol is then used to determine where to connect to from the remote machine.  Currently the SOCKS4 and SOCKS5 protocols are supported, and ssh will act as a SOCKS server.  Only root can forward privileged ports.  Dynamic port forwardings can also be specified in the configuration file.
+
+IPv6 addresses can be specified by enclosing the address in square brackets.  Only the superuser can forward privileged ports. By default, the local port is bound in accordance with the GatewayPorts setting. However, an explicit bind_address may be used to bind the connection to a specific address. The bind_address of “localhost” indicates that the listening port be bound for local use only, while an empty address or ‘*’ indicates that the port should be available from all interfaces.
+
+指定本地动态端口转发。通过分配一个socket来监听本地端口。支持SOCKS4和SOCKS5协议，相当于ssh充当SOCKS服务器。配置文件中也可以指定。bind_address为localhost表示监听端口仅限本地使用，如果为空或者*表示该端口可通过所有接口
+```
 ssh部分参数介绍
 
 可以用在上面的命令中
@@ -52,7 +87,7 @@ ssh部分参数介绍
 ```bash
 -f 后台认证用户密码，即不用登录到远程主机。通常与-N连用
 -C 压缩数据传输
--N　不执行脚本或者命令。通常与-f连用
+-N 不执行脚本或者命令。通常与-f连用
 -g 允许远程主机连接到建立的转发端口。
 -q 静默模式，使大多数警告和诊断消息被压制。（如果有警告信息，不进行输出）
 ```
@@ -70,8 +105,6 @@ ssh -gfCNL 2222:localhost:22 user@remotehost -q
 
 
 
-
-
 关于用途
 
 1. 本地端口转发。假设有两台服务器A和B，B需要访问A上面的一个应用（网站），但是这个应用只能在A上面使用。在B上使用本地端口转发，将某个端口转发给A应用的端口。`ssh -L 2333:<A>:80 localuser@localhost`。`<A>`表示的是A的ip，此时访问`localhost:2333`就能达到直接访问`ip:80`的效果。
@@ -84,7 +117,16 @@ ssh -gfCNL 2222:localhost:22 user@remotehost -q
 1. 端口转发是通过ssh连接建立的，所以关闭了端口，端口转发也会关闭
 2. 选择远程端口号的时候，一般是无权绑定`1-1023`端口的，只能使用管理员权限才能绑定。一般是使用` 1024-65535`之间的一个端口
 
+```bash
+# A在内网，B在公网，通过B连接A。-R命令
+# BUSER和BHOST对应正常连接B的SSH用户名和密码，AUSER为B连接A的用户名，port为-R参数的port
 
+# 此时需要在C机器上，先连接B，再通过B连接A。C机器执行命令。
+ssh -t BUSER@BHOST ssh AUSER@localhost -p port
+
+# or （Win10上测试失败）
+ssh BUSER@BHOST -J AUSER@localhost:port
+```
 
 
 
@@ -97,6 +139,12 @@ ssh -L localhost:3000:localhost:2000 user@remotehost
 ssh -R 2222:localhost:22 user@remotehost
 # B机器执行。user是C机器的用户名
 ssh -D 2000 -p 2222 user@localhost
+
+# 或两条命令，其实就是两条并一条
+# C机器
+ssh -R 2222:localhost:22 user@remotehost
+# A机器
+ssh -L localhost:3000:localhost:2000 user@remotehost -t ssh -D 2000 -p 2222 user@localhost
 
 # A机器上代理：SOCKS5://127.0.0.1:3000
 ```
