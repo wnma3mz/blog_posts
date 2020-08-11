@@ -1,6 +1,6 @@
 ---
 title: Numpy的70个操作
-date: 2018‎-03‎-0‎2‎ 20:37:39
+date: 2018-03-02 20:37:39
 tags: [numpy, python, 数据分析]
 categories: [数据]
 ---
