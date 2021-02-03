@@ -19,8 +19,8 @@ hadoop位置：/usr/loacl/hadoop
 参考文章
 [Hadoop集群之Hive安装配置](http://yanliu.org/2015/08/13/Hadoop%E9%9B%86%E7%BE%A4%E4%B9%8BHive%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/)
 
-**下载Hive**
-------
+## 下载Hive
+
 下载源码包
 ```bash
 #在hadoop目录下操作
@@ -46,8 +46,7 @@ export PATH=$HIVE_HOME/bin:$PATH
 >>>source /etc/profile
 ```
 
-**安装MySQL**
--------
+## 安装MySQL
 
 MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。
 
@@ -236,12 +235,12 @@ sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"，
 重启mysql后即可
 
 
-#### **关于my.cnf和my.ini的说明**
+#### 关于my.cnf和my.ini的说明
 
 my.cnf常见于Linux系统，my.ini常见与windows系统，二者都是属于mysql的配置文件。一般好像在一个系统下就是只出现一种配置文件，具体区别没有深入了解，修改配置文件，根据自己的系统进行查找修改配置文件即可
 
 
-#### **Mysql交互环境自动补全**
+#### Mysql交互环境自动补全
 
 ```bash
 # 修改配置文件
@@ -252,8 +251,8 @@ my.cnf常见于Linux系统，my.ini常见与windows系统，二者都是属于my
 ```
 
 
-**配置Hive**
-------
+## 配置Hive
+
 我们之前在hadoop目录下安装了Hive，位置为/usr/local/hadoop/apache-hive-1.2.1-bin
 
 ```bash
@@ -299,8 +298,8 @@ my.cnf常见于Linux系统，my.ini常见与windows系统，二者都是属于my
 </configuration>
 ```
 
-**下载JDBC**
-------
+## 下载JDBC
+
 ```bash
 #命令行下载,也可以使用图形界面上传文件
 >>> wget http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.36.tar.gz
@@ -423,7 +422,6 @@ DISTRIBUTE BY可以按指定字段将数据划分到不同的reduce中
 
 
 ### hive常用函数
---------
 
 ```bash
 # 以下无特殊说明，返回值皆为string
@@ -464,7 +462,6 @@ hive>spilt(str, strpat)
 ```
 
 ### hive导出数据
---------
 
 ```bash
 # 导出至本地，content表示本地目录
