@@ -50,7 +50,7 @@ text4.dispersion_plot(["citizens", "democracy", "freedom", "duties", "America"])
 text3.generate()
 ```
 
-![1-1.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-1.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-1.png)
 
 ```python
 # 有序字典，按词频从高到低排序
@@ -66,7 +66,7 @@ fdist1.plot(50, cumulative=True)
 fdist1.hapaxes()
 ```
 
-![1-3.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-3.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-3.png)
 
 ```python
 # 词语搭配，双连词(bigrams)
@@ -107,13 +107,13 @@ chatbots()
 - 词类型：一个词在一个文本中独一无二的出现形式或拼写。也就是说，这个词在词汇表中是唯一的。
 - 频率分布：
 
-![1-2.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-2.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-2.png)
 
 - FreqDist的API
 
-![1-4.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-4.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-4.png)
 
-![1-5.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-5.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/1-5.png)
 
 - 词意消歧：需要算出特定上下文中的词被赋予的是哪个意思。单词可能存在相同/相近的含义，此时需要根据上下文来推断单词在此情景下的含义。
 - 指代消解（anaphora resolution）：确定代词或名词短语指的是什么
@@ -129,7 +129,7 @@ chatbots()
 
 [古腾堡语料库](http://www.gutenberg.org/)
 
-![2-1.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-1.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-1.png)
 
 ```python
 # 导入nltk的古腾堡语料库
@@ -227,7 +227,7 @@ cfd.plot()
 ```
 以`america`或`citizen`开始的词随时间（年份）的演变趋势
 
-![2-2.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-2.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-2.png)
 
 ```python
 # udhr语料库中不同语言版本的字长差异（彩色图）
@@ -246,7 +246,7 @@ cfd.plot(cumulative=True)
 ```
 
 累积字长分布： “世界人权宣言”的6个翻译版本
-![2-3.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-3.png)
+![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-3.png)
 
 ```python
 # 载入自己的语料库，文本文件
@@ -400,7 +400,7 @@ right.path_similarity(minke)
 
 -  NLTK中定义的基本语料库函数
 
-    ![2-4.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-4.png)
+    ![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-4.png)
 
 - 条件频率分布
 
@@ -408,7 +408,7 @@ right.path_similarity(minke)
 
     当语料文本被分为几类（文体、主题、作者等）时，我们可以计算每个类别独立的频率分布，研究类别之间的系统性差异。
 
-    ![2-5.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-5.png)
+    ![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-5.png)
 
 - 条件和事件
 
@@ -420,7 +420,7 @@ right.path_similarity(minke)
 
 - WordNet：面向语义的英语词典，类似与传统辞典，但具有更丰富的结构。每个节点对应一个**同义词集**，边表示上/下位词关系（上下级概念与从属概念的关系）
 
-    ![2-6.png](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-6.png)图片
+    ![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/2-6.png)
 
 - synset：同义词集，意义想相同的词（或“词条”）的集合。如car.n.01是car的第一个名词的意义，就是同义词集。
 

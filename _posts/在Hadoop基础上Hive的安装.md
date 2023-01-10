@@ -485,7 +485,7 @@ cast(xxx as xx)
 将xxx类型转换为xx类型
 
 下表为是否可转换类型的说明
-![转换操作](http://img.blog.csdn.net/20170612195815151?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/hadoop/20170612195815151.png)
 　注：由于表格比较大，这里对一些比较长的字符串进行缩写，ts是timestamp的缩写,bl是boolean的缩写,sl是smallint的缩写,dm是decimal的缩写,vc是varchar的缩写,ba是binary的缩写。
 
 

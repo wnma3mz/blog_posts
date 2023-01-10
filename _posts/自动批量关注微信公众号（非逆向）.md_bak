@@ -13,9 +13,9 @@ categories: [自动化]
 
 由于PC端录制视频较麻烦，故放出安卓端演示视频：
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200411142826290.gif)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20200411142826290.gif)
 终端输出
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200411142944131.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dubWEzbXo=,size_16,color_FFFFFF,t_70)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20200411142944131.png)
 
 ## 步骤概述
 
@@ -35,9 +35,9 @@ categories: [自动化]
 - `cookie`和`token`的获取方式可以见我的另一篇文章 [记一次微信公众号爬虫的经历](https://blog.csdn.net/wnma3mz/article/details/78570580) 。
 - `nickname_lst`是需要关注公众号的名称，可以提前写入文件来读取
 - `url_location`是每次发送链接后的大概位置。见下图红框标记位置，获取红框标记位置内的坐标，方便点击即可。
-![图1](https://img-blog.csdnimg.cn/20200411110402959.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dubWEzbXo=,size_16,color_FFFFFF,t_70)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20200411110402959.png)
 - `img_path`是关注按钮的图片在本地保存的位置。见下图红框标记微信。因为`关注`按钮位置不确定，所以这里需要用图片的方式来确定此位置的坐标。这里我的方法是把下图中红框范围的截图，保存至本地，`img_path`为图片所处位置。
-![图2](https://img-blog.csdnimg.cn/20200411110413861.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dubWEzbXo=,size_16,color_FFFFFF,t_70)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20200411110413861.png)
 
 详细代码：
 
@@ -213,16 +213,3 @@ if __name__ == "__main__":
         time.sleep(1)
         pyautogui.click(1800, 1000, button='left', duration=0.5)
 ```
-
-
-
-若觉得需要完整思路分享、数据抓取或其他需求，请扫码加微信。
-
-
-
-<div align="center"><img src="https://i.loli.net/2019/09/20/14QGTkfgstDxv9C.jpg"  width="50%" id="wechat_account" /></div>
-随意打赏即可
-
-
-<div align="center"><img src="https://i.loli.net/2018/06/26/5b3234e7e35a0.jpg" width="50%" id="微信赞赏码" /></div>
-

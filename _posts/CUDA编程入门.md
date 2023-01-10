@@ -179,7 +179,7 @@ addKernel<<<size,1 >>>(dev_c, dev_a, dev_b);
 
 有时采用分治法，将一个大问题分解为几个小规模问题，将这些小规模问题分别用一个线程块实现，线程块内可以采用细粒度的线程并行，而块之间为粗粒度并行，这样可以充分利用硬件资源，降低线程并行的计算复杂度。适当分解，降低规模，在一些矩阵乘法、向量内积计算应用中可以得到充分的展示。
 
-![img](https://img-blog.csdn.net/20130723220559500?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQva2trNTg0NTIw/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/cuda/20130723220559500.png)
 
 多个线程块组成一个线程格(Grid)。一维线程->二维线程块->三维线程格。
 

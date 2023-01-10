@@ -211,10 +211,10 @@ db_name.db_set.remove({"name": "user1"})
 3. 使用
 
    1. 首先创建新的连接，如下图所示。在`Connection中，``Name`为自定义连接名，`Address`填入对应的`host`和`port`；
-     ![pic1](http://img.blog.csdn.net/20171124171027733?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+     ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/mongodb/20171124171027733.png)
    2. 在`Authentication`中，勾选`Perform authentication`，填上对应的`User Name`和`Password`。填写完成之后可以点击`Test`验证是否能够连接成功，如果无误的话，可以点击`Save`保存退出。
 
-    ![pic2](http://img.blog.csdn.net/20171124171111807?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+    ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/mongodb/20171124171111807.png)
 
    3. 连接Mongodb。点击`Connect`，之后就可以可视化数据库中的数据。也可以使用鼠标简单的进行创建/删除数据库，新建/修改信息，也可以使用命令查找数据。
 

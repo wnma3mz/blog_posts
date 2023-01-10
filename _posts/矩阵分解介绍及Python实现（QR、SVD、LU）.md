@@ -142,11 +142,11 @@ $$A=LU$$
 
 格式如下
 
-![](http://om1bxijvl.bkt.clouddn.com/2017-03-29-19-31-33.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/matrix/2017-03-29-19-31-33.png)
 
 分解过程：
 
-![](http://om1bxijvl.bkt.clouddn.com/2017-03-29-20-13-15.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/matrix/2017-03-29-20-13-15.png)
 
 声明：l11表示L矩阵的第一行第一列的元素，U1i表示L矩阵第一行每一列（需要遍历的列）的元素
 

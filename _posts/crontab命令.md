@@ -33,6 +33,8 @@ Linux下crontab命令简单使用及介绍
 # 分 时 日 月 周 需要执行的命令
 ```
 
+可视化测试在线网站，https://crontab.guru/
+
 几个栗子
 
 ```bash
@@ -51,8 +53,6 @@ Linux下crontab命令简单使用及介绍
 # 每天的8，13，20点执行，注意此时表示分的那个*要替换为0
 0 8,13,20 * * * command
 ```
-
-![](https://sfault-image.b0.upaiyun.com/175/110/1751101486-55155eadab949_articlex)
 
 日志文件一般存放在`/var/log/cron*`中，不过我的Ubuntu好像没有开启cron日志，可以在`/etc/rsyslog.d/50-default.conf`中进行设置（Centos在`/etc/rsyslog.conf`中设置）
 ```bash

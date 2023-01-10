@@ -18,7 +18,7 @@ categories: [CUDA]
 
 首先祭出显卡天梯图，时间截止于博客编辑完的日期（2018年4月）。
 
-![PUIm](https://i.loli.net/2018/05/13/5af851eca8de0.jpg)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/cuda/5af851eca8de0.jpg)
 
 关于显卡的一些基本知识可以看知乎的这个贴：[知识扫盲I给大众的电脑显卡选购指南](https://zhuanlan.zhihu.com/p/33743591)
 

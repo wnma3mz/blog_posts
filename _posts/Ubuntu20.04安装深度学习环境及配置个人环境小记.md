@@ -15,11 +15,12 @@ Ubuntu20.04安装深度学习环境及配置个人环境小记
 
 ```bash
 nvidia-driver-460 # 英伟达驱动，最低推荐版本为这个
-CUDA 10.2 (gcc 7)
-cudnn 7.6.5
+CUDA 11.2 (gcc 7) # 30系显卡应该换为cuda11版本以上，20系显卡可以用cuda10.2版本
+cudnn 8.6.1
 
-pytorch 1.7
-tensorflow 2.2.0
+pytorch 1.10
+torchvision 0.11.1
+tensorflow 2.5.0
 ```
 
 ### 准备工作
@@ -30,7 +31,7 @@ tensorflow 2.2.0
 # 第一步: 安装一些必备的软件
 add-apt-repository ppa:graphics-drivers/ppa
 apt update -y && apt upgrade -y
-apt install -y git autossh python3-pip vim tmux gpustat tree ranger build-essential gcc-7 g++-7 make curl htop ipython3
+apt install -y git autossh python3-pip vim tmux gpustat tree ranger build-essential gcc-7 g++-7 make curl htop ipython3 zhs
 # gcc与g++降级
 update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 100
 update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-7 100
@@ -60,16 +61,16 @@ apt install nvidia-driver-460 -y # 英伟达460驱动，按需更改
 
 这里需要从官网下载安装包，cuda安装包可以直接通过命令下载。cudnn需要注册英伟达开发者账号，下载四个文件
 
-- `cudnn-10.2-linux-x64-v7.6.5.32.tgz`
-- `libcudnn7_7.6.5.32-1+cuda10.2_amd64.deb `
+- `cudnn-11.2-linux-x64-v8.1.0.77`
+- `libcudnn8_8.1.0.77-1+cuda11.2_amd64.deb `
 
-- `libcudnn7-dev_7.6.5.32-1+cuda10.2_amd64.deb`
-- `libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb `
+- `libcudnn8-dev_8.1.0.77-1+cuda11.2_amd64.deb`
+- `libcudnn8-samples_8.1.0.77-1+cuda11.2_amd64.deb `
 
 ```bash
-wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda_10.2.89_440.33.01_linux.run && chmod 755 cuda_10.2.89_440.33.01_linux.run 
+wget https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run && chmod 755 cuda_11.2.2_460.32.03_linux.run
 
-./cuda_10.2.89_440.33.01_linux.run
+./cuda_11.2.2_460.32.03_linux.run
 ```
 
 下载完直接运行，安装过程中需要把Drivers这项取消，因为自带了显卡驱动。
@@ -79,8 +80,8 @@ wget https://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installe
 在/etc/bash.bashrc或/etc/profile前加入如下两行。如果profile不行就换bashrc。一般是编辑`vim ~/.bashrc`下，但为保证所有用户都生效，所以需要在`/etc`目录下编辑
 
 ```bash
-export PATH=/usr/local/cuda-10.2/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-11.2/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 ```
 
 至此，cuda安装完成
@@ -95,28 +96,30 @@ make clean && make -j4 && ./deviceQuery
 #### cudnn配置
 
 ```bash
-tar -zxvf cudnn-10.2-linux-x64-v7.6.5.32.tgz 
+tar -zxvf cudnn-11.2-linux-x64-v8.1.0.77.tgz 
 cp cuda/include/cudnn.h /usr/local/cuda/include 
 cp cuda/lib64/libcudnn* /usr/local/cuda/lib64  
 chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*  
 
-dpkg -i libcudnn7_7.6.5.32-1+cuda10.2_amd64.deb      
-dpkg -i libcudnn7-dev_7.6.5.32-1+cuda10.2_amd64.deb  
-dpkg -i libcudnn7-doc_7.6.5.32-1+cuda10.2_amd64.deb 
+dpkg -i libcudnn8_8.1.0.77-1+cuda11.2_amd64.deb      
+dpkg -i libcudnn8-dev_8.1.0.77-1+cuda11.2_amd64.deb  
+dpkg -i libcudnn8-samples_8.1.0.77-1+cuda11.2_amd64.deb 
 
 # cudnn检测，更高版本的cudnn需要把cudnn.h换成cudnn_version.h
 cat /usr/local/cuda/include/cudnn.h | grep CUDNN_MAJOR -A 2
 # 利用程序检查，可能需要重启
-cd /usr/src/cudnn_samples_v7/mnistCUDNN
-make clean && make -j4 && ./mnistCUDNN
+cd /usr/src/cudnn_samples_v7/conv_sample
+make clean && make -j4 && ./conv_sample
 # 最后一行输出，Test passed！表示成功
 ```
+
+通过`ldconfig`可检查动态链接库是否链接正确。若有输出，可以使用`ln -sf`重新链接。
 
 ### Python库安装
 
 ```bash
-pip3 install tensorflow-gpu==2.2.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
-pip3 install torch==1.7.0+cu110 torchvision==0.8.1+cu110 -f https://download.pytorch.org/whl/torch_stable.html
+pip3 install tensorflow-gpu==2.5.0 -i https://pypi.tuna.tsinghua.edu.cn/simple
+pip3 install torch==1.10.0+cu113 torchvision==0.11.1+cu113 -f https://download.pytorch.org/whl/torch_stable.html
 pip3 install black tqdm flask sklearn
 ```
 
@@ -124,8 +127,13 @@ pip3 install black tqdm flask sklearn
 
 ```python
 import torch
-torch.cuda.is_available()
-torch.cuda.device_count()
+
+print(torch.cuda.is_available()) 
+print(torch.backends.cudnn.is_available()) 
+
+print(torch.__version__)
+print(torch.version.cuda)
+print(torch.backends.cudnn.version())
 
 import tensorflow as tf
 gpu_device_name = tf.test.gpu_device_name()
@@ -143,16 +151,26 @@ tf.test.is_gpu_available() # 输出True
 # 创建用户
 adduser xxx
 # 输入配置的密码
+
+# 增加root权限
+chmod u+w /etc/sudoers
+vim /etc/sudoers
+​```
+root    ALL=(ALL:ALL) ALL
+# 增加一行
+xxx    ALL=(ALL:ALL) ALL
+​```
+chmod u-w /etc/sudoers
 ```
 
 #### ssh文件配置
 
-方便起见直接把其他服务器的`.ssh`文件夹下的`id_rsa`和`id_rsa.pub`复制过来。
+方便起见直接把其他服务器的`.ssh`文件夹下的`id_rsa`，`id_rsa.pub`和`authorized_keys`复制过来。
 
 ```bash
 # 复制完成之后，修改对应权限才能使用
 chmod 755 ~/.ssh/  
-chmod 600 ~/.ssh/id_rsa ~/.ssh/id_rsa.pub   
+chmod 600 ~/.ssh/id_rsa ~/.ssh/id_rsa.pub ~/.ssh/authorized_keys
 chmod 644 ~/.ssh/known_hosts
 ```
 

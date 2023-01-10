@@ -42,10 +42,8 @@ Android 调试桥 (adb) 是一个通用命令行工具，其允许您与模拟�
 3. 环境配置
    1. 添加环境变量，这样可以在cmd或者powershell中直接使用adb
    2. 右键"计算机"->"属性"->左边的"高级系统设置"->"环境变量">-在上面用户变量中的"Path"进行编辑->"添加"刚刚放置的文件夹目录，确认保存即可
-
-
-![这里写图片描述](http://img.blog.csdn.net/20180125135305187?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-      3. 这样再打开cmd或者powershell，就可以直接使用adb命令了
+      ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20180125135305187.png)
+   3. 这样再打开cmd或者powershell，就可以直接使用adb命令了
 
    ​
 
@@ -66,7 +64,7 @@ Linux系统安装adb工具还是很容易的，我使用的是Ubuntu17.10
 
 在USB调试开关开启之后，进入USB调试，打开USB调试开关，如下图。
 
-<img src="http://img.blog.csdn.net/20180125135319543?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" width="300px" />
+<img src="https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20180125135319543.png" width="300px" />
 
 之后使用USB数据线连接到电脑。
 
@@ -83,7 +81,7 @@ Linux系统安装adb工具还是很容易的，我使用的是Ubuntu17.10
 第三步，进入C盘用户目录下的隐藏文件夹".android"，编辑或者新建文件"adb_usb.ini"，用记事本打开，在里面写上内容。我这里需要写的是"0x2A45"，0x是前缀不需要更改，后面的字符串对应的更改"硬件Id"里面"值"的VID后面的四个字符。保存退出即可
 
 
-![这里写图片描述](http://img.blog.csdn.net/20180125135348748?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd25tYTNteg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20180125135348748.png)
 
 第四步，断开USB连接，重新连接，再输入`adb devices`。正常情况下应该会出现设备的成功连接的信息
 

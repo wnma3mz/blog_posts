@@ -8,7 +8,7 @@ categories: [环境搭建]
 
 <!-- more -->
 
-![cover](http://s4.51cto.com/wyfs02/M02/54/84/wKiom1SFSNnAeaEUAADD3ZcjTjw828.jpg)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/hadoop/wKiom1SFSNnAeaEUAADD3ZcjTjw828.jpg)
 
 ## 文章开头
 
