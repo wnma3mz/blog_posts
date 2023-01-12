@@ -151,7 +151,11 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
 
 - 桥接上一级路由器
 
-  - 
+  - 将路由器WAN口接入上一级路由器LAN口，无需知道账号密码
+  - 在WAN口中，协议选择**DHCP客户端**
+  - 在物理设置中，选择桥接接口，默认**以太网交换机: eth0**开启。勾选两个无线网络。如下图所示
+  - ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1673524264094.png)
+  - 此时，IP同上一级路由器同网段，且如果有IPv6，则连接该路由器的设备也有IPv6
 
 - 做NAT
 
