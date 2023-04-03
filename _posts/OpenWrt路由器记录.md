@@ -122,7 +122,7 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
 
 - 一个简单的做法就是如下图所示，把"防火墙"中的"常规设置"里面的wan口，入站数据从**拒绝**改成**接受**。（默认是拒绝入站的）
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt@2%SA]@F~~]WNIHOLGPN5KO.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1680509223.png)
 
 - 另一个做法是配置"防火墙->端口转发"，把需要配置的端口转发出来。如下图所示，web界面的端口是80。所以从wan口出来的访问80端口的流量，直接转发到192.168.4.1（该路由器分配给下面的IP，不是获取的IP）
 

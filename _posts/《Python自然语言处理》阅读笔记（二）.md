@@ -36,7 +36,7 @@ text = nltk.Text(tokens)
 
 字符串基本操作在这里请见下图。注：字符串是不可改变的。
 
-![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/3-2.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/nltk/3-2.png)
 
 关于编码这个大坑，在Python3中做的已经比Python2好太多，在这里也不做介绍了。介绍一些关于编码处理的库。
 
@@ -126,7 +126,7 @@ nltk.regexp_tokenize(text, pattern)
 
 - 建立词汇表流程
 
-  ![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/3-1.png)
+  ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/nltk/3-1.png)
 
 - 编码点：每个字符分配一个编号
 
@@ -134,7 +134,7 @@ nltk.regexp_tokenize(text, pattern)
 
 - 编码：将Unicode转化为其它编码的过程
 
-  ![](https://raw.githubusercontent.com/wnma3mz/Nltk_Study/master/imgs/3-3.png)
+  ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/nltk/3-3.png)
 
 - 从 Unicode的角度来看，字符是可以实现一个或多个 字形的抽象的实体。只有字形可以出现在屏幕上或被打印在纸上。一个字体是一个字符到字形映射。
 
