@@ -1,5 +1,5 @@
 ---
-title: ICS在线课表制作
+title: iCalendar：ICS在线课表制作
 date: 2020-09-16 18:41:23
 tags: [note, Python, ics]
 categories: [奇技淫巧]
@@ -85,13 +85,13 @@ LOCATION:上课地点A
 END:VEVENT
 ```
 
-相比于原始格式，多添加了一个事件，并且添加了地点`LOCATION`和事件描述`DESCRIPTION`
+相比于原始格式，多添加了一个事件，并且添加了地点 `LOCATION`和事件描述 `DESCRIPTION`
 
 ### 生成
 
 既然知道格式，那么生成就很简单了，可以自己按照这种格式手写进一个文档，后缀名为ics即可。这里我借助了Python的icalendar来完成这个工作。
 
-以下是一个函数，借助这个函数可以生成一个事件，生成后可以添加至日历中。这里uid因为是要求唯一的，所以借助了uuid来完成。这里有一个小坑，由于我们要是北京时间，所以添加时间是，需要加入`tz_utc_8`这个变量`tz_utc_8 = timezone(timedelta(hours=8))`
+以下是一个函数，借助这个函数可以生成一个事件，生成后可以添加至日历中。这里uid因为是要求唯一的，所以借助了uuid来完成。这里有一个小坑，由于我们要是北京时间，所以添加时间是，需要加入 `tz_utc_8`这个变量 `tz_utc_8 = timezone(timedelta(hours=8))`
 
 ```python
 def cread_event(lesson_name, classroom, teacher, start, end):
@@ -191,7 +191,7 @@ server {
     root         /ics_dir;;
     index        my.ics;
     rewrite ^(.*)$ https://$host$1 permanent;
-    
+  
     location / {
         root  /ics_dir;
         index my.ics;

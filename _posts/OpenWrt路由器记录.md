@@ -4,8 +4,7 @@ date: 2023-01-10 20:21:22
 tags: [OpenWrt, 路由器]
 categories: []
 ---
-
-OpenWrt路由器折腾记录
+在路由器上安装和配置OpenWrt。它包括安装软件包和设置防火墙、接口和各种网络连接的分步说明。
 
 <!-- more -->
 
@@ -138,8 +137,6 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1673357070459.png)
 
-
-
 我主要会有以下四种上网方式（不会专业术语，简单描述现象）：
 
 - 桥接光猫
@@ -148,7 +145,6 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
   - 在WAN口中，协议选择**PPPoE**，输入账号密码
   - 此时该路由器就是主路由器，一般同时有ipv4和ipv6两个地址，假设ipv4的ip为192.168.1.1
   - 接入该路由器的设备，由该路由器进行分配ip，ip与路由器同网段，如192.168.1.2
-
 - 桥接上一级路由器
 
   - 将路由器WAN口接入上一级路由器LAN口，无需知道账号密码
@@ -156,7 +152,6 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
   - 在物理设置中，选择桥接接口，默认**以太网交换机: eth0**开启。勾选两个无线网络。如下图所示
   - ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1673524264094.png)
   - 此时，IP同上一级路由器同网段，且如果有IPv6，则连接该路由器的设备也有IPv6
-
 - 做NAT
 
   - 将路由器WAN接入上一级路由器的LAN口，相当于把该路由器做一个新的入口。
@@ -164,20 +159,14 @@ cd /mnt/sda1/tailscale_1.34.1_mips && nohup ./tailscaled --state=tailscaled.stat
   - 此时，接入该路由器的设备会独立上一级路由器的设备，即网段不同。
   - 注：如果此时还需要ipv6，可以参考这篇文件进行配置。https://www.lategege.com/?p=676
     - 简单来说，就是需要选择静态IP，并在**WAN口**和**LAN**中的"DHCP服务器"中的IPv6设置中，路由器广告服务，DHCPv6服务，NDP-代理三个均选择中继模式
-    - 并且在终端中`vim /etc/config/dhcp`，找到`config dhcp 'wan'`对应的选项，加入`option master '1'`这一行
-
+    - 并且在终端中 `vim /etc/config/dhcp`，找到 `config dhcp 'wan'`对应的选项，加入 `option master '1'`这一行
 - WiFi放大器
 
   - 无需网线
-
   - "网络->无线"中的搜索，找到需要放大WiFi，加入网络。看情况选择放大2.4G还是5G的WiFi
 
     ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1673357519480.png)
-
   - WPA密钥就是WiFi密码，新的网络名称可以默认也可以另起一个以便区分。
-
   - ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/openwrt/1673357576678.png)
-
   - 此时接口中会多一个接口
-
   - 其他同桥接

@@ -4,10 +4,10 @@ date: 2017-08-24 08:44:45
 tags: [Linux, crontab]
 categories: [奇技淫巧]
 ---
-Linux下crontab命令简单使用及介绍
+学会使用crontab定时任务，提高工作效率。详解了crontab的基本格式和例子，以及相关目录介绍
+和日志文件的设置。
 
 <!-- more -->
-
 
 ```bash
 # 查看当前用户的定时任务，也可以使用crontab -uroot -l查看指定用户的定时任务
@@ -54,7 +54,8 @@ Linux下crontab命令简单使用及介绍
 0 8,13,20 * * * command
 ```
 
-日志文件一般存放在`/var/log/cron*`中，不过我的Ubuntu好像没有开启cron日志，可以在`/etc/rsyslog.d/50-default.conf`中进行设置（Centos在`/etc/rsyslog.conf`中设置）
+日志文件一般存放在 `/var/log/cron*`中，不过我的Ubuntu好像没有开启cron日志，可以在 `/etc/rsyslog.d/50-default.conf`中进行设置（Centos在 `/etc/rsyslog.conf`中设置）
+
 ```bash
 > sudo vim /etc/rsyslog.d/50-default.conf
 # 找到cron*, 去掉前面的#注释即可
@@ -79,5 +80,3 @@ crontab相关目录介绍
 [每天一个linux命令（50）：crontab命令](http://www.cnblogs.com/peida/archive/2013/01/08/2850483.html)
 
 [Linux 下执行定时任务 crontab 命令详解](https://segmentfault.com/a/1190000002628040)
-
-

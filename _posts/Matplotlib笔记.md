@@ -4,7 +4,7 @@ date: 2017-08-26 09:46:23
 tags: [matplotlib, python]
 categories: [数据可视化]
 ---
-这篇文章主要介绍了matplotlib一些基础绘图的操作和中文编码的解决方案。
+解决Python中文乱码问题的完整方案及Matplotlib绘图基础操作
 
 <!-- more -->
 

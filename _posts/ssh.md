@@ -5,11 +5,11 @@ tags: [ssh, linux]
 mathjax: true
 categories: [奇技淫巧]
 ---
-
-ssh端口转发
+使用SSH实现本地和远程主机之间的端口转发。本文介绍了SSH端口转发的基础操作，参数详解和用
+途介绍，并提供了一键命令和注意事项。SSH端口转发可以用于内外网穿透，实现服务器代理，动态转
+发端口，实现远端操作等功能。
 
 <!-- more -->
-
 
 说明：localhost表示本地主机，`localuser`表示本地用户（内网用户），user表示远程服务器用户名，host表示远程服务器ip.
 
@@ -82,12 +82,13 @@ Specifies a local “dynamic” application-level port forwarding.  This works b
 IPv6 addresses can be specified by enclosing the address in square brackets.  Only the superuser can forward privileged ports. By default, the local port is bound in accordance with the GatewayPorts setting. However, an explicit bind_address may be used to bind the connection to a specific address. The bind_address of “localhost” indicates that the listening port be bound for local use only, while an empty address or ‘*’ indicates that the port should be available from all interfaces.
 
 指定本地动态端口转发。通过分配一个socket来监听本地端口。支持SOCKS4和SOCKS5协议，相当于ssh充当SOCKS服务器。配置文件中也可以指定。bind_address为localhost表示监听端口仅限本地使用，如果为空或者*表示该端口可通过所有接口
+
 ```
 ssh部分参数介绍
 
 可以用在上面的命令中
 
-​```bash
+```bash
 -f 后台认证用户密码，即不用登录到远程主机。通常与-N连用
 -C 压缩数据传输
 -N 不执行脚本或者命令。通常与-f连用
@@ -104,9 +105,7 @@ ssh -gfCNL 2222:localhost:22 user@remotehost -q
 # 如果将命令放到了后台，关掉进程需要使用kill命令
 ```
 
-如果网络不稳定可以考虑使用`autossh`。这个需要额外安装，使用的时候将`ssh`替换为`autossh`即可。它的工作原理简单来说，就是有个超时机制，如果中断，便重新连接。
-
-
+如果网络不稳定可以考虑使用 `autossh`。这个需要额外安装，使用的时候将 `ssh`替换为 `autossh`即可。它的工作原理简单来说，就是有个超时机制，如果中断，便重新连接。
 
 ## 用途介绍
 
@@ -117,40 +116,37 @@ ssh -gfCNL 2222:localhost:22 user@remotehost -q
    # B机器
    ssh -L 2333:IP_A:80 localuser@localhost
    # 此时访问localhost:2333等于pi_A:80
-   
+
    # 比如A为公网IP（11.11.11.11），在6000端口开启某项服务
    # B通过在本机使用, 本地用户名user
    ssh -L 2333:11.11.11.11:6000 user@localhost
    # 即可通过localhost:2333来代替11.11.11.11
    ```
-
-2. 本地端口转发高级版（多机版）。同上面的假设，但是现在有三台或者三台以上的服务器A、B、C……这个时候，使用`-g`参数，运行远程主机连接转发端口。这样便可以达到C访问B再访问A的目的。注意：确保ABC三台服务器网络连接是安全的，请谨慎。
-
+2. 本地端口转发高级版（多机版）。同上面的假设，但是现在有三台或者三台以上的服务器A、B、C……这个时候，使用 `-g`参数，运行远程主机连接转发端口。这样便可以达到C访问B再访问A的目的。注意：确保ABC三台服务器网络连接是安全的，请谨慎。
 3. 远程端口转发。假设有一台服务器（公网）A，两台内网计算机B、C。
 
    ```bash
    # B、C均可连接A，但是其他两两之间不能相互连接。
    # 现在需要实现两两之间都能互相连接
-   
+
    # A连接到B、C
    # B、C远程端口转发，A机器（11.11.11.11），用户名user
    # B机器
    ssh -R 2221:localhost:22 user@11.11.11.11
    # C机器
    ssh -R 2222:localhost:22 user@11.11.11.11
-   
+
    # 这样在A机器执行如下命令就能连接B、C了
    # 连接B
    ssh userB@localhost -p2221
    # 连接C
    ssh userC@localhost -p2222
-   
+
    # B、C之间互连
    # 其实就是通过A作为跳板来登录，即先登录A
    ssh user@11.11.11.11
    # 再登录B or C即可
    ```
-
 4. 动态端口转发。在本地使用这个命令连接到服务器之后，便可以使用服务器的SOCK5代理来上网。需要在浏览器或者系统上进行下面的设置。
 
    ```bash
@@ -160,12 +156,10 @@ ssh -gfCNL 2222:localhost:22 user@remotehost -q
    # 通过设置SOCKS5代理，socks5://127.0.0.1:1234，就可以通过A机器的流量上网。可查询ip来检验是否成功
    ```
 
-   
-
 注意事项：
 
 1. 端口转发是通过ssh连接建立的，所以关闭了端口，端口转发也会关闭
-2. 选择远程端口号的时候，一般是无权绑定`1-1023`端口的，只能使用管理员权限才能绑定。一般是使用` 1024-65535`之间的一个端口
+2. 选择远程端口号的时候，一般是无权绑定 `1-1023`端口的，只能使用管理员权限才能绑定。一般是使用 ` 1024-65535`之间的一个端口
 
 ## 内网流量转发
 
@@ -222,14 +216,6 @@ Host target_server
 ## 注意事项
 
 win10开启ssh服务器端，1. 应用和功能：下载openssh服务端；2. 服务：开启openssh server服务；3. 连接用户名win10系统盘的用户文件下的文件名，比如我的是Administrator（即和公用文件夹并列的文件夹）。
-
-
-
-
-
-
-
-
 
 参考文章
 

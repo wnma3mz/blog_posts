@@ -4,7 +4,8 @@ date: 2021-07-21 21:36:28
 tags: [linux, 安卓]
 categories: [笔记]
 ---
-在手机上利用Termux安装Linux，免root
+本文介绍如何在安卓手机上安装和运行Ubuntu系统，并通过ssh连接进行操作，同时给出了一
+些其他有用的命令和配置说明。
 
 <!-- more -->
 
@@ -14,7 +15,7 @@ categories: [笔记]
 
 下载完成后，正常安装，但需要额外的给存储空间权限。
 
-虽然说可以免root安装，但没有root权限，有些操作不能很好的完成，如`top`
+虽然说可以免root安装，但没有root权限，有些操作不能很好的完成，如 `top`
 
 ### 连接
 
@@ -59,7 +60,7 @@ chmod +x ubuntu.sh
 ./startubuntu.sh
 ```
 
-这样安装的Linux是与Termux共享文件目录的，所以可以直接将文件拷贝在`ubuntu-fs/root`文件夹中，启动`./startubuntu.sh`后，就能直接看到文件。
+这样安装的Linux是与Termux共享文件目录的，所以可以直接将文件拷贝在 `ubuntu-fs/root`文件夹中，启动 `./startubuntu.sh`后，就能直接看到文件。
 
 注：若进入系统后，无法更新软件源，可能是dns存在问题，可以在termux中更改dns解析（因为系统中不好编辑）。
 
@@ -72,8 +73,6 @@ nameserver 8.8.8.8
 `
 # 若依旧不行，可尝试其他dns，如1.1.1.1等
 ```
-
-
 
 ### 其他
 
@@ -98,4 +97,3 @@ sshd # 开启ssh服务，便于连接
 # 配置进入Linux系统操作
 `
 ```
-

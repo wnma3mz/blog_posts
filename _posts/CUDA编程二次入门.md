@@ -4,13 +4,15 @@ date: 2018-05-18 22:47:33
 tags: [C, CUDA, 并行, GPU]
 categories: [CUDA]
 ---
-CUDA编程二次入门，接[《记被CUDA折腾死去活来的那十天》](https://wnma3mz.github.io/hexo_blog/2018/05/05/%E8%AE%B0%E8%A2%ABCUDA%E6%8A%98%E8%85%BE%E6%AD%BB%E5%8E%BB%E6%B4%BB%E6%9D%A5%E7%9A%84%E9%82%A3%E5%8D%81%E5%A4%A9/)。阅读本文前需要有一部分C语言基础。
+本文主要介绍了基本的CUDA程序框架及代码解析，包括如何申请设备指针内存、将数据拷贝到设备上、
+调用核函数进行计算、线程同步以及将结果拷贝回主机内等。同时也介绍了一些常见问题及解决方案，
+比如CUDA程序黑屏之后恢复的问题。接[《记被CUDA折腾死去活来的那十天》](https://wnma3mz.github.io/hexo_blog/2018/05/05/%E8%AE%B0%E8%A2%ABCUDA%E6%8A%98%E8%85%BE%E6%AD%BB%E5%8E%BB%E6%B4%BB%E6%9D%A5%E7%9A%84%E9%82%A3%E5%8D%81%E5%A4%A9/)。阅读本文前需要有一部分C语言基础。
 
 <!-- more -->
 
 ## 原始代码
 
-在VS2015中，新建一个CUDA项目，里面会有一个`kernel.cu`的文件。里面的代码就是官方给出的实例代码。如下所示。
+在VS2015中，新建一个CUDA项目，里面会有一个 `kernel.cu`的文件。里面的代码就是官方给出的实例代码。如下所示。
 
 ```c
 #include "cuda_runtime.h"
@@ -196,8 +198,7 @@ int main() {
 
 `kernel.cu`里面的代码是基于上面这个代码进行拓展。
 
-1. 每一次操作之后，进行判断状态`cudaStatus`，如果状态异常就退出，这是一种比较好的编程习惯，当然带来的影响就是可读性略微降低了。
-
+1. 每一次操作之后，进行判断状态 `cudaStatus`，如果状态异常就退出，这是一种比较好的编程习惯，当然带来的影响就是可读性略微降低了。
 2. 封装了一个函数，将操作主机的代码与操作设备的代码（比如申请设备指针内存与释放设备指针等）。
 
 ## 拓展代码
@@ -210,12 +211,9 @@ int main() {
 
 如果在运行cuda代码的时候，显示屏突然黑屏，之后又恢复正常，是因为程序时间运行过长，触发了TDR事件，导致黑屏，显卡运算中断。解决方案如下：
 
-1. 开始菜单中找到`Nsight Monitor`并打开。（Win10可以直接搜索）
-
-2. 在任务栏中打开`Nsight Monitor`，单击右下角的`Nsight Monitor options`。
-
-3. 设置`General`的`Microsoft Display Driver`中`WDDM TDR Delay`中的值，把`2`(默认一般是2)，调大，比如200。
-
+1. 开始菜单中找到 `Nsight Monitor`并打开。（Win10可以直接搜索）
+2. 在任务栏中打开 `Nsight Monitor`，单击右下角的 `Nsight Monitor options`。
+3. 设置 `General`的 `Microsoft Display Driver`中 `WDDM TDR Delay`中的值，把 `2`(默认一般是2)，调大，比如200。
 4. 保存后退出，重启电脑即可。
 
 详见[解决CUDA程序的黑屏恢复问题](http://blog.163.com/yuhua_kui/blog/static/9679964420146183211348/)

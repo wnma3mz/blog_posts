@@ -4,7 +4,7 @@ date: 2018-05-18 23:39:09
 tags: [C, CUDA, 并行, GPU, note]
 categories: [CUDA]
 ---
-CUDA官方文档笔记，接[CUDA编程入门](https://wnma3mz.github.io/hexo_blog/2018/05/13/CUDA%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/#more)。
+用CUDA实现高效的矩阵运算——从一维到三维向量加法、共享内存矩阵乘法2.0。接[CUDA编程入门](https://wnma3mz.github.io/hexo_blog/2018/05/13/CUDA%E7%BC%96%E7%A8%8B%E5%85%A5%E9%97%A8/#more)。
 
 <!-- more -->
 
@@ -30,6 +30,7 @@ int main()
 ```
 
 二维向量加法1.0
+
 ```c
 // 核函数，二维数组
 __global__ void MatAdd(float A[N][N], float B[N][N],
@@ -53,8 +54,8 @@ int main()
 }
 ```
 
-
 二维向量加法2.0
+
 ```c
 //
 __global__ void MatAdd(float A[N][N], float B[N][N],
@@ -81,6 +82,7 @@ int main()
 一维向量2.0
 
 这里的设备指的是GPU
+
 ```c
 // 核函数，使用block
 __global__ void VecAdd(float* A, float* B, float* C, int N)
@@ -135,7 +137,7 @@ int main()
 }
 ```
 
-二维和三维数组分别需要使用`cudaMallocPitch()`和`cudaMalloc3D()`
+二维和三维数组分别需要使用 `cudaMallocPitch()`和 `cudaMalloc3D()`
 
 ```c
 // 二维数组
@@ -205,6 +207,7 @@ cudaMemcpyToSymbol(devPointer, &ptr, sizeof(ptr));
 ```
 
 共享内存——矩阵乘法1.0
+
 ```c
 // 定义一个矩阵的数据结构
 // Matrices are stored in row-major order:
@@ -278,7 +281,8 @@ __global__ void MatMulKernel(Matrix A, Matrix B, Matrix C)
 
 矩阵乘法2.0
 
-使用`__device__`获取矩阵中元素和设定元素
+使用 `__device__`获取矩阵中元素和设定元素
+
 ```c
 // Matrices are stored in row-major order:
 // M(row, col) = *(M.elements + row * M.stride + col)

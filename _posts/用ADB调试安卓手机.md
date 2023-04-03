@@ -4,8 +4,9 @@ date: 2018-01-25 13:55:11
 tags: [adb, python]
 categories: [奇技淫巧]
 ---
-
-这篇文章主要介绍了ADB是什么、如何安装ADB、如何用ADB调试安卓手机。
+使用adb工具实现对安卓手机的调试，包括安装应用、查看运行App、录屏、截图等功能。本文详细介绍
+了adb工具的安装、配置和使用方法，并列出了一些实用的命令，同时还介绍了无线网调试设备的方法
+。
 
 <!-- more -->
 
@@ -34,18 +35,16 @@ Android 调试桥 (adb) 是一个通用命令行工具，其允许您与模拟�
 这里我使用的是win10。如果以下操作不能成功配置，可以百度其他的安装教程
 
 1. 下载。[下载链接](https://dl.google.com/android/repository/platform-tools-latest-windows.zip)
-
 2. 移动目录
+
    1. 解压压缩包
    2. 移动文件夹你想让它放置的位置
-
 3. 环境配置
+
    1. 添加环境变量，这样可以在cmd或者powershell中直接使用adb
    2. 右键"计算机"->"属性"->左边的"高级系统设置"->"环境变量">-在上面用户变量中的"Path"进行编辑->"添加"刚刚放置的文件夹目录，确认保存即可
       ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20180125135305187.png)
    3. 这样再打开cmd或者powershell，就可以直接使用adb命令了
-
-   ​
 
 #### Linux
 
@@ -68,7 +67,7 @@ Linux系统安装adb工具还是很容易的，我使用的是Ubuntu17.10
 
 之后使用USB数据线连接到电脑。
 
-连接成功后，手机需要信任电脑。电脑打开cmd/powershell（Windows）或者终端（Linux），输入`adb devices`。查看输出。
+连接成功后，手机需要信任电脑。电脑打开cmd/powershell（Windows）或者终端（Linux），输入 `adb devices`。查看输出。
 
 如果有输出设备名且无警告，则表示连接成功，否则需要进行下面一步的配置。
 
@@ -80,10 +79,9 @@ Linux系统安装adb工具还是很容易的，我使用的是Ubuntu17.10
 
 第三步，进入C盘用户目录下的隐藏文件夹".android"，编辑或者新建文件"adb_usb.ini"，用记事本打开，在里面写上内容。我这里需要写的是"0x2A45"，0x是前缀不需要更改，后面的字符串对应的更改"硬件Id"里面"值"的VID后面的四个字符。保存退出即可
 
-
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/adb/20180125135348748.png)
 
-第四步，断开USB连接，重新连接，再输入`adb devices`。正常情况下应该会出现设备的成功连接的信息
+第四步，断开USB连接，重新连接，再输入 `adb devices`。正常情况下应该会出现设备的成功连接的信息
 
 **Linux**
 
@@ -109,8 +107,6 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="d002",MODE="0666"
 > adb devices
 
 ```
-
-
 
 ### 使用
 
@@ -176,10 +172,6 @@ SUBSYSTEM=="usb", ATTRS{idVendor}=="18d1", ATTRS{idProduct}=="d002",MODE="0666"
 > adb shell am force-stop <packagename>
 ```
 
-
-
-
-
 ### 使用无线网调试设备
 
 确保手机和电脑在同一局域网内
@@ -197,7 +189,3 @@ connected to 192.168.1.111:5555
 # 断开无线网连接
 > adb disconnect 192.168.1.111
 ```
-
-
-
-

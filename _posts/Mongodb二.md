@@ -1,5 +1,5 @@
 ---
-title: Mongodb二
+title: Mongodb：
 date: 2021-07-21 20:44:28
 tags: [mongo, 数据库]
 categories: [数据库]
@@ -13,10 +13,11 @@ Mongodb4.2.x数据库配置的第二部分，副本集架构的配置
 基本同原文，由于是副本集配置，所以在需要配置的服务器上进行相同的配置
 
 选择：
+
 1. 单机上，配置不同port的mongo服务
 2. 不同机器上，配置mongo服务
-  1. 要求同网段，所以配置的ip中不能写127.0.0.1
-  2. 可以`vim /etc/hosts`，方便管理
+3. 要求同网段，所以配置的ip中不能写127.0.0.1
+4. 可以 `vim /etc/hosts`，方便管理
 
 ```bash
 # 下载压缩包
@@ -38,7 +39,9 @@ mkdir -p data/test/db
 # 创建配置文件，并写入如下配置
 vim bin/mongodb.conf
 ```
+
 更新部分，配置文件用yaml格式
+
 ```yaml
 systemLog:
   destination: file
@@ -77,6 +80,7 @@ bin/mongod --config mongodb.conf
 # 将副本集的初始化配置写入js
 vim init_replica.js
 ```
+
 ```yaml
 # 其中rs0一定要跟上面的replSetName一样
 config = { _id:"rs0", members:[{_id:0,host:"ip0:port0"},{_id:1,host:"ip1:port1"}]}
@@ -91,6 +95,7 @@ bin/mongod --port 27017 < init_replica.js
 ### 验证
 
 在A服务器上进行操作，添加账号密码
+
 ```bash
 # 进行mongodb的交互环境
 bin/mongod --port 27017

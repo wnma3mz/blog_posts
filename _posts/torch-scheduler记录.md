@@ -4,11 +4,12 @@ date: 2021-02-03 11:18:01
 tags: [Pytorch, Deeplearning]
 categories: [笔记]
 ---
-torch中scheduler值得注意的点
+PyTorch学习率调整过程中版本问题引发的不同结果解析
 
 <!-- more -->
 
 代码
+
 ```python
 import torch
 
@@ -27,6 +28,7 @@ for epoch in range(1, 15):
         optimizer1.param_groups[0]['lr'],
         optimizer2.param_groups[0]['lr']))
 ```
+
 当torch版本为1.2.0时，输出如下：
 
 ```python
@@ -65,4 +67,4 @@ Epoch 13, lr1 1e-05, lr2 1.0000000000000003e-05
 Epoch 14, lr1 1e-05, lr2 1.0000000000000003e-05
 ```
 
-小结：`scheduler.step()`中的`epoch`参数由于版本问题会带来不同的作用效果。1.2.0版本是判断epoch是否在某个区间内，而1.4.0版本是会直接调整学习到达最后一个区间。
+小结：`scheduler.step()`中的 `epoch`参数由于版本问题会带来不同的作用效果。1.2.0版本是判断epoch是否在某个区间内，而1.4.0版本是会直接调整学习到达最后一个区间。
