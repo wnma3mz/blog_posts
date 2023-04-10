@@ -69,7 +69,7 @@ katex: false
 
 正如开头的图显示的，该功能仅支持以一个设备作为流量出口。当有一个局域网的所有设备不方便接入组网时，可以通过接入该局域网的一个设备（如路由器），再访问该局域网的其他设备。如下图，`Subnet Router`相当于桥梁，承接了组网和本地组网。组网内的设备可以通过Router访问局域网内的设备，反之亦可。接下来在 `Router`设备上操作。
 
-![][https://tailscale.com/kb/1019/subnets/subnets.png]
+![](https://tailscale.com/kb/1019/subnets/subnets.png)_
 
 ### Step 1
 
@@ -81,7 +81,7 @@ sudo sysctl -p /etc/sysctl.d/99-tailscale.conf
 ```
 
 ```bash
-# 创建Subnet，192.168.x.y可以换成10.10这种。可以只写一个，x.y替换任意数字
+# 创建Subnet，192.168.x.y可以换成10.0这种。可以只写一个，x.y替换任意数字
 sudo tailscale up --advertise-routes=192.168.x.y/24,192.168.x.z/24
 ```
 
@@ -94,6 +94,13 @@ sudo tailscale up --advertise-routes=192.168.x.y/24,192.168.x.z/24
 ### Step 3
 
 自此，完成了桥接局域网和组网的功能。要实现流量转发，在Tailscale中叫做Exit Node。一方面需要在上一步开启第二个功能，此时Router就具备了作为流量出口的能力。另一方面，假设此时组网内的A设备需要借助Router的流量出口，就需要在A设备上进行操作。
+
+在Router设备上，
+
+```bash
+# 创建Subnet，192.168.x.y可以换成10.0这种。可以只写一个，x.y替换任意数字
+sudo tailscale up --advertise-exit-node --advertise-routes=192.168.x.y/24
+```
 
 一般有图形化界面的机器，可以直接在软件层面完成。如Windows，此时系统的所有流量均为走这个接口。
 
