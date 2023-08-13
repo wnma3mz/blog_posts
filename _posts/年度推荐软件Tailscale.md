@@ -69,7 +69,7 @@ katex: false
 
 正如开头的图显示的，该功能仅支持以一个设备作为流量出口。当有一个局域网的所有设备不方便接入组网时，可以通过接入该局域网的一个设备（如路由器），再访问该局域网的其他设备。如下图，`Subnet Router`相当于桥梁，承接了组网和本地组网。组网内的设备可以通过Router访问局域网内的设备，反之亦可。接下来在 `Router`设备上操作。
 
-![](https://tailscale.com/kb/1019/subnets/subnets.png)_
+![](https://tailscale.com/kb/1019/subnets/subnets.png)
 
 ### Step 1
 
