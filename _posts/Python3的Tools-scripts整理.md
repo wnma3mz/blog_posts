@@ -1,4 +1,14 @@
+---
+title: Python3的Tools-scripts整理
+date: 2020-06-14 21:12:39
+tags: [笔记, python]
+categories: [笔记]
 
+---
+
+Python3的Tools-scripts整理
+
+<!-- more -->
 
 文件路径为`Anaconda3\Tools\scripts`
 

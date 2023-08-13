@@ -3,6 +3,8 @@ title: Mongodb从安装到基本操作
 date: 2017-11-24 17:12:28
 tags: [mongo, 数据库]
 categories: [数据库]
+mathjax: false
+katex: false
 ---
 这篇文章主要从零开始介绍如何在Centos7下安装Mongodb, 用Python3连接Mongodb, 用可视化工具Robo 3T连接Mongodb, 之后介绍了一些基本的mongo操作方法, 其中含有一些进阶操作
 

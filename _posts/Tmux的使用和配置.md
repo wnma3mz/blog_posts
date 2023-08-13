@@ -7,6 +7,8 @@ mathjax: false
 katex: false
 ---
 
+Tmux 的常用操作
+
 <!-- more -->
 
 以下内容由Claude生成
@@ -29,7 +31,7 @@ tmux new -s session_name
 
 ```bash
 tmux a -t session_name
-``` 
+```
 
 ### 退出当前会话
 
@@ -74,7 +76,7 @@ ctrl+b then c # 创建新窗口并切换到新窗口
 
 ```
 ctrl+b then & # 关闭当前窗口
-``` 
+```
 
 ### 切换窗口布局
 
