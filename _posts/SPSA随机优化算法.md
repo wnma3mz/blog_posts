@@ -3,9 +3,7 @@ title: SPSA随机优化算法
 date: 2023-08-19 12:47:28
 tags: [算法, 深度学习]
 categories: []
-mathjax: false
-katex: true
-
+mathjax: true
 ---
 
 SPSA(Simultaneous Perturbation Stochastic Approximation)是一种随机优化算法,可用于神经网络的训练。其基于随机梯度来逼近真实梯度。无法直接得到精确梯度,收敛速度较慢,但节省计算资源。
