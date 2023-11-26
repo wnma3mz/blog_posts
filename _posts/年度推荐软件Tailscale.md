@@ -167,6 +167,8 @@ tailscale serve https /static /public
 tailscale serve status
 # 关闭服务的命令，仅关闭这一条
 tailscale serve https /static /public off
+# 带端口关闭
+tailscale serve https /XXX http://localhost:4534 off
 ```
 
 ### Step 3

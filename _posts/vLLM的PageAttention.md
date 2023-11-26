@@ -1,16 +1,22 @@
 ---
 title: vLLM  的 PageAttention
-date: 2023-11-26 19:21:32
-tags: [Python, Decorators]
-categories: [Python知识点]
+date: 2023-11-24 16:21:32
+tags: [cuda, Attention]
+categories: [推理加速]
+mathjax: true
 ---
-
 介绍 vLLM 的 PageAttention 加速
 
-https://blog.vllm.ai/2023/06/20/vllm.html
+[博客](https://blog.vllm.ai/2023/06/20/vllm.html)
+
+[论文](https://arxiv.org/pdf/2309.06180.pdf)
+
+[代码](https://github.com/vllm-project/vllm/blob/7c600440f7560348e571f021f2b2d1469de5264d/csrc/attention/attention_kernels.cu#L71-L383)
 
 <!-- more -->
+
 文中 GIF 图来源于 vLLM 博客
+
 ## 动机
 
 ### 定义
@@ -33,13 +39,11 @@ https://blog.vllm.ai/2023/06/20/vllm.html
 
 kv cache 空间计算：
 
-2*5120*40*2*2048 / (1024 ** 3) GB = 1.5625 GB
+$2 \times 5120 \times 40 \times 2 \times 2048 / (1024 ** 3)$ GB = 1.5625 GB
 
-(k+v)*hidden_size*num_layers*FP16 bytes*tokens_num 
+(k+v) $\times$ hidden_size $\times$ num_layers $\times$ FP16 bytes $\times$ tokens_num
 
 对于 13B 模型 2048 的 seq_len 而言，需要申请 1.56 GB 的显存。而如果 Prompt + Completion 的长度只有 1024，那么将浪费 0.78 G 的显存（在没有其他 kv 优化的情况下）
-
-
 
 如下图所示，block 存储了所有可能的 token。在生成时，模型从 block 中进行计算。
 
@@ -69,8 +73,6 @@ PageAttention 计算公式
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/vllm_pageattention/annimation3.gif)
 
-
-
 ## 代码实现
 
 调度是通过 Python 实现的，这一部分逻辑有些杂乱，之后再看。这里主要关注 PageAttention 的计算，核心的代码如下
@@ -86,7 +88,6 @@ __shfl_xor_sync：进行数据交换和归约操作
 __shfl_sync：广播操作
 
 `WARP_SIZE：`在CUDA编程中，`WARP_SIZE`通常指的是一个warp中的线程数。warp是CUDA硬件的一个基本执行单元，每个warp包含了一定数量的线程，这些线程会同时执行相同的指令。`WARP_SIZE 通常定义为 `32，这意味着每个warp包含32个线程。
-
 
 逐步拆建，首先，确定这段函数在干啥。它代替了 Python 的以下计算，简单来说有两个矩阵乘法，以及一个 softmax 操作。涉及到的变量有 q、k、v。（忽略 mask）
 
@@ -104,7 +105,7 @@ out = torch.matmul(score, v)
 # 一行 Attention 的版本
 def attention(q, k, v, mask):
     return softmax(q @ k.T / np.sqrt(q.shape[-1]) + mask) @ v
-     
+   
 def func(x, kvcache):
     # n 条句子，每个句子有 n_embd 的向量，分别经过 qkv 的 mlp，可以得到每个句子的 q、k、v
     # 其维度分别为 [n_seq, n_embd]
@@ -150,11 +151,7 @@ def func(x, kvcache):
 
 而对于输出 out: [n_seq, n_head, head_size]
 
-
-
 接下来看关键实现。假设有两个请求，seq1 = [1, 2, 3], seq2 = [1, 3, 4, 5]。vLLM 会将其拼成一个 seq = [1,2,3,1,3,4,5]
-
-
 
 取 q
 
@@ -221,8 +218,6 @@ def func(x, kvcache):
     }
   }
 ```
-
-
 
 计算 softmax
 
@@ -340,7 +335,6 @@ def func(x, kvcache):
   }
 ```
 
-
 ## Next Step
 
 对于目前的 LLM 来说，一种广泛应用的场景会固定若干个 System Message，相当于 Prompt 是重复的。但每次生成，都需要重新计算每个 System Message 的 kv cache。因此，这一步是可以优化的。vLLM 在论文中提到了这一点，但目前 vLLM 尚未实现。
@@ -355,9 +349,15 @@ def func(x, kvcache):
 
 以工具调用为例，可以预先生成工具调用结果的所有 token 的 kv cache，加速生成。
 
-1. 在实现 multi token attention 的基础上 
+1. 在实现 multi token attention 的基础上
 2. 调度处理
 
 对于这两种都依赖于 multi token attention，而这一个 vLLM 是直接调用 xformers 的 xops.memory_efficient_attention_forward 实现的。这种方式当前只能在第一次生成时使用，没法拼接？
 
 - 比如总共 10 个 prompt token，现在一次性生成 10 个 token 的 kv cache。期望分两次各生成前 5 个和后 5 个的 token，将 kv cache 拼起来，得到的结果不一致
+
+TODO
+
+cpp CUDA 操作
+
+xops.memory_efficient_attention_forward 学习

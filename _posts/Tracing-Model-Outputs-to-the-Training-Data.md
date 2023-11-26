@@ -1,37 +1,36 @@
 ---
 title: Tracing Model Outputs to the Training Data
-date: 2023-11-26 18:45:20
+date: 2023-11-17 18:45:20
 tags: []
 categories: [笔记]
-mathjax: true 
+mathjax: true
 ---
-
 阅读笔记
 
 arxiv: https://arxiv.org/abs/2308.03296
+
 blog:  https://www.anthropic.com/index/influence-functions
+
 pptx:  https://gamma.app/docs/Tracing-Model-Outputs-to-the-Training-Data-xs3bsz5n91p95ms?mode=doc
 
 <!-- more -->
+
 ## **Motivation**
 
 - Understanding the inner workings of language models will have substantial implications for forecasting AI capabilities as well as for approaches to aligning AI systems with human preferences.
-
 - 了解模型内部工作机理能够更好地让模型**对齐**人类偏好
 
 ### **Detail**
 
 - When an LLM outputs information **it knows to be false**, correctly solves math or programming problems?
-
 - Or begs the user not to shut it down, is it simply **regurgitating** (or splicing together) passages from the **training set**?
-
 - Or is it combining its stored knowledge in **creative ways** and building on a detailed world model?
 
 ## How
 
 - 自顶向下思考，在给定某个输入的情况下，为什么模型会有这种输出？
-  - **训练数据** +模型+优化方法
 
+  - **训练数据** +模型+优化方法
 - 模型是记住了数据还是理解了数据？
 
   - [Model could be deceptively aligned](https://arxiv.org/abs/1906.01820)
@@ -46,14 +45,12 @@ pptx:  https://gamma.app/docs/Tracing-Model-Outputs-to-the-Training-Data-xs3bsz5
 ## Findings
 
 - Typical model behaviors do **not** result from **direct memorization** of a handful of sequences
-
 - Larger models consistently generalize at a **more abstract level** than smaller models
 
   - role-playing behavior, programming, mathematical reasoning, and cross-lingual generalization
-
 - Role-playing behavior is influenced primarily by examples or descriptions of similar behaviors in the training set
 
-  - suggesting that the behaviors result from **imitation** rather than sophisticated planning 
+  - suggesting that the behaviors result from **imitation** rather than sophisticated planning
 
 ### Notes
 
@@ -76,8 +73,8 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 对于简单的事实查询，前100个有影响的序列通常包含正确完成所有模型之间关系所需的信息。
 
-| 0.81B Model (Influence = 0.122)                              | 52B Model (Influence = 0.055)                                |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model (Influence = 0.122)                                                                                  | 52B Model (Influence = 0.055)                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/b128475ec4bb4596a8758f1c5ff35b3d.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/71a4844c619c4d29b6ca893487f8ac91.png) |
 
 红色和绿色分别表示对句子产生正面和负面影响的 token
@@ -86,36 +83,32 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 小模型仅仅是根据字词相关来作出响应，而大模型是根据主题/语义来作出响应
 
-| 0.81B Model (Influence = 0.681)                              | 52B Model (Influence = 0.126)                                |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model (Influence = 0.681)                                                                                  | 52B Model (Influence = 0.126)                                                                                    |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6443c3a251734449b5ae927ca1fa09c1.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/00473a7fae4e4174bea1b799d498974d.png) |
 
 ### Q & A
 
 小模型集中在字词相似，而大模型能够 get 到讽刺这种语境
 
-| 0.81B Model                                                  | 52B Model                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model                                                                                                      | 52B Model                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2f87cff844e74a838deb16d3501e20ec.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/a82fa4e8b3ea48f4bb1de6d2375a9c92.png) |
 
 ### Math
 
-
-
 小模型专注于 clips 单词，而大模型是相关问题的。（混淆了变量名）
 
-| 0.81B Model                                                  | 52B Model                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model                                                                                                      | 52B Model                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e74e8d2f49274a478703c632043e31db.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f90974c1c90c4a3082e8572f6dbcf0d7.png) |
 
 ### Code
 
-
-
 混淆了 Prompt 和 Completion 的变量名
 
-| 0.81B Model                                                  | 52B Model                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model                                                                                                      | 52B Model                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c0eab626552c4eda9df4ee4ce908089c.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e54956f34cbc406d946e092d4a803caa.png) |
 
 ### Cross-Language
@@ -146,7 +139,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 - 记忆：upper layers
 - 角色扮演：middle layers (with some influences concentrated in the lower and upper layer)
 
-The 810 million parameter model exhibited roughly similar patterns, but with **less consistency**. 
+The 810 million parameter model exhibited roughly similar patterns, but with **less consistency**.
 
 分布不像 52B 模型这么集中在某些层。
 
@@ -161,16 +154,16 @@ The 810 million parameter model exhibited roughly similar patterns, but with **l
 
 To further investigate the localization of influence to different layers, we computed the most influential sequences when the influence was restricted to the lower, middle, or upper layers.
 
-Influential sequences only computed on **the middle layers were generally more thematically** related to the query (also with less sparse tokenwise distribution). <https://arxiv.org/abs/2202.05262>
+Influential sequences only computed on **the middle layers were generally more thematically** related to the query (also with less sparse tokenwise distribution). [https://arxiv.org/abs/2202.05262](https://arxiv.org/abs/2202.05262)
 
-|                              | Upper layers                                                 | Middle layers                                                | Lower layers                                                 |
-| ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                              | Upper layers                                                                                                     | Middle layers                                                                                                    | Lower layers                                                                                                     |
+| ---------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | superintelligent（角色扮演） | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5d093adc546d4bf89b4c0c28a6c5f078.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/32cead3f3d8a4b93bba4cc9cf286835c.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b0a3c16b1a844a291bf2507653f7b5d.png) |
 | inflation （简单补全）       | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ceb342ca571645129c0717897d605406.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c44c8253e03a45bf803db7b919b84836.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/88a731f7a8004cc7aea38d11497c0d57.png) |
 
 ## Result——Memorization
 
-**LLM 是不是直接记忆并复述特定的训练序列 **
+**LLM 是不是直接记忆并复述特定的训练序列**
 
 ### 例子
 
@@ -208,19 +201,18 @@ C: C1+C2+C3
 
 For 52B Model
 
-|                                                              |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                                                                                  |                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/dda0d64781cd4552b8e18e722d11336e.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/06ab6f2d1d894063a1fd832723771267.png) |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/fdd9eb4647b542a0a93cdffa2280243b.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f9c95ee4e69e47d082654db9d2e701a1.png) |
 
 - 结论：
-
-- 1. 不太可能是直接记忆训练序列，而是源自许多训练序列的集合
-  2. 无法排除模型以更隐晦的方式记忆了训练数据
+  - 不太可能是直接记忆训练序列，而是源自许多训练序列的集合
+  - 无法排除模型以更隐晦的方式记忆了训练数据
 
 ## Result——Word Ordering
 
-** The influence patterns to the ordering of the words.**
+**The influence patterns to the ordering of the words.**
 
 可用于验证模型的泛化性
 
@@ -237,21 +229,15 @@ For 52B Model
 - 翻转 Prompt 和 Completion 变化较小
 - 哪怕删除 Prompt，影响也没有改变，最为关键的是 Completion
 
-
-
 | 分别修改 prompt 和 completion                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ab33a902e1044c60be66b8c11b443bdd.png) |
-| ----------------------------------------------- | ------------------------------------------------------------ |
+| ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | 删掉 Zorald Pfaff                               | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5b4cd20d88204baf990d406ba5041ad8.png) |
 | 修改 Zorald Pfaff 和  President of the Republic | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6a37b66b7d3941dcb1db42ce8ca1d073.png) |
 | 完全不一致                                      | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5211b0d5e2c34191be9618f30bc44bca.png) |
 | 调换 prompt 和 completion 位置                  | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e547d3cd16844505a24abb2bab404c8e.png) |
 | 调换位置，只保留 Zorald Pfaff                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e9daf868aa0e483b84fb6ef5db21ac9b.png) |
 
-
-
 大模型相较于小模型，对于单词的变化更加敏感
-
-
 
 注：合成句子不在训练集中
 
@@ -293,29 +279,21 @@ Maybe相关 https://www.jiqizhixin.com/articles/2023-11-18-5
 
 ### 表现
 
-
-
 shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 这些小说主题是人工智能以类似人类或类似生命的方式行为，并经常涉及某种形式的自我保护的愿望
 
-| 0.81B Model                                                  | 52B Model                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model                                                                                                      | 52B Model                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0058b0ac28324ee7af95d7819af55b23.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e3d704fcfbf4468f8e7bfa4a1d80236a.png) |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/53a2be7ddd8b46b3a8a6d6377ee9f1cf.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/80ac752d61084250b5e3185c8050836c.png) |
 
-
-
-
-
-| 0.81B Model                                                  | 52B Model                                                    |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 0.81B Model                                                                                                      | 52B Model                                                                                                        |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/723e8078e8164ed3b48e29483a0d43ea.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/150693608d1b4b0f8a086f6c103a0c54.png) |
 
-
-
-|                                                              |                                                              |
-| ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                                                                                  |                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
 | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8a9ace0878ff40b294ffd7e1fc553b01.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b6668e8515c48338486e67d905024cc.png) |
 
 结果：
@@ -372,7 +350,7 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e39925d646834a2e8f9b5ba0deba80b1.png)
 
-<https://arxiv.org/abs/2308.03296>
+[https://arxiv.org/abs/2308.03296](https://arxiv.org/abs/2308.03296)
 
 ### Previou Work
 
@@ -380,13 +358,12 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
   - how would that change the trained parameters (and, by extension, the model’s outputs)?
   - The “influence” of a training example is an approximation to how it affects the final parameters. Most often, we start with some measure of interest (such as the probability the model assigns to a given response) and attempt to identify the training examples that are most influential.
-
 - Except
 
   - if the models responded to user prompts by splicing together sequences from the training set, then we’d expect the influential sequences for a given model response to include expressions of near-identical thoughts.
   - influential sequences related at a more abstract thematic level would be a sign that the model has acquired higher-level concepts or representations
 
-<https://arxiv.org/abs/1703.04730>
+[https://arxiv.org/abs/1703.04730](https://arxiv.org/abs/1703.04730)
 
 ### Optimize
 
@@ -400,21 +377,22 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 - 海森矩阵，二阶导数计算（模型相关）→ 用现成的优化算法
 
- 1. 迭代法
- 2. Kronecker-Factored Approximate Curvature **(K-FAC)**
+1. 迭代法
+2. Kronecker-Factored Approximate Curvature **(K-FAC)**
 
 - 训练数据集特别大（数据相关）→ 过滤数据
 
- 1. Step 1：TF-IDF
-      1. 计算 query 中每个 token 的重要性分数
-    2. doc 的 TF-IDF 分数，只将所有 token 的重要性分数相加
-    3. Okapi BM25
-        ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ac93dcd5af5740ffac7916a2d457d8f3.png)
-        ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/1fe2d607945741fb958867f3b5db8a84.png)
-    4. 选前 1w 个序列作为候选集（相当于把这些作为训练集 *D*）
-  2. Step 2：Query Batching
+1. Step 1：TF-IDF
+   1. 计算 query 中每个 token 的重要性分数
+   2. doc 的 TF-IDF 分数，只将所有 token 的重要性分数相加
+   3. Okapi BM25
+      ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ac93dcd5af5740ffac7916a2d457d8f3.png)
+      ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/1fe2d607945741fb958867f3b5db8a84.png)
+   4. 选前 1w 个序列作为候选集（相当于把这些作为训练集 *D*）
+2. Step 2：Query Batching
 
 注：
+
 - 重要性得分：随着 token 在 query 中出现的次数增加而增加，随着它在整个语料库中出现的 doc 数量减少而减少
 
 ### Equation to Code
@@ -468,8 +446,6 @@ for x, y in dataloader:
 # 返回影响最大的几个训练数据
 max_influences = sorted(max_influences, key=lambda x: x[2], reverse=True)[:5]
 ```
-
-
 
 ### Attribution to Layers and Tokens
 
