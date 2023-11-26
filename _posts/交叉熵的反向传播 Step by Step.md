@@ -545,6 +545,7 @@ torch.distributed.all_reduce(
 
 计算SoftMax
 $$\text {softmax}(x_i) = \frac {e^{x_i}}{\sum_{j=1}^n e^{x_j}}$$
+
 ```python
 exp_logits = vocab_parallel_logits
 # 计算每张卡的exp，作为分子
@@ -599,3 +600,4 @@ grad_2d[arange_1d, masked_target_1d] -= softmax_update
 # 最后乘上关于loss的梯度
 grad_input.mul_(grad_output.unsqueeze(dim=-1))
 ```
+

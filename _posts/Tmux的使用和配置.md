@@ -6,7 +6,6 @@ categories: []
 mathjax: false
 katex: false
 ---
-
 Tmux 的常用操作
 
 <!-- more -->
@@ -51,7 +50,13 @@ tmux ls
 tmux kill-session -t session_name
 ```
 
-### 终止所有会话
+### 保存日志
+
+```bash
+tmux capture-pane -pS - -t <会话名称或ID> > tmp.log
+```
+
+终止所有会话
 
 ```bash
 tmux kill-server
