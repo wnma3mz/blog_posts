@@ -154,30 +154,62 @@ sudo tailscale up --exit-node=<exit-node-ip>
 tailscale cert
 ```
 
-接下来，使用下面的命令可以将本地的3000端口转发到主域名下，即可以做到组网内访问 `http://A/`，相当于访问A机器的3000端口服务。
+在开放服务前有两个命令需要进行区分，`tailscale serve`和`tailscale funnle`前者是开放服务到组网环境，后者是开放到整个互联网环境。
+
+常用有两个技巧
+
+- 把已经开放服务的端口转发到其他端口，或者主域名下。比如这里可以把5000端口转发到主域名下的/api路由下，即可以通过 `http://A/api`访问A机器的5000端口服务。`--bg`表示后台运行，默认是在前台启动，便于`Ctrl+C`关闭。
 
 ```bash
-tailscale serve https / http://127.0.0.1:3000
+tailscale serve --bg --set-path /api http://127.0.0.1:5000/
 ```
 
+把 4747 端口转发到 8443 端口，即可以通过 `https://A:8443`访问A机器的 4747 端口服务。
+
 ```bash
-# 挂载本地的/public目录，至web的/static路由。即挂载静态资源。
-tailscale serve https /static /public
-# 查看状态的命令
-tailscale serve status
-# 关闭服务的命令，仅关闭这一条
-tailscale serve https /static /public off
+tailscale serve https:8443 / http://localhost:4747
+```
+
+- 部署静态服务
+
+假设本地有一个`/data/index.html`文件，想要开放访问。则运行下面的命令，可以通过`http://A/index`访问A机器的`/data/index.html`文件。
+
+```bash
+tailscale serve --bg --set-path /index /data/index.html
+```
+
+如果`index.html`文件用了本机其他静态资源，同样需要进行挂载，比如挂载`/data/static`文件夹
+
+```bash
+tailscale serve --bg --set-path /static/ /data/static
+```
+
+如果要关闭服务，可以使用下面的命令，仅关闭这一条。
+
+```bash
+tailscale serve --bg --set-path /api off
+```
+
+如果希望指定端口，则可以用下面命令，默认端口为 80。
+
+```bash
+# 带端口开放
+tailscale serve --bg --http 10001 --set-path /index /data/index.html
 # 带端口关闭
-tailscale serve https /XXX http://localhost:4534 off
+tailscale serve --bg --http 10001 --set-path /index off
 ```
 
 ### Step 3
 
-对外开放服务，下面的命令会直接把原本仅能在局域网内访问的服务提供到公网。实测下载速度200-300k/s，有些地方不能直接访问，可能要挂梯子。
+对外开放服务，下面的命令会直接把原本仅能在局域网内访问的服务提供到公网。实测下载速度200-300k/s，有些地方不能直接访问，可能要挂梯子。目前 tailscale 仅支持三个端口可以dui外开放，分别是 443、8443、10000。
 
 ```bash
-tailscale funnel 443 on
+tailscale funnel --bg https+insecure://localhost:443
+tailscale funnel --bg https+insecure://localhost:8443
+tailscale funnel --bg https+insecure://localhost:10000
 ```
+
+使用方法同`serve`，换成`funnel`即可。
 
 ```bash
 # 查看状态的命令
