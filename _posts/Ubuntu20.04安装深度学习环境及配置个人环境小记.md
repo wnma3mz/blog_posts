@@ -1,8 +1,8 @@
 ---
 title: Ubuntu20.04安装深度学习环境及配置个人环境小记
 date: 2021-10-30 12:22:01
-tags: [Linux]
-categories: [笔记]
+tags: [Ubuntu, PyTorch, Tensorflow, CUDA, CUDNN]
+categories: [Linux]
 ---
 
 Ubuntu20.04安装深度学习环境及配置个人环境小记

@@ -1,8 +1,8 @@
 ---
 title: iCalendar：ICS在线课表制作
 date: 2020-09-16 18:41:23
-tags: [note, Python, ics]
-categories: [奇技淫巧]
+tags: [Python, ICS]
+categories: [Note]
 ---
 如何制作在线的日历ics文件，最后介绍各个设备如何使用
 

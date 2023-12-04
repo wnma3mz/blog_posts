@@ -2,7 +2,7 @@
 title: 优化pandas内存入门
 date: 2018-03-17 16:11:12
 tags: [Python, pandas]
-categories: [数据]
+categories: [Note]
 ---
 降低数据存储消耗并提高处理效率，本文教你如何通过优化数值类型、`object`类型和 `datetime`类型三个方面来减少内存使用量。其中，使用 `Categoricals`优化 `object`类型数据是效果最显著的一种优化方式。另外，还介绍了如何在读取数据的时候就完成优化步骤，避免加载完数据再做优化的麻烦。
 

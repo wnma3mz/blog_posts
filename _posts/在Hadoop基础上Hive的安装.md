@@ -2,8 +2,9 @@
 title: 在Hadoop基础上Hive的安装
 date: 2017-05-07 13:03:12
 tags: [Hadoop, Hive, 大数据]
-categories: [环境搭建]
+categories: [Environment]
 ---
+
 这篇文章主要介绍了Hive在Hadoop上的安装及一些基本的Hive操作
 
 <!-- more -->

@@ -1,8 +1,8 @@
 ---
 title: Numpy的70个操作
 date: 2018-03-02 20:37:39
-tags: [numpy, python, 数据分析]
-categories: [数据]
+tags: [Python, Numpy]
+categories: [Note]
 ---
 这篇文章主要介绍了Numpy从入门到进阶的操作, 翻译文章，便于自己使用时查阅
 

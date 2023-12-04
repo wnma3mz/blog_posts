@@ -1,12 +1,12 @@
 ---
 title: 交叉熵的反向传播 Step by Step（PyTorch）
 date: 2023-09-03 21:49:20
-tags: []
-categories: [笔记]
+tags: [数学, 交叉熵, PyTorch]
+categories: [Algorithm]
 mathjax: true
 ---
 
-本文从公式开始，一步步用Pytorch实现自定义的交叉熵损失函数，最后理解分布式损失函数
+本文从公式开始，一步步用PyTorch实现自定义的交叉熵损失函数，最后理解分布式损失函数
 
 <!-- more -->
 
@@ -255,7 +255,7 @@ print(model2.l1.weight)
 
 模型训练速度提升+单卡放不下大模型，由于这两个需求，所以分布式计算中需要重写损失函数的forward和backward，以Megatron-LM的训练代码为例，如下所示。接下来将逐步拆解实现过程（忽略label_smoothing，将其看作0.0）。
 
-https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/tensor_parallel/cross_entropy.py
+[cross_entropy.py](https://github.com/NVIDIA/Megatron-LM/blob/main/megatron/core/tensor_parallel/cross_entropy.py)
 
 ```python
 # Copyright (c) 2022, NVIDIA CORPORATION. All rights reserved.

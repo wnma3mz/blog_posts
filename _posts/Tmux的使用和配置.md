@@ -1,16 +1,13 @@
 ---
 title: Tmux 的使用和配置
 date: 2023/08/13 17:11:22
-tags: [笔记]
-categories: []
-mathjax: false
-katex: false
+tags: [Linux, Tmux]
+categories: [软件]
 ---
 Tmux 的常用操作
 
 <!-- more -->
 
-以下内容由Claude生成
 
 # Tmux 的使用和配置
 

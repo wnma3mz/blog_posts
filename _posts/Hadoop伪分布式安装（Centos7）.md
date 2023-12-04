@@ -1,8 +1,8 @@
 ---
 title: Hadoop伪分布式安装（Centos7）
 date: 2017-04-09 17:42:00
-tags: [Hadoop, 大数据]
-categories: [环境搭建]
+tags: [Linux, Hadoop, 大数据]
+categories: [Environment]
 ---
 这篇文章主要介绍了Hadoop的伪分布式安装和一些基础操作
 

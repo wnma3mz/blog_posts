@@ -1,10 +1,11 @@
 ---
 title: vLLM  的 PageAttention
 date: 2023-11-24 16:21:32
-tags: [cuda, Attention]
-categories: [推理加速]
+tags: [NLP, Attention, vLLM]
+categories: [Note]
 mathjax: true
 ---
+
 介绍 vLLM 的 PageAttention 加速
 
 [博客](https://blog.vllm.ai/2023/06/20/vllm.html)

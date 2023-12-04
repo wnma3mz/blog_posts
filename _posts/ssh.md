@@ -1,13 +1,10 @@
 ---
 title: ssh笔记（端口转发）
 date: 2018-02-11 19:40:56
-tags: [ssh, linux]
-mathjax: true
-categories: [奇技淫巧]
+tags: [Linux, ssh, 端口转发, 内网穿透]
+categories: [软件]
 ---
-使用SSH实现本地和远程主机之间的端口转发。本文介绍了SSH端口转发的基础操作，参数详解和用
-途介绍，并提供了一键命令和注意事项。SSH端口转发可以用于内外网穿透，实现服务器代理，动态转
-发端口，实现远端操作等功能。
+使用SSH实现本地和远程主机之间的端口转发。本文介绍了SSH端口转发的基础操作，参数详解和用途介绍，并提供了一键命令和注意事项。SSH端口转发可以用于内外网穿透，实现服务器代理，动态转发端口，实现远端操作等功能。
 
 <!-- more -->
 
@@ -233,4 +230,4 @@ win10开启ssh服务器端，1. 应用和功能：下载openssh服务端；2. �
 
 [openssh的三种tcp端口转发参数](https://www.ibm.com/developerworks/community/blogs/5144904d-5d75-45ed-9d2b-cf1754ee936a/entry/20160911?lang=en)
 
-https://github.com/microsoft/vscode-remote-release/issues/230
+[https://github.com/microsoft/vscode-remote-release/issues/230](https://github.com/microsoft/vscode-remote-release/issues/230)

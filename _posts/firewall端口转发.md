@@ -1,15 +1,14 @@
 ---
 title: 端口转发工具笔记（端口转发）
 date: 2020-08-08 15:15:23
-tags: [windows, linux]
-mathjax: true
-categories: [奇技淫巧]
+tags: [Linux, 端口转发, ssh, iptables, firewall, ufw, netsh]
+categories: [软件]
 ---
-如何通过防火墙本机端口转发来实现SSH跳板登录。继[ssh端口转发](https://wnma3mz.github.io/hexo_blog/2018/02/11/ssh/)，根据新的需求衍生出新技巧
+如何通过防火墙本机端口转发来实现SSH跳板登录。继 {% post_link ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
 
 <!-- more -->
 
-继[ssh端口转发](https://wnma3mz.github.io/hexo_blog/2018/02/11/ssh/)，根据新的需求衍生出新技巧
+继 {% post_link ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
 
 ### 需求：
 
@@ -22,7 +21,7 @@ categories: [奇技淫巧]
 
 ### 先验知识：
 
-1. [ssh端口转发](https://wnma3mz.github.io/hexo_blog/2018/02/11/ssh/)
+1. {% post_link ssh 'ssh 笔记（端口转发）' %}
 2. 防火墙配置
    1. iptables（Centos7之前自带）
    2. firewall（Centos7之后自带）

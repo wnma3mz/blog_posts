@@ -1,9 +1,10 @@
 ---
 title: Matplotlib笔记
 date: 2017-08-26 09:46:23
-tags: [matplotlib, python]
-categories: [数据可视化]
+tags: [Python, Matplotlib]
+categories: [Visualization]
 ---
+
 解决Python中文乱码问题的完整方案及Matplotlib绘图基础操作
 
 <!-- more -->

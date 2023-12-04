@@ -1,8 +1,8 @@
 ---
 title: SPSA随机优化算法
 date: 2023-08-19 12:47:28
-tags: [算法, 深度学习]
-categories: []
+tags: [Algorithm]
+categories: [DeepLearning]
 mathjax: true
 ---
 

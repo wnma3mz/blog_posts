@@ -2,10 +2,9 @@
 title: crontab命令
 date: 2017-08-24 08:44:45
 tags: [Linux, crontab]
-categories: [奇技淫巧]
+categories: [软件]
 ---
-学会使用crontab定时任务，提高工作效率。详解了crontab的基本格式和例子，以及相关目录介绍
-和日志文件的设置。
+学会使用crontab定时任务，提高工作效率。详解了crontab的基本格式和例子，以及相关目录介绍和日志文件的设置。
 
 <!-- more -->
 

@@ -1,17 +1,16 @@
 ---
 title: Tracing Model Outputs to the Training Data
 date: 2023-11-17 18:45:20
-tags: []
-categories: [笔记]
+tags: [NLP, Interpretability]
+categories: [PaperReading]
 mathjax: true
 ---
-阅读笔记
 
-arxiv: https://arxiv.org/abs/2308.03296
+[arxiv](https://arxiv.org/abs/2308.03296)
 
-blog:  https://www.anthropic.com/index/influence-functions
+[blog](https://www.anthropic.com/index/influence-functions)
 
-pptx:  https://gamma.app/docs/Tracing-Model-Outputs-to-the-Training-Data-xs3bsz5n91p95ms?mode=doc
+[pptx](https://gamma.app/docs/Tracing-Model-Outputs-to-the-Training-Data-xs3bsz5n91p95ms?mode=doc)
 
 <!-- more -->
 
@@ -241,7 +240,7 @@ For 52B Model
 
 注：合成句子不在训练集中
 
-Maybe相关 https://www.jiqizhixin.com/articles/2023-11-18-5
+Maybe相关 [https://www.jiqizhixin.com/articles/2023-11-18-5](https://www.jiqizhixin.com/articles/2023-11-18-5)
 
 ### 英翻中-中翻英
 

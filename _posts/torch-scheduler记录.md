@@ -1,9 +1,10 @@
 ---
 title: torch中的scheduler
 date: 2021-02-03 11:18:01
-tags: [Pytorch, Deeplearning]
-categories: [笔记]
+tags: [PyTorch, scheduler]
+categories: [Note]
 ---
+
 PyTorch学习率调整过程中版本问题引发的不同结果解析
 
 <!-- more -->

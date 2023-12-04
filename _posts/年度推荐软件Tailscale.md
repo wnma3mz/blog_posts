@@ -1,10 +1,8 @@
 ---
 title: 年度推荐软件Tailscale：连接团队设备和开发环境的利器
 date: 2023/04/03 16:41:22
-tags: [笔记,工具]
-categories: []
-mathjax: false
-katex: false
+tags: [Tailscale]
+categories: [软件]
 ---
 本文介绍了 Tailscale 这款软件可以轻松架设异地组网，解决调试难题、实现流量转发和开放服务等多个需求。
 
@@ -18,7 +16,7 @@ katex: false
 - 流量转发：A机器在A地，可以借助B机器在B地的网络进行上网。
 - 开放服务：A机器自建Web服务，不仅可以在组网环境下使用，甚至官方提供了公网的链接（https），即可以不在组网环境下也能够访问。
 
-写在开头，免费版的权益如下图所示，支持20个设备，且域名不可自定义（子域名可以），速度在100-300k/s左右。在Android和iOS设备上不支持同时开启两个VPN，即Clash无法和Tailscale同时使用。
+写在开头，免费版的权益如下图所示，支持20个设备，且域名不可自定义（子域名可以），速度在100-300k/s左右。在Android和iOS设备上不支持同时开启两个 VPN，即 Clash 无法和 Tailscale 同时使用。
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tailscale/1680514288836.png)
 
@@ -209,7 +207,7 @@ tailscale funnel --bg https+insecure://localhost:8443
 tailscale funnel --bg https+insecure://localhost:10000
 ```
 
-使用方法同`serve`，换成`funnel`即可。
+使用方法同 `serve`，换成 `funnel` 即可。
 
 ```bash
 # 查看状态的命令
