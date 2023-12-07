@@ -2,7 +2,7 @@
 title: Tmux 的使用和配置
 date: 2023/08/13 17:11:22
 tags: [Linux, Tmux]
-categories: [软件]
+categories: [Software]
 ---
 Tmux 的常用操作
 

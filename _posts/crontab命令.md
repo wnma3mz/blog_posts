@@ -2,7 +2,7 @@
 title: crontab命令
 date: 2017-08-24 08:44:45
 tags: [Linux, crontab]
-categories: [软件]
+categories: [Software]
 ---
 学会使用crontab定时任务，提高工作效率。详解了crontab的基本格式和例子，以及相关目录介绍和日志文件的设置。
 
@@ -10,15 +10,15 @@ categories: [软件]
 
 ```bash
 # 查看当前用户的定时任务，也可以使用crontab -uroot -l查看指定用户的定时任务
->>>crontab -l
+crontab -l
 
 # 编辑crontab定时任务，貌似是使用vim的编辑命令
->>>crontab -e
+crontab -e
 
 # 其实基本上知道这两个就可以处理定时任务了
 
 # 删除当前用户的所有定时任务，不知道为什么会有这种设定（手贱按下过一次，恢复起来真的惨）
->>>crontab -r
+crontab -r
 # 如果按到了，就去日志文件里面找记录，尽可能恢复命令吧
 ```
 

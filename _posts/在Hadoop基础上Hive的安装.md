@@ -25,18 +25,18 @@ hadoop位置：/usr/loacl/hadoop
 下载源码包
 ```bash
 #在hadoop目录下操作
->>>cd /usr/local/hadoop
+cd /usr/local/hadoop
 
 #用wget下载
->>>wget http://mirrors.cnnic.cn/apache/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz
+wget http://mirrors.cnnic.cn/apache/hive/hive-1.2.1/apache-hive-1.2.1-bin.tar.gz
 
 #也可以在图形界面下下载之后，上传压缩包
 
 #解压缩包
->>>tar -zxvf apache-hive-1.2.1-bin.tar.gz
+tar -zxvf apache-hive-1.2.1-bin.tar.gz
 
 #配置环境变量
->>>vim /etc/profile
+vim /etc/profile
 #位置在之前配置的变量之后，大概12行左右，因为之前配置了jdk和hadoop变量
 export HIVE_HOME=/usr/local/hadoop/apache-hive-1.2.2-bin
 export PATH=$HIVE_HOME/bin:$PATH
@@ -44,10 +44,12 @@ export PATH=$HIVE_HOME/bin:$PATH
 #保存退出
 
 #使文件生效
->>>source /etc/profile
+source /etc/profile
 ```
 
+
 ## 安装MySQL
+
 
 MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在维护，采用GPL授权许可。开发这个分支的原因之一是：甲骨文公司收购了MySQL后，有将MySQL闭源的潜在风险，因此社区采用分支的方式来避开这个风险。MariaDB的目的是完全兼容MySQL，包括API和命令行，使之能轻松成为MySQL的代替品。
 
@@ -57,15 +59,15 @@ MariaDB数据库管理系统是MySQL的一个分支，主要由开源社区在�
 
 ### 安装MariaDB
 
-```python
+```bash
 #安装
->>>yum install mariadb-server mariadb
+yum install mariadb-server mariadb
 
 #启动
->>>systemctl start mariadb
+systemctl start mariadb
 
 #进入MySQL
->>>mysql -u root -p
+mysql -u root -p
 
 #命令行变成如下，可能有点不习惯
 MariaDB [(none)]>
@@ -73,29 +75,29 @@ MariaDB [(none)]>
 
 #P.S.
 #相关命令
->>>systemctl start mariadb #启动MariaDB
->>>systemctl stop mariadb #停止MariaDB
->>>systemctl restart mariadb #重启MariaDB
->>>systemctl enable mariadb #设置开机启动
+systemctl start mariadb #启动MariaDB
+systemctl stop mariadb #停止MariaDB
+systemctl restart mariadb #重启MariaDB
+systemctl enable mariadb #设置开机启动
 ```
 
 ### 正式安装MySQL
 
-```python
+```bash
 #下载，在这里使用的是命令行下载，也建议在图形界面下载，然后上传至服务器
->>>wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
+wget http://dev.mysql.com/get/mysql-community-release-el7-5.noarch.rpm
 
 #使用rpm安装
->>>rpm -ivh mysql-community-release-el7-5.noarch.rpm
+rpm -ivh mysql-community-release-el7-5.noarch.rpm
 
 #使用yum安装mysql-community-server
->>>yum install mysql-community-server
+yum install mysql-community-server
 
 #启动服务
->>>service mysqld start
+service mysqld start
 
 #进入mysql，第一次进入无密码
->>>mysql -u root -p
+mysql -u root -p
 
 #命令行变成如下
 mysql>
@@ -104,9 +106,9 @@ mysql>
 ### 配置MySQL
 
 编码配置
-```python
+```bash
 #进入配置文件，若未安装vim，建议先使用命令yum install vim安装vim
->>>vim /etc/my.cnf
+vim /etc/my.cnf
 
 #最后加上编码配置
 [mysql]
@@ -119,7 +121,7 @@ default-character-set =utf8
 设置密码
 ```bash
 #下面三种方法需要进入mysql
->>>mysql -u root -p
+mysql -u root -p
 
 #方法一
 mysql>insert into user(host,user,password) values('%','user_name',password("password");
@@ -129,13 +131,13 @@ mysql>set password for user_name = password("password");
 mysql>grant all on *.* to user_name@% identified by "password";
 
 #下面这一种方法可直接在shell下设置密码
->>>mysqladmin -u root password "password"
+mysqladmin -u root password "password"
 ```
 远程连接
 
 ```bash
 #进入mysql
->>>mysql -u root -p
+mysql -u root -p
 
 #把在所有数据库的所有表的所有权限赋值给位于所有IP地址的root用户。
 mysql> grant all privileges on *.* to root@'%'identified by "password";
@@ -151,24 +153,24 @@ P.S.上文引号中的user_name表示数据库的用户名，password表示对�
 # mysql在my.ini的配置文件中设置了严格模式，所以我们需要进行修改
 
 # 第一步，寻找配置文件
->>>whereis my.ini
+whereis my.ini
 
 # 第二步，根据上一步结果进行vim编辑
->>>vim /../my.ini
+vim /../my.ini
 
 # 第三步，在vim里面搜索sql-mode,删除STRICT_TRANS_TABLES，保存退出即可
 
 # 第四步，保险起见，使刚刚的配置文件立即生效
->>>source /../my.ini
+source /../my.ini
 ```
 
 #### 支持中文
 
 - Centos7
 
-    ```python
+    ```bash
     # 编辑文件
-    >>>vim /etc/my.cnf
+    vim /etc/my.cnf
     # 在对应[xx]下增加修改如下代码
     [client]
     port = 3306
@@ -192,8 +194,8 @@ P.S.上文引号中的user_name表示数据库的用户名，password表示对�
 
 - Ubuntu16.04
 
-    ```python
-    >>>sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
+    ```bash
+    sudo vim /etc/mysql/mysql.conf.d/mysqld.cnf
     # 在对应[xx]下增加以下内容，如果不存在[xx]自行增加
     [mysqld]
     character_set_server=utf8
@@ -206,9 +208,9 @@ P.S.上文引号中的user_name表示数据库的用户名，password表示对�
     [client]
     default-character-set=utf8
     # 重启mysql
-    >>>service mysql restart
+    service mysql restart
     # 进入mysql查看配置参数
-    >>>mysql -uroot -p
+    mysql -uroot -p
     # 查看database 的value变为utf8即可
     >show variables like '%character%';
 
@@ -222,15 +224,16 @@ P.S.上文引号中的user_name表示数据库的用户名，password表示对�
 
 修改方法:（两种,建议第二种）
 
-1:命令行  set names gbk；(此为设置通信编码)
+1. 命令行。set names gbk；(此为设置通信编码)
 
-2:my.cnf中查找sql-mode
+2. `my.cnf` 中查找sql-mode
 
-```
 将
+```bash
 sql-mode="STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"，
-
+```
 修改为
+```bash
 sql-mode="NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"，
 ```
 重启mysql后即可
@@ -245,26 +248,26 @@ my.cnf常见于Linux系统，my.ini常见与windows系统，二者都是属于my
 
 ```bash
 # 修改配置文件
->>>vim /etc/my.cnf
+vim /etc/my.cnf
 # 在[mysql]部分添加auto-rehash
 # 保存退出，重启
->>>service mysqld restart
+service mysqld restart
 ```
 
 
 ## 配置Hive
 
-我们之前在hadoop目录下安装了Hive，位置为/usr/local/hadoop/apache-hive-1.2.1-bin
+我们之前在hadoop目录下安装了Hive，位置为`/usr/local/hadoop/apache-hive-1.2.1-bin`
 
 ```bash
 #进入hive配置目录下
->>>cd /usr/local/hadoop/apache-hive-1.2.1-bin/conf
+cd /usr/local/hadoop/apache-hive-1.2.1-bin/conf
 
 #修改hive-default.xml.template
 #首先复制
->>>cp hive-default.xml.template hive-default.xml
+cp hive-default.xml.template hive-default.xml
 #修改文件
->>>vim hive-default.xml
+vim hive-default.xml
 
 # 1. 第一步将<configuration></configuration>中内容删除大概是18-3908行
 # vim删除命令-->:18,3908d
@@ -303,48 +306,51 @@ my.cnf常见于Linux系统，my.ini常见与windows系统，二者都是属于my
 
 ```bash
 #命令行下载,也可以使用图形界面上传文件
->>> wget http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.36.tar.gz
+ wget http://cdn.mysql.com/Downloads/Connector-J/mysql-connector-java-5.1.36.tar.gz
 
 #将文件复制进Hive的lib目录下，原因，Hive的自带的那个版本低，可能失效
->>> cp mysql-connector-java-5.1.33-bin.jar /usr/local/hadoop/apache-hive-1.2.1-bin/lib/
+ cp mysql-connector-java-5.1.33-bin.jar /usr/local/hadoop/apache-hive-1.2.1-bin/lib/
 ```
 
 启动Hive
 ```bash
->>>hive --service metastore &
->>>jps
+hive --service metastore &
+jps
 #结果会多出一个进程
 
 #进入hive目录
->>>cd /usr/local/hadoop/apache-hive-1.2.1-bin/bin
+cd /usr/local/hadoop/apache-hive-1.2.1-bin/bin
 #启动hive，可能有点慢
->>>hive
+hive
 
 #若出现hive的命令行即代表成功，如下
 hive>
 ```
 
+
 ## 常见问题及解决方案
 
+
+```bash
 Logging initialized using configuration in jar:file:/home/hadoop/apache-hive-1.2.1-bin/lib/hive-common-1.2.1.jar!/hive-log4j.properties
 Exception in thread "main" java.lang.RuntimeException: java.lang.RuntimeException: Unable to instantiate org.apache.hadoop.hive.ql.metadata.SessionHiveMetaStoreClient
         at org.apache.hadoop.hive.ql.session.SessionState.start(SessionState.java:522)
-
+```
 解决方法，直接关闭防火墙
 
 ```bash
 #这里的系统为Centos7，所以使用此命令
->>>systemctl stop firewalld
+systemctl stop firewalld
 ```
 
 hive metastore 启动出错解决
 ```bash
 # 查看与hive相关进程是否启动
->>>ps -ef | grep hive
+ps -ef | grep hive
 # kill相关进程，为进程号
->>>kill num
+kill num
 # 重新启动
->>>./hive
+./hive
 ```
 
 更多问题见此文章
@@ -353,7 +359,7 @@ hive metastore 启动出错解决
 ## Hive的学习笔记
 
 ### 新建表
----
+
 
 ```sql
 -- 新建一张表，名为“test”，里面有“name”、“id”两类，分别是“string”、“int”的数据类型，以“|”隔开一列，表是作为textfile的。
@@ -361,7 +367,6 @@ hive> CREATE TABLE test (name String, id int) ROW FORMAT DELIMITED FIELDS TERMIN
 ```
 
 ### 加载表
----
 
 ```sql
 -- 从本地的/home/user/test.txt文件，将数据加载进test这个表
@@ -369,7 +374,6 @@ hive> LOAD DATA LOCAL INPATH '/home/user/test.txt' OVERWRITE INTO TABLE test;
 ```
 
 ### 关联表
----
 
 ```sql
 -- 将两张表通过一个或多个字段关联在一起
@@ -378,7 +382,6 @@ hive> SELECT test_a.id, test_b.name FROM test_a, test_b JOIN test_b ON (test_a.i
 ```
 
 ### 保存表
----
 
 ```sql
 -- 由于hive下执行任务之后，并不会保存数据，所以我们使用INSERT命令来保存命令
@@ -392,20 +395,26 @@ hive> INSERT OVERWRITE LOCAL DIRECTORY "/out/"
 ```
 
 ### 排序问题
-----
+
 
  1. order by
 
+```sql
  hive> SELECT * FROM test ORDER BY id;
+```
 
  2. sort by
+```sql
 hive> SELECT * FROM test SORT BY id;
+```
 
  3. distribute by
+```sql
 hive> SELECT * FROM test ORDER BY name DISTRIBUTE BY id;
+```
 
  4. DISTRIBUTE BY with SORT BY
-DISTRIBUTE BY和GROUP BY有点类似，DISTRIBUTE BY控制reduce如何处理数据，而SORT BY控制reduce中的数据如何排序。
+DISTRIBUTE BY 和 GROUP BY 有点类似，DISTRIBUTE BY控制reduce如何处理数据，而SORT BY控制reduce中的数据如何排序。
 注意：hive要求DISTRIBUTE BY语句出现在SORT BY语句之前。
 
  5. Cluster By
@@ -415,10 +424,10 @@ DISTRIBUTE BY和GROUP BY有点类似，DISTRIBUTE BY控制reduce如何处理数�
 
 总结：
 
-ORDER BY是全局排序，但在数据量大的情况下，花费时间会很长
-SORT BY是将reduce的单个输出进行排序，不能保证全局有序
-DISTRIBUTE BY可以按指定字段将数据划分到不同的reduce中
-当DISTRIBUTE BY的字段和SORT BY的字段相同时，可以用CLUSTER BY来代替 DISTRIBUTE BY with SORT BY。
+- `ORDER BY`是全局排序，但在数据量大的情况下，花费时间会很长
+- `SORT BY`是将`reduce`的单个输出进行排序，不能保证全局有序
+- `DISTRIBUTE BY` 可以按指定字段将数据划分到不同的`reduce`中
+- 当`DISTRIBUTE BY` 的字段和 `SORT BY`的字段相同时，可以用`CLUSTER BY`来代替`DISTRIBUTE BY with SORT BY`。
 
 
 
@@ -480,14 +489,15 @@ hive>insert overwrite othertable
 
 
 ### 转换类型
-----
 
 cast(xxx as xx)
 将xxx类型转换为xx类型
 
 下表为是否可转换类型的说明
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/hadoop/20170612195815151.png)
-　注：由于表格比较大，这里对一些比较长的字符串进行缩写，ts是timestamp的缩写,bl是boolean的缩写,sl是smallint的缩写,dm是decimal的缩写,vc是varchar的缩写,ba是binary的缩写。
+
+
+注：由于表格比较大，这里对一些比较长的字符串进行缩写，ts是timestamp的缩写,bl是boolean的缩写,sl是smallint的缩写,dm是decimal的缩写,vc是varchar的缩写,ba是binary的缩写。
 
 
 

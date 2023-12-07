@@ -52,11 +52,11 @@ $2 \times 5120 \times 40 \times 2 \times 2048 / (1024 ** 3)$ GB = 1.5625 GB
 
 Attention 计算公式
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/vllm_pageattention/image-2023-11-22_11-48-27.png)
+$$a _ { i j } = \frac { \operatorname { exp } ( q _ { i } ^ { T } k _ { j } / \sqrt { d } ) } { \sum _ { t = 1 } ^ { i } \operatorname { exp } ( q _ { i } ^ { T } k _ { t } / \sqrt { d } ) } , o _ { i } = \sum _ { j = 1 } ^ { i } a _ { i j } v _ { j }$$
 
 PageAttention 计算公式
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/vllm_pageattention/image-2023-11-22_11-48-48.png)
+$$A _ { i j } = \frac { \operatorname { exp } ( q _ { i } ^ { T } K _ { j } / \sqrt { d } ) } { \sum _ { t = 1 } ^ { \lceil i / B \rceil } \operatorname { exp } ( q _ { i } ^ { T } K _ { t } 1 / \sqrt { d } ) } , o _ { i } = \sum _ { j = 1 } ^ { \lceil i / B \rceil } V _ { j } A _ { i j } ^ { T }$$
 
 对于 query (q)，不需要改变，而 k 和 v 转变为 block 的形式。计算步骤如下
 

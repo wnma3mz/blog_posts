@@ -1,7 +1,7 @@
 ---
-title: Mongodb：
+title: Mongodb：副本集配置
 date: 2021-07-21 20:44:28
-tags: [mongo, 数据库]
+tags: [mongodb, 数据库]
 categories: [Database]
 ---
 Mongodb4.2.x数据库配置的第二部分，副本集架构的配置
@@ -10,7 +10,7 @@ Mongodb4.2.x数据库配置的第二部分，副本集架构的配置
 
 ## 准备
 
-基本同原文，由于是副本集配置，所以在需要配置的服务器上进行相同的配置
+接 {% post_link 数据库/Mongodb从安装到基本操作 %}，基本同原文，由于是副本集配置，所以在需要配置的服务器上进行相同的配置
 
 选择：
 
@@ -81,7 +81,7 @@ bin/mongod --config mongodb.conf
 vim init_replica.js
 ```
 
-```yaml
+```bash
 # 其中rs0一定要跟上面的replSetName一样
 config = { _id:"rs0", members:[{_id:0,host:"ip0:port0"},{_id:1,host:"ip1:port1"}]}
 rs.initiate(config) 

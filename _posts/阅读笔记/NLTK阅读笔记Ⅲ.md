@@ -27,7 +27,7 @@ NLP基本知识的介绍及NLTK模块的使用。
 ```python
 # 特征提取器，提取输入字符串中最后一个字母。
 def gender_features(word):
-	# 返回特征集
+    # 返回特征集
     return {'last_letter': word[-1]}
 # 导入姓名语料库, 获取男女姓名列表
 from nltk.corpus import names
@@ -115,14 +115,14 @@ for (name, tag) in devtest_names:
       
 # 输出错误分类列表中，猜错的类别及名字
 for (tag, guess, name) in sorted(errors):
-	print('correct=%-8s guess=%-8s name=%-30s' % (tag, guess, name))
+    print('correct=%-8s guess=%-8s name=%-30s' % (tag, guess, name))
   
 # 观察输出进行分析，得到一些结果。
 # yn结尾的名字显示以女性为主，虽然n结尾的名字往往是男性
 # 以ch结尾的名字通常是男性，虽然h结尾的名字倾向于是女性
 # 根据结论，调整特征提取器
 def gender_features(word):
-	return {'suffix1': word[-1:], 'suffix2': word[-2:]}
+    return {'suffix1': word[-1:], 'suffix2': word[-2:]}
 
 # 进行训练预测
 train_set = [(gender_features(n), g) for (n,g) in train_names]
@@ -231,9 +231,9 @@ pos_features(brown.sents()[0], 8)
 tagged_sents = brown.tagged_sents(categories='news')
 featuresets = []
 for tagged_sent in tagged_sents:
-	untagged_sent = nltk.tag.untag(tagged_sent)
-	for i, (word, tag) in enumerate(tagged_sent):
-		featuresets.append((pos_features(untagged_sent, i), tag))
+    untagged_sent = nltk.tag.untag(tagged_sent)
+    for i, (word, tag) in enumerate(tagged_sent):
+        featuresets.append((pos_features(untagged_sent, i), tag))
 size = int(len(featuresets) * 0.1)
 train_set, test_set = featuresets[size:], featuresets[:size]
 classifier = nltk.NaiveBayesClassifier.train(train_set)
@@ -259,12 +259,12 @@ def pos_features(sentence, i, history):
     else:
         features["prev-word"] = sentence[i-1]
         features["prev-tag"] = history[i-1]
-	return features
+    return features
 class ConsecutivePosTagger(nltk.TaggerI):
     def __init__(self, train_sents):
         train_set = []
         for tagged_sent in train_sents:
-        	untagged_sent = nltk.tag.untag(tagged_sent)
+            untagged_sent = nltk.tag.untag(tagged_sent)
             history = []
             for i, (word, tag) in enumerate(tagged_sent):
                 featureset = pos_features(untagged_sent, i, history)
@@ -306,7 +306,7 @@ for sent in sents:
   
 # 特征提取器
 def punct_features(tokens, i):
-	return {'next-word-capitalized': tokens[i+1][0].isupper(),
+    return {'next-word-capitalized': tokens[i+1][0].isupper(),
             'prevword': tokens[i-1].lower(),
             'punct': tokens[i],
             'prev-word-is-one-char': len(tokens[i-1]) == 1}

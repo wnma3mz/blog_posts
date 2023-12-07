@@ -28,7 +28,7 @@ text = nltk.Text(tokens)
 
 `requests`： 数据获取
 
-`Beautiful Soup`、`re`、`xpath`： 文本处理
+`BeautifulSoup`、`re`、`xpath`： 文本处理
 
 `feedparser`：处理RSS订阅
 
@@ -56,7 +56,7 @@ regexp = r'^[AEIOUaeiou]+|[AEIOUaeiou]+$|[^AEIOUaeiou]'
 # 压缩元音字符串
 def compress(word):
 	pieces = re.findall(regexp, word)
-	return ''.join(pieces)
+    return ''.join(pieces)
 
 # 获取语料库数据
 english_udhr = nltk.corpus.udhr.words('English-Latin1')
@@ -282,7 +282,7 @@ nltk.corpus.conll2000.tagged_words()
 # 最频繁的名词标记
 def findtags(tag_prefix, tagged_text):
 	cfd = nltk.ConditionalFreqDist((tag, word) for (word, tag) in tagged_text if tag.startswith(tag_prefix))
-	return dict((tag, cfd[tag].keys()[:5]) for tag in cfd.conditions())
+    return dict((tag, cfd[tag].keys()[:5]) for tag in cfd.conditions())
 
 tagdict = findtags('NN', nltk.corpus.brown.tagged_words(categories='news'))
 for tag in sorted(tagdict):

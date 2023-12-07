@@ -142,7 +142,7 @@ $$A=LU$$
 
 格式如下
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/matrix/2017-03-29-19-31-33.png)
+$$\left[ \begin{array} { l l l } { a _ { 11 } } & { a _ { 12 } } & { a _ { 13 } } \\ { a _ { 21 } } & { a _ { 22 } } & { a _ { 23 } } \\ { a _ { 31 } } & { a _ { 32 } } & { a _ { 33 } } \end{array} \right] = \left[ \begin{array} { c c c } { l _ { 11 } } & { 0 } & { 0 } \\ { l _ { 21 } } & { l _ { 22 } } & { 0 } \\ { l _ { 31 } } & { l _ { 32 } } & { l _ { 33 } } \end{array} \right] \left[ \begin{array} { c c c } { u _ { 11 } } & { u _ { 12 } } & { u _ { 13 } } \\ { 0 } & { u _ { 22 } } & { u _ { 23 } } \\ { 0 } & { 0 } & { u _ { 33 } } \end{array} \right]$$
 
 分解过程：
 

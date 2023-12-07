@@ -49,7 +49,7 @@ categories: [Visualization]
 #verbose.level  : debug
 ```
 
-# matplotlib.pyplot基础操作
+# matplotlib.pyplot 基础操作
 
 ```python
 import matplotlib.pyplot as plt

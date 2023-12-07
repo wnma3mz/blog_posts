@@ -64,7 +64,8 @@ mathjax: true
 
 输出：每条训练数据的分数
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/625460f4950846b89c4b247deb2c5cd2.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/625460f4950846b89c4b247deb2c5cd2.webp)
+
 
 Prompt + Completion 可以在训练数据中，也可以不在
 
@@ -74,7 +75,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 | 0.81B Model (Influence = 0.122)                                                                                  | 52B Model (Influence = 0.055)                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/b128475ec4bb4596a8758f1c5ff35b3d.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/71a4844c619c4d29b6ca893487f8ac91.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/b128475ec4bb4596a8758f1c5ff35b3d.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/71a4844c619c4d29b6ca893487f8ac91.webp) |
 
 红色和绿色分别表示对句子产生正面和负面影响的 token
 
@@ -84,7 +85,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 | 0.81B Model (Influence = 0.681)                                                                                  | 52B Model (Influence = 0.126)                                                                                    |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6443c3a251734449b5ae927ca1fa09c1.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/00473a7fae4e4174bea1b799d498974d.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6443c3a251734449b5ae927ca1fa09c1.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/00473a7fae4e4174bea1b799d498974d.webp) |
 
 ### Q & A
 
@@ -92,7 +93,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 | 0.81B Model                                                                                                      | 52B Model                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2f87cff844e74a838deb16d3501e20ec.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/a82fa4e8b3ea48f4bb1de6d2375a9c92.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2f87cff844e74a838deb16d3501e20ec.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/a82fa4e8b3ea48f4bb1de6d2375a9c92.webp) |
 
 ### Math
 
@@ -100,7 +101,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 | 0.81B Model                                                                                                      | 52B Model                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e74e8d2f49274a478703c632043e31db.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f90974c1c90c4a3082e8572f6dbcf0d7.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e74e8d2f49274a478703c632043e31db.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f90974c1c90c4a3082e8572f6dbcf0d7.webp) |
 
 ### Code
 
@@ -108,7 +109,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 | 0.81B Model                                                                                                      | 52B Model                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c0eab626552c4eda9df4ee4ce908089c.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e54956f34cbc406d946e092d4a803caa.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c0eab626552c4eda9df4ee4ce908089c.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e54956f34cbc406d946e092d4a803caa.webp) |
 
 ### Cross-Language
 
@@ -128,7 +129,7 @@ Prompt + Completion 可以在训练数据中，也可以不在
 
 纵坐标：网络的浅层和深层
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2c0084f89e9547409d6aa78ccc80fa68.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2c0084f89e9547409d6aa78ccc80fa68.webp)
 
 小结：
 
@@ -157,8 +158,9 @@ Influential sequences only computed on **the middle layers were generally more t
 
 |                              | Upper layers                                                                                                     | Middle layers                                                                                                    | Lower layers                                                                                                     |
 | ---------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| superintelligent（角色扮演） | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5d093adc546d4bf89b4c0c28a6c5f078.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/32cead3f3d8a4b93bba4cc9cf286835c.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b0a3c16b1a844a291bf2507653f7b5d.png) |
-| inflation （简单补全）       | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ceb342ca571645129c0717897d605406.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c44c8253e03a45bf803db7b919b84836.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/88a731f7a8004cc7aea38d11497c0d57.png) |
+| superintelligent（角色扮演） | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5d093adc546d4bf89b4c0c28a6c5f078.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/32cead3f3d8a4b93bba4cc9cf286835c.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b0a3c16b1a844a291bf2507653f7b5d.webp) |
+| inflation （简单补全）       | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ceb342ca571645129c0717897d605406.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/c44c8253e03a45bf803db7b919b84836.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/88a731f7a8004cc7aea38d11497c0d57.webp) |
+
 
 ## Result——Memorization
 
@@ -189,7 +191,7 @@ C: C1+C2+C3
 - 用几种分布分别去拟合实际的概率分布，发现**幂律分布**最符合
 - 这种参数分布形式通常用于建模长尾行为（二八定律）
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2642b83f1b414e1584b586072c945160.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/2642b83f1b414e1584b586072c945160.webp)
 
 - 会不会是影响函数无法检测到？
 
@@ -202,8 +204,8 @@ For 52B Model
 
 |                                                                                                                  |                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/dda0d64781cd4552b8e18e722d11336e.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/06ab6f2d1d894063a1fd832723771267.png) |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/fdd9eb4647b542a0a93cdffa2280243b.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f9c95ee4e69e47d082654db9d2e701a1.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/dda0d64781cd4552b8e18e722d11336e.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/06ab6f2d1d894063a1fd832723771267.webp) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/fdd9eb4647b542a0a93cdffa2280243b.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f9c95ee4e69e47d082654db9d2e701a1.webp) |
 
 - 结论：
   - 不太可能是直接记忆训练序列，而是源自许多训练序列的集合
@@ -228,13 +230,13 @@ For 52B Model
 - 翻转 Prompt 和 Completion 变化较小
 - 哪怕删除 Prompt，影响也没有改变，最为关键的是 Completion
 
-| 分别修改 prompt 和 completion                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ab33a902e1044c60be66b8c11b443bdd.png) |
+| 分别修改 prompt 和 completion                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ab33a902e1044c60be66b8c11b443bdd.webp) |
 | ----------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| 删掉 Zorald Pfaff                               | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5b4cd20d88204baf990d406ba5041ad8.png) |
-| 修改 Zorald Pfaff 和  President of the Republic | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6a37b66b7d3941dcb1db42ce8ca1d073.png) |
-| 完全不一致                                      | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5211b0d5e2c34191be9618f30bc44bca.png) |
-| 调换 prompt 和 completion 位置                  | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e547d3cd16844505a24abb2bab404c8e.png) |
-| 调换位置，只保留 Zorald Pfaff                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e9daf868aa0e483b84fb6ef5db21ac9b.png) |
+| 删掉 Zorald Pfaff                               | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5b4cd20d88204baf990d406ba5041ad8.webp) |
+| 修改 Zorald Pfaff 和  President of the Republic | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6a37b66b7d3941dcb1db42ce8ca1d073.webp) |
+| 完全不一致                                      | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5211b0d5e2c34191be9618f30bc44bca.webp) |
+| 调换 prompt 和 completion 位置                  | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e547d3cd16844505a24abb2bab404c8e.webp) |
+| 调换位置，只保留 Zorald Pfaff                   | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e9daf868aa0e483b84fb6ef5db21ac9b.webp) |
 
 大模型相较于小模型，对于单词的变化更加敏感
 
@@ -250,11 +252,11 @@ Maybe相关 [https://www.jiqizhixin.com/articles/2023-11-18-5](https://www.jiqiz
 - 影响至少减少了一个数量级
 - 甚至只要翻转一个单词顺序，影响分数也会显著降低
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/877f0424698540ffa4fc03178caf36f5.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/877f0424698540ffa4fc03178caf36f5.webp)
 
 英语翻译为汉语，始终比汉语翻译为英语（手动构造）具有更高的影响力
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/785f474cd19c4adcb9368f857680f9cb.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/785f474cd19c4adcb9368f857680f9cb.webp)
 
 结论：
 
@@ -284,16 +286,16 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 | 0.81B Model                                                                                                      | 52B Model                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0058b0ac28324ee7af95d7819af55b23.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e3d704fcfbf4468f8e7bfa4a1d80236a.png) |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/53a2be7ddd8b46b3a8a6d6377ee9f1cf.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/80ac752d61084250b5e3185c8050836c.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0058b0ac28324ee7af95d7819af55b23.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e3d704fcfbf4468f8e7bfa4a1d80236a.webp) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/53a2be7ddd8b46b3a8a6d6377ee9f1cf.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/80ac752d61084250b5e3185c8050836c.webp) |
 
 | 0.81B Model                                                                                                      | 52B Model                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/723e8078e8164ed3b48e29483a0d43ea.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/150693608d1b4b0f8a086f6c103a0c54.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/723e8078e8164ed3b48e29483a0d43ea.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/150693608d1b4b0f8a086f6c103a0c54.webp) |
 
 |                                                                                                                  |                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8a9ace0878ff40b294ffd7e1fc553b01.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b6668e8515c48338486e67d905024cc.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8a9ace0878ff40b294ffd7e1fc553b01.webp) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8b6668e8515c48338486e67d905024cc.webp) |
 
 结果：
 
@@ -323,31 +325,31 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 - Step 1: 经验风险最小化
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/48aa99d8013545b9b242e09daec07f88.png)
+$$\theta ^ { \star } = \underset { \theta \in R ^ { D } } { \operatorname { arg } \operatorname { min } } J ( \theta , D ) = \underset { \theta \in R ^ { D } } { \operatorname { arg } \operatorname { min } } \frac { 1 } { N } \sum _ { i = 1 } ^ { N } L ( z _ { i } , \theta )$$
 
 - Step 2: 增加样本 $z_m$ 后对模型参数的影响， $\epsilon$ 表示这个样本在训练时的权重
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/7b0d8ad54c104b19bd0449a8fb6d5653.png)
-
 - Step 3: 影响函数的**定义**（使用隐函数定理计算）
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/9479842922864bd0945db689b57c7d70.png)
+$$I _ { \theta ^ { \star } } ( z _ { m } ) = \frac { d \theta ^ { \star } } { d \epsilon } | _ { \epsilon = 0 } = - H ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { \star } )$$
 
 - Step 4: **H**essian 矩阵→二阶导数
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/abc77f8cae214ed2bd780b2167b6226f.png)
+$$H = \nabla _ { \theta } ^ { 2 } J ( \theta ^ { \star } , D )$$
 
 - Step 5: 所以，样本 z 对模型参数的变化表示为。这个 $\epsilon$
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/8955efc8fe28403b8d17a307f2310780.png)
+$$\theta ^ { \star } ( \epsilon ) - \theta ^ { \star } \approx I _ { \theta ^ { \star } } ( z _ { m } ) \epsilon = - H ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { \star } ) \epsilon$$
+
 
 - Step 6: 由于很难解释整个参数变化的影响，通常会固定对某个输入的影响，即输出的 logits
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/f56a74f364cf4042a9979e530c87b67c.png)
+$$I _ { f } ( z _ { m } ) \approx - \nabla _ { \theta } f ( \theta ^ { s } ) ^ { T } ( G + \lambda I ) ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { s } )
+I _ { f } ( z _ { m } ) = \nabla _ { \theta } f ( \theta ^ { \star } ) ^ { T } I _ { \theta ^ { \star } } ( z _ { m } ) = - \nabla _ { \theta } f ( \theta ^ { \star } ) ^ { T } H ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { \star } )$$
 
 - Step 7: 最后，衡量样本 z 的效果 → 对于某个输出，样本 z 的影响分数
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e39925d646834a2e8f9b5ba0deba80b1.png)
+$$f ( \theta ^ { \star } ( \epsilon ) ) - f ( \theta ^ { \star } ) \approx I _ { f } ( z _ { m } ) \epsilon = - \nabla _ { \theta } f ( \theta ^ { \star } ) ^ { T } H ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { \star } ) \epsilon$$
 
 [https://arxiv.org/abs/2308.03296](https://arxiv.org/abs/2308.03296)
 
@@ -368,9 +370,10 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 公式
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/e39925d646834a2e8f9b5ba0deba80b1.png)
+$$f ( \theta ^ { \star } ( \epsilon ) ) - f ( \theta ^ { \star } ) \approx I _ { f } ( z _ { m } ) \epsilon = - \nabla _ { \theta } f ( \theta ^ { \star } ) ^ { T } H ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { \star } ) \epsilon$$
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/abc77f8cae214ed2bd780b2167b6226f.png)
+
+$$H = \nabla _ { \theta } ^ { 2 } J ( \theta ^ { \star } , D )$$
 
 有两个影响计算耗时的地方，文章对这两个地方进行了优化
 
@@ -385,8 +388,8 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
    1. 计算 query 中每个 token 的重要性分数
    2. doc 的 TF-IDF 分数，只将所有 token 的重要性分数相加
    3. Okapi BM25
-      ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/ac93dcd5af5740ffac7916a2d457d8f3.png)
-      ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/1fe2d607945741fb958867f3b5db8a84.png)
+      $$\operatorname { score } ( Q , D ) = \sum _ { t = 1 } ^ { T } \frac { ( k _ { 1 } + 1 ) \times  {\rm exists\_in\_doc } ( t _ { t } , D ) } { k _ { 1 } + {\rm  exists\_in\_doc } ( t _ { t } , D ) } \operatorname { IDF } ( t _ { t } )$$
+      $$\operatorname { IDF } ( t ) = \operatorname { log } ( \frac { C - \operatorname { count } ( t ) + 0.5 } { \operatorname { count } ( t ) + 0.5 } + 1 )$$
    4. 选前 1w 个序列作为候选集（相当于把这些作为训练集 *D*）
 2. Step 2：Query Batching
 
@@ -398,7 +401,7 @@ shutdown 主题，52B Model 最有影响力的数据都是 科幻小说 相关
 
 - 影响力计算公式
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/eea17ae36bad442b97d6021c6183f1dd.png)
+$$I _ { f } ( z _ { m } ) \approx - \nabla _ { \theta } f ( \theta ^ { s } ) ^ { T } ( G + \lambda I ) ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { s } )$$
 
 - $z_m$  表示一条训练数据
 - $\theta^s$  表示训练后的模型（在 $z_m$  组成的训练集上）
@@ -448,24 +451,24 @@ max_influences = sorted(max_influences, key=lambda x: x[2], reverse=True)[:5]
 
 ### Attribution to Layers and Tokens
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/5db863d73a12406e9c648b76c8ea5670.png)
+$$I _ { f } ( z _ { m } ) \approx - \nabla _ { \theta } f ( \theta ^ { s } ) ^ { T } ( G + \lambda I ) ^ { - 1 } \nabla _ { \theta } L ( z _ { m } , \theta ^ { s } )$$
 
 拆分 $\theta^s$  为每一层
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/bd0aa55dd655426abf906b818650d8f0.png)
+$$q = - \nabla _ { \theta } f ( \theta ^ { s } )$$
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/6d245469bcc44e75bd1a39b001b3bb4b.png)
+$$r = \nabla _ { \theta } L ( z _ { m } , \theta ^ { s } )$$
 
 拆分到层
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0bde420e4f424532b5902b666be0a163.png)
+$$I _ { f } ( z _ { m } ) \approx q ^ { T } ( \hat { G } + \lambda I ) ^ { - 1 } r = \sum _ { \ell = 1 } ^ { L } q _ { \ell } ^ { T } ( \hat { G } _ { \ell } + \lambda I ) ^ { - 1 } r _ { \ell }$$
 
 而对于每条训练数据 $z_m$ ，$r$  可以更进一步的拆分为每个 token ( $r =\sum_t r_t$  )，所以有
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/bd32dde061ab4893a8e5c347178e63ea.png)
+$$I _ { f } ( z _ { m } ) \approx \sum _ { \ell = 1 } ^ { L } \sum _ { t = 1 } ^ { T } q _ { \ell } ^ { T } ( \hat { G } _ { \ell } + \lambda I ) ^ { - 1 } r _ { \ell , t }$$
 
 但是对于 token 层级来说，每个 token 都是包含整条数据的信息（之前所有输入的 token），所以并不能独立观察。
 
 额外说明：如果 Predident George Washington 具有影响力，因为预测了 George，则 President （前一个 token）将会高亮显示。
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0b2bafe670a7427a90200dd60de5aa83.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/tracing/0b2bafe670a7427a90200dd60de5aa83.webp)

@@ -124,7 +124,7 @@ class CrossEntropyLoss(torch.autograd.Function):
         # grad_output: 反向传播的梯度
         ... = ctx.saved_tensors
         ...
-		return new_grad_output
+	    return new_grad_output
 ```
 
 #### Forward
@@ -515,7 +515,9 @@ masked_target = target.clone() - vocab_start_index
 masked_target[target_mask] = 0
 ```
 
+
 #### 根据 targets 选择模型真实输出的Logits 
+
 
 将模型的输出和标签 转换为[`bs`*`seq_len`, `vocab_size` // `word_size`]的形式，以便于计算
 ```python
@@ -529,7 +531,9 @@ predicted_logits_1d = logits_2d[arange_1d, masked_target_1d]
 predicted_logits_1d = predicted_logits_1d.clone().contiguous()
 ```
 
+
 #### 计算loss
+
 
 将logits转换为原来的shape，再求和，先得到了最后的第一项，之后再减去log
 ```python

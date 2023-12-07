@@ -2,15 +2,15 @@
 title: 年度推荐软件Tailscale：连接团队设备和开发环境的利器
 date: 2023/04/03 16:41:22
 tags: [Tailscale]
-categories: [软件]
+categories: [Software]
 ---
 本文介绍了 Tailscale 这款软件可以轻松架设异地组网，解决调试难题、实现流量转发和开放服务等多个需求。
 
 <!-- more -->
 
-[Tailscale](https://tailscale.com/)Tailscale connects your team's devices and development environments for easy access to remote resources. （摘自官网）
+[Tailscale](https://tailscale.com/) connects your team's devices and development environments for easy access to remote resources. （摘自官网）
 
-于笔者而言，Tailscale能够用一个软件轻松的解决三大需求。
+于笔者而言，Tailscale 能够用一个软件轻松的解决三大需求。
 
 - 异地组网：软件主打功能。就是将物理位置不同的机器通过该软件，能够使它们处于同一网络环境下，方便远程调试。
 - 流量转发：A机器在A地，可以借助B机器在B地的网络进行上网。

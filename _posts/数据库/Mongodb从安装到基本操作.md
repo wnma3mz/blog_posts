@@ -1,7 +1,7 @@
 ---
 title: Mongodb从安装到基本操作
 date: 2017-11-24 17:12:28
-tags: [mongo, 数据库]
+tags: [mongodb, 数据库]
 categories: [Database]
 mathjax: false
 katex: false
@@ -12,105 +12,103 @@ katex: false
 
 ## 安装Mongodb(Centos7)
 
-1. 官网上找到需要下载的版本压缩包进行下载。[官网链接]( https://fastdl.mongodb.org/linux/)
+1. 官网上找到需要下载的版本压缩包进行下载，[官网链接]( https://fastdl.mongodb.org/linux/)。或者在命令行下使用`wget`命令进行下载
 
-   或者在命令行下使用`wget`命令进行下载
-
-   ```bash
-   # 这里下载的是3.4.10版本
-   wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-3.4.10.tgz
-   ```
+```bash
+# 这里下载的是3.4.10版本
+wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-rhel70-3.4.10.tgz
+```
 
 2. 进行解压缩
 
-   ```bash
-   # 解压缩
-   tar -zxvf mongodb-linux-x86_64*.tgz
-   # 重命名
-   mv mongodb-linux-x86_64* mongodb
-   # 移动到你想放置的目录下，这里我放在/opt目录下
-   mv mongodb /opt/
-   ```
+```bash
+# 解压缩
+tar -zxvf mongodb-linux-x86_64*.tgz
+# 重命名
+mv mongodb-linux-x86_64* mongodb
+# 移动到你想放置的目录下，这里我放在/opt目录下
+mv mongodb /opt/
+```
 
 3. 进行相应的配置，mongodb默认没有任何配置
 
-   ```bash
-   # 进行mongodb主目录
-   cd /opt/
-   # 建立存放数据文件和日志文件的目录
-   mkdir -p data/test/logs
-   mkdir -p data/test/db
-   # 创建配置文件，并写入如下配置
-   vim bin/mongodb.conf
-     `
-       # 设置数据文件的存放目录
-       dbpath = /opt/mongodb/data/test/db
+```bash
+# 进行mongodb主目录
+cd /opt/
+# 建立存放数据文件和日志文件的目录
+mkdir -p data/test/logs
+mkdir -p data/test/db
+# 创建配置文件，并写入如下配置
+vim bin/mongodb.conf
+  `
+    # 设置数据文件的存放目录
+    dbpath = /opt/mongodb/data/test/db
 
-       # 设置日志文件的存放目录及其日志文件名
-       logpath = /opt/mongodb/data/test/logs/mongodb.log
+    # 设置日志文件的存放目录及其日志文件名
+    logpath = /opt/mongodb/data/test/logs/mongodb.log
 
-       # 设置端口号（默认的端口号是27017，可以根据个人需求进行更改）
-       port = 27017
+    # 设置端口号（默认的端口号是27017，可以根据个人需求进行更改）
+    port = 27017
 
-       # 设置为以守护进程的方式运行，即在后台运行
-       fork = true
+    # 设置为以守护进程的方式运行，即在后台运行
+    fork = true
 
-       # 是否不允许表扫描
-       nohttpinterface = true
-     `
-   # 保存退出
-   ```
+    # 是否不允许表扫描
+    nohttpinterface = true
+  `
+# 保存退出
+```
 
 4. 启动mongodb
 
-  ```bash
-  # 以配置文件的方式启动
-  ./bin/mongod --config mongodb.conf
-  ```
+```bash
+# 以配置文件的方式启动
+./bin/mongod --config mongodb.conf
+```
 
-  报错一： `ERROR: child process failed, exited with error number 1`
-  检查mongodb.conf的文件路径是否配置错误
+报错一： `ERROR: child process failed, exited with error number 1`
+检查mongodb.conf的文件路径是否配置错误
 
-  报错二：`ERROR: child process failed, exited with error number 100`
-  很可能是没有正常关闭导致的，那么可以删除 `mongod.lock`文件，这里对应我的配置路径在`data/`里面
+报错二：`ERROR: child process failed, exited with error number 100`
+很可能是没有正常关闭导致的，那么可以删除 `mongod.lock`文件，这里对应我的配置路径在`data/`里面
 
 5. 其他
 
-  ```bash
-  # 链接命令，方便调用mongo命令
-  ln -s /opt/mongodb/bin/mongo /usr/bin
-  # 查看mongodb进程
-  ps -aux |grep mongodb
-  # 检查端口运行情况
-  netstat -lanp | grep 27017
-  # 终止mongodb服务，PID从ps命令获取
-  kill -15 PID
-  # 添加自启动命令
-  vim /etc/rc.local
-  # 末尾追加一行
-  `/opt/mongodb/bin/mongod --config mongodb.conf`
-  # 保存退出
-  ```
+```bash
+# 链接命令，方便调用mongo命令
+ln -s /opt/mongodb/bin/mongo /usr/bin
+# 查看mongodb进程
+ps -aux |grep mongodb
+# 检查端口运行情况
+netstat -lanp | grep 27017
+# 终止mongodb服务，PID从ps命令获取
+kill -15 PID
+# 添加自启动命令
+vim /etc/rc.local
+# 末尾追加一行
+`/opt/mongodb/bin/mongod --config mongodb.conf`
+# 保存退出
+```
 
 6. 设置密码权限，默认无密码
 
-  ```bash
-  # 进行mongodb的交互环境
-  ./mongo
-  # 如果进入失败，请检查是否添加了软链接和是否启动了mongodb服务
+```bash
+# 进行mongodb的交互环境
+./mongo
+# 如果进入失败，请检查是否添加了软链接和是否启动了mongodb服务
 
-  # 进行admin数据库，创建管理员用户root，密码为password，权限是超级用户（最高）
-  >use admin
-  >db.createUser({user:"root",pwd:"password",roles:["root"]})
-  # 验证是否创建成功，返回1表示成功
-  >db.auth({"root", "password"})
-  # 退出交互环境
-  >exit
-  # 重启mongodb服务
-  # 杀死mongodb进程，参照上面的方法
-  # 以密码权限验证启动服务
-  opt/mongodb/mongod --config mongodb.conf --auth
-  ```
+# 进行admin数据库，创建管理员用户root，密码为password，权限是超级用户（最高）
+>use admin
+>db.createUser({user:"root",pwd:"password",roles:["root"]})
+# 验证是否创建成功，返回1表示成功
+>db.auth({"root", "password"})
+# 退出交互环境
+>exit
+# 重启mongodb服务
+# 杀死mongodb进程，参照上面的方法
+# 以密码权限验证启动服务
+opt/mongodb/mongod --config mongodb.conf --auth
+```
 
 ## 使用Python连接Mongodb
 
@@ -248,7 +246,7 @@ mongo数据库至上而下是：`Database`-->`Collections`-->`Documents`。我�
 
 查找`qty`中的`ordered`为12的字段
 
-```bash
+```sql
 db.fruits.find({"qty.ordered": 12})
 ```
 
@@ -256,7 +254,7 @@ db.fruits.find({"qty.ordered": 12})
 
 查找`qty`为5，且`_id`为"apples"的记录
 
-```bash
+```sql
 db.fruits.find({"qty": 5, "_id": "apples"})
 ```
 
@@ -264,7 +262,7 @@ db.fruits.find({"qty": 5, "_id": "apples"})
 
 筛选条件就不说明了，第二个大括号表示打印`_id`字段和`score`字段，不打印其他字段，
 
-```bash
+```sql
 db.fruits.find({"qty": 5}, { "_id": 1 , "score": 1})
 ```
 
@@ -272,7 +270,7 @@ db.fruits.find({"qty": 5}, { "_id": 1 , "score": 1})
 
 下面至上而下分别表示，在`fruits`集合中查找字段`qty`与4的大小关系所有记录。
 
-```bash
+```sql
 db.fruits.find({"qty": 4})          # 等于
 db.fruits.find({"qty": {"$gt": 4}})   # 大于
 db.fruits.find({"qty": {"$lt": 4}})   # 小于
@@ -283,13 +281,13 @@ db.fruits.find({"qty": {"$ne": 4}})   # 不等于
 
 当然，也可以两个比较符一起操作，比如下面这样。
 
-```bash
+```sql
 db.fruits.find({"qty": {"$gt": 3, "$lt": 5}})  # 大于3小于5。
 ```
 
 如果对`score`这个字段使用比较，比如下面这样。
 
-```bash
+```sql
 db.fruits.find({"score": {"$gt": 2, "$lt": 5}})  # 大于3小于5。
 ```
 
@@ -323,13 +321,13 @@ db.fruits.find({"score": {"$gt": 2, "$lt": 5}})  # 大于3小于5。
 }
 ```
 
-###关系
+### 关系
 
 #### $in
 
 查找`_id`字段中包含`5`或者`ObjectId("507c35dd8fada716c89d0013")`的记录
 
-```bash
+```sql
 db.fruits.find({"_id": {"$in":[5, ObjectId("507c35dd8fada716c89d0013")] }})
 ```
 
@@ -339,7 +337,7 @@ db.fruits.find({"_id": {"$in":[5, ObjectId("507c35dd8fada716c89d0013")] }})
 
 查找`links`这个含有数组的字段，找出数组中`Uin`等于124的记录
 
-```bash
+```sql
 db.fruits.find({"links": {"$elemMatch": {"Uin": 124}}})
 ```
 
@@ -349,7 +347,7 @@ db.fruits.find({"links": {"$elemMatch": {"Uin": 124}}})
 
 筛选出记录之后，只打印记录`score`字段的前1条数据
 
-```bash
+```sql
 db.fruits.find({"qty": 5}, {"_id": 1, "score": {"$slice": 1}})
 ```
 
@@ -371,7 +369,7 @@ db.fruits.find({"qty": 5}, {"_id": 1, "score": {"$slice": 1}})
 
 找出`_id`字段中所有以a开头的记录
 
-```bash
+```sql
 db.fruits.find({"_id": {"$regex": "^a"}})
 ```
 
@@ -379,26 +377,26 @@ db.fruits.find({"_id": {"$regex": "^a"}})
 
 #### sort——排序
 
-```bash
+```sql
 db.fruits.find().sort({"qty": 1}) # 升序
 db.fruits.find().sort({"qty": -1}) # 降序
 ```
 
 #### limit——限制
 
-```bash
+```sql
 db.fruits.find().limit(3) # 对查询结果只输出前3个，可以加在sort后面结合使用
 ```
 
 #### skip——跳过
 
-```bash
+```sql
 db.fruits.find().skip(3) # 对查询结果跳过输出前3个，即不输出前3个，可以加在sort后面结合使用
 ```
 
 #### count——计数
 
-```bash
+```sql
 db.fruits.find().count()  # 返回查询结果总数
 ```
 
@@ -406,7 +404,7 @@ db.fruits.find().count()  # 返回查询结果总数
 
 没有怎么看懂，我理解的大概意思就是说，运行根据特定语言来进行查找。感觉用的不多，这里贴上官方给的例子
 
-```bash
+```sql
 db.fruits.find().collation( { locale: "en_US", strength: 1 } )
 ```
 
@@ -441,20 +439,26 @@ db.fruits.find().collation( { locale: "en_US", strength: 1 } )
 ```
 
 #### 返回查找结果的数目
-```bash
+
+```sql
 db.test_db.find({"title": "MongoDB 教程"}).count()
 ```
+
 #### 查找某个key中的数组是否某包含某内容
-```bash
+
+```sql
 db.test_db.find({"tags": {"$in": ["mongodb"]}})
 ```
+
 #### 使用正则进行查找
-```bash
+
+```sql
 db.test_db.find({"url": {"$regex": "^http"}})
 ```
 
 #### 查找某个由数组构成的key方法
-```bash
+
+```sql
 db.test_db.find({"links":{"$elemMatch":{"Uin":12266535,"NickName":"一二三"}}})
 ```
 
@@ -472,3 +476,5 @@ db.test_db.find({"links":{"$elemMatch":{"Uin":12266535,"NickName":"一二三"}}}
 | 超级用户角色       | root                                     |
 | 提供了系统超级用户的访问 | dbOwner 、userAdmin、userAdminAnyDatabase  |
 | 内部角色         | __system                                 |
+
+下一篇：{% post_link 数据库/Mongodb二 %}

@@ -8,13 +8,13 @@ categories: [Note]
 
 <!-- more -->
 
-完整的项目代码均开源: https://github.com/wnma3mz/birthday_in_pi
+完整的项目代码均开源: [https://github.com/wnma3mz/birthday_in_pi](https://github.com/wnma3mz/birthday_in_pi)
 
 ## 想法
 
 于我而言，很多项目的出发点都是源于浏览东西时所想，觉得有意思就去实现。比如这次是在即刻上看到北大数院公众号，可以回复生日（如20000101）就可以知道这串数字在Pi的第多少位出现。更详细的例子：已知3.1415926...，那么1415就是出现在第1位（从1开始计数，小数点后开始计数）。但该公众号仅在Pi的2亿位数中进行查找，所以有即友回复，搜不到结果。故想到可以试试更长的数据集是否能够搜到。
 
-**Background Knowledge**
+**背景知识**
 
 理论上，Pi里面可以查找所有人的电话号码、生日、银行卡密码等等。
 
