@@ -246,4 +246,4 @@ hadoop fs -ls /
 hadoop fs -get <hdfs上的路径> <linux上文件>
 ```
 
-下一篇：{% post_link 在Hadoop基础上Hive的安装 %}
+下一篇：{% post_link 环境安装/在Hadoop基础上Hive的安装 %}

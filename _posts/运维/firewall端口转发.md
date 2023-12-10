@@ -4,11 +4,11 @@ date: 2020-08-08 15:15:23
 tags: [Linux, 端口转发, ssh, iptables, firewall, ufw, netsh]
 categories: [Software]
 ---
-如何通过防火墙本机端口转发来实现SSH跳板登录。继 {% post_link ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
+如何通过防火墙本机端口转发来实现SSH跳板登录。继 {% post_link 运维/ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
 
 <!-- more -->
 
-继 {% post_link ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
+继 {% post_link 运维/ssh 'ssh 笔记（端口转发）' %}，根据新的需求衍生出新技巧
 
 ### 需求
 
@@ -21,7 +21,7 @@ categories: [Software]
 
 ### 先验知识
 
-1. {% post_link ssh 'ssh 笔记（端口转发）' %}
+1. {% post_link 运维/ssh 'ssh 笔记（端口转发）' %}
 2. 防火墙配置
    1. iptables（Centos7之前自带）
    2. firewall（Centos7之后自带）
