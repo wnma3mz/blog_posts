@@ -357,8 +357,6 @@ def func(x, kvcache):
 
 - 比如总共 10 个 prompt token，现在一次性生成 10 个 token 的 kv cache。期望分两次各生成前 5 个和后 5 个的 token，将 kv cache 拼起来，得到的结果不一致
 
-TODO
-
-cpp CUDA 操作
+相关文章：{% post_link PyTorch/pytorch_cpp_extension.md %}
 
 xops.memory_efficient_attention_forward 学习

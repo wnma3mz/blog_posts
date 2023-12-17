@@ -5,8 +5,9 @@ tags: [PyTorch, Cpp, CUDA]
 categories: [DeepLearning]
 mathjax: true
 ---
-
 从零开始，用 Cpp 写 PyTorch 的插件，包括 CPU 和 GPU 的版本。
+
+[代码](https://github.com/wnma3mz/pytorch_cuda_extension)
 
 <!-- more -->
 
@@ -36,6 +37,7 @@ attention
 ├── setup.py
 └── __init__.py
 ```
+
 #### Python 部分
 
 核心代码在 `attention.cpp` 中 ，首先在 `setup.py` 中添加如下代码：
@@ -54,7 +56,7 @@ setup(
     })
 ```
 
-这样，就可以用 `python setup.py install` 来安装插件了。或者用`pip install -e attention` 以便于快速调试
+这样，就可以用 `python setup.py install` 来安装插件了。或者用 `pip install -e attention` 以便于快速调试
 
 在 `__init__.py` 中导入 `attention` 模块，以在 Python 中调用 `forward` 函数，直接计算 attention。
 
@@ -64,13 +66,13 @@ from .attention import forward
 
 #### Cpp 部分
 
-接下来，我们需要在 `attention.cpp` 中实现 `forward` 函数，为进行区分，这里使用这个函数名称`attention_forward` ，这个函数的输入是 q、k、v 三个`Tensor`，输出是 `torch::Tensor`。而具体的计算步骤可以拆解为三个步骤：
+接下来，我们需要在 `attention.cpp` 中实现 `forward` 函数，为进行区分，这里使用这个函数名称 `attention_forward` ，这个函数的输入是 q、k、v 三个 `Tensor`，输出是 `torch::Tensor`。而具体的计算步骤可以拆解为三个步骤：
 
 1. 矩阵的乘法
 2. softmax
 3. 矩阵的乘法
 
-使用`PYBIND11_MODULE`把`attention_forward`函数暴露出去，绑定到`forward`上，这样就能用`forward`函数来调用`attention_forward`。整合后的完整代码如下，
+使用 `PYBIND11_MODULE`把 `attention_forward`函数暴露出去，绑定到 `forward`上，这样就能用 `forward`函数来调用 `attention_forward`。整合后的完整代码如下，
 
 ```cpp
 #include <torch/extension.h>
@@ -164,7 +166,7 @@ torch::Tensor my_matmul(const torch::Tensor &a, const torch::Tensor &b) {
 
 #### softmax
 
-由于`softmax`函数比较特殊，后续会结合算子融合一起优化，所以简单的对其进行展开。用`torch::exp`和`torch::sum`实现了一遍，为了方便也可以直接使用`torch::softmax(scores, 1)`
+由于 `softmax`函数比较特殊，后续会结合算子融合一起优化，所以简单的对其进行展开。用 `torch::exp`和 `torch::sum`实现了一遍，为了方便也可以直接使用 `torch::softmax(scores, 1)`
 
 ```cpp
 torch::Tensor my_softmax(const torch::Tensor& scores) {
@@ -174,7 +176,7 @@ torch::Tensor my_softmax(const torch::Tensor& scores) {
 }
 ```
 
-但把这两个函数替换到`attention_forward`函数中后，再次运行`compare_time`函数，发现手写的 Cpp 版本的实现要比 Python 版本的实现慢。为什么？因为，当前只是简单的实现了矩阵乘法和 softmax，而 PyTorch 中的矩阵乘法和 softmax 都是经过优化的，所以速度会更快。
+但把这两个函数替换到 `attention_forward`函数中后，再次运行 `compare_time`函数，发现手写的 Cpp 版本的实现要比 Python 版本的实现慢。为什么？因为，当前只是简单的实现了矩阵乘法和 softmax，而 PyTorch 中的矩阵乘法和 softmax 都是经过优化的，所以速度会更快。
 
 另外，使用原生的矩阵乘法和 softmax 函数，可以在 GPU 上运行，而手写的矩阵乘法和 softmax 函数，只能在 CPU 上运行。因此，接下来将其改造为 GPU 版本，然后再进行优化。
 
@@ -194,7 +196,7 @@ setup(
         CUDAExtension('attention', [
             'attention.cpp',
             'attention_kernel.cu',
-        ])        
+        ])      
     ],
     cmdclass={
         'build_ext': BuildExtension
@@ -203,8 +205,7 @@ setup(
 
 #### Cpp 部分
 
-为了兼容之前的代码，这里将之前的`attention_forward`更新为`attention_cpu_forward`，同时加了一个类型判断，如果输入的`Tensor`不在同一个设备上，则抛出异常。而对于`attention_cuda_forward`的实现需要在`attention_kernel.cu`中实现。注意：这里需要提前定义好`attention_cuda_forward`函数，否则会报错。
-
+为了兼容之前的代码，这里将之前的 `attention_forward`更新为 `attention_cpu_forward`，同时加了一个类型判断，如果输入的 `Tensor`不在同一个设备上，则抛出异常。而对于 `attention_cuda_forward`的实现需要在 `attention_kernel.cu`中实现。注意：这里需要提前定义好 `attention_cuda_forward`函数，否则会报错。
 
 ```cpp
 #include <torch/extension.h>
@@ -270,13 +271,13 @@ PYBIND11_MODULE(TORCH_EXTENSION_NAME, m) {
 
 #### Cu 部分
 
-在同级目录下，创建`attention_kernel.cu`文件。首先实现`attention_cuda_forward`函数的主要逻辑。其中，主要对矩阵乘法进行了优化，使用了 CUDA 的并行计算。然后，使用`AT_DISPATCH_FLOATING_TYPES`宏来实现对不同类型的支持，这样就可以支持`float`和`double`类型了。
+在同级目录下，创建 `attention_kernel.cu`文件。首先实现 `attention_cuda_forward`函数的主要逻辑。其中，主要对矩阵乘法进行了优化，使用了 CUDA 的并行计算。然后，使用 `AT_DISPATCH_FLOATING_TYPES`宏来实现对不同类型的支持，这样就可以支持 `float`和 `double`类型了。
 
-对于`matrix_multiply`函数，与一般写法不同的是，需要提前创建好输出的`Tensor`，然后再传入到 CUDA 的函数中。并且需要创建好`blocks`和`threads`，然后再调用 CUDA 的函数。这里指定了每个 CUDA 是有 16 x 16 线程的块，而这些块是可以并行计算的，所以能够加速计算。可参考 [An Even Easier Introduction to CUDA](https://devblogs.nvidia.com/even-easier-introduction-cuda)
+对于 `matrix_multiply`函数，与一般写法不同的是，需要提前创建好输出的 `Tensor`，然后再传入到 CUDA 的函数中。并且需要创建好 `blocks`和 `threads`，然后再调用 CUDA 的函数。这里指定了每个 CUDA 是有 16 x 16 线程的块，而这些块是可以并行计算的，所以能够加速计算。可参考 [An Even Easier Introduction to CUDA](https://devblogs.nvidia.com/even-easier-introduction-cuda)
 
-而在传递参数的时候，需要使用`packed_accessor`。这里的`packed_accessor`的第一个参数是`Tensor`的类型，第二个参数是`Tensor`的维度，第三个参数是`Tensor`的类型，第四个参数是`Tensor`的维度。这里的`packed_accessor`的第三个参数和第四个参数，是为了支持 CUDA 的。
+而在传递参数的时候，需要使用 `packed_accessor`。这里的 `packed_accessor`的第一个参数是 `Tensor`的类型，第二个参数是 `Tensor`的维度，第三个参数是 `Tensor`的类型，第四个参数是 `Tensor`的维度。这里的 `packed_accessor`的第三个参数和第四个参数，是为了支持 CUDA 的。
 
-接下来就是实现`matrix_multiply_kernel`。矩阵的乘法中，如果要计算输出矩阵的第一个值，则需要用到输入矩阵的第一行和第一列。因此，这里需要根据`block`和`thread`的索引，来计算出对应的行和列。然后，就是普通的矩阵乘法的实现了。原来的矩阵乘法的实现是：
+接下来就是实现 `matrix_multiply_kernel`。矩阵的乘法中，如果要计算输出矩阵的第一个值，则需要用到输入矩阵的第一行和第一列。因此，这里需要根据 `block`和 `thread`的索引，来计算出对应的行和列。然后，就是普通的矩阵乘法的实现了。原来的矩阵乘法的实现是：
 
 ```python
 out = [[0 for _ in range(n)] for _ in range(m)]
@@ -286,7 +287,7 @@ for i in range(m):
             out[i][j] += input1[i][k] * input2[k][j]
 ```
 
-相当于把外面两个循环分别交给了 CUDA 的`block`和`thread`来计算。这样，就可以实现并行计算了。
+相当于把外面两个循环分别交给了 CUDA 的 `block`和 `thread`来计算。这样，就可以实现并行计算了。
 
 ```cpp
 #include <torch/extension.h>
@@ -403,14 +404,14 @@ CUDA 中依旧存在类似的概念
 - 对于加速访问，在无法控制硬件的前提下，只能通过并行的方式同时读取数据。
 - 对于减小占用空间，可以通过拆分矩阵，把大矩阵拆分成若干小矩阵，然后再进行计算。
 
-重新思考矩阵`output`的计算过程，每个元素的计算其实是独立的，其本质可以拆成若干独立的小块，如下图所示：
+重新思考矩阵 `output`的计算过程，每个元素的计算其实是独立的，其本质可以拆成若干独立的小块，如下图所示：
 
-![](https://penny-xu.github.io/setup-2d0f22ecd2e9b7c84af56792d14ba18a.gif)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/pytorch_cuda_ext/setup-2d0f22ecd2e9b7c84af56792d14ba18a.gif?raw=true)
 From https://penny-xu.github.io/blog/tiled-matrix-multiplication
 
-由于矩阵`output`每个元素是完全独立的，可以将其拆成若干个小矩阵来计算。如上图所示，把矩阵`output` 拆成了 4 个小矩阵。对应的代码如下所示：
+由于矩阵 `output`每个元素是完全独立的，可以将其拆成若干个小矩阵来计算。如上图所示，把矩阵 `output` 拆成了 4 个小矩阵。对应的代码如下所示：
 
-![](../../imgs/pytorch_cuda_ext/block_matrix.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/pytorch_cuda_ext/block_matrix.png)
 
 ```python
 import torch
@@ -441,7 +442,7 @@ print(A1 @ A2)
 assert torch.allclose(output, A1 @ A2)
 ```
 
-对于，左上角矩阵`output11`，实际上是由`block_size`个矩阵乘法，再求和得到的`output11 = matmul(A1[:block_M, :block_N], A2[:block_N, :block_K]) + matmul(A1[:block_M, block_N:], A2[block_N:, :block_K])`。再把它扩展的灵活一点
+对于，左上角矩阵 `output11`，实际上是由 `block_size`个矩阵乘法，再求和得到的 `output11 = matmul(A1[:block_M, :block_N], A2[:block_N, :block_K]) + matmul(A1[:block_M, block_N:], A2[block_N:, :block_K])`。再把它扩展的灵活一点
 
 1. 不局限于只能扩展为 2 $\times$ 2 矩阵
 2. block_size 可以针对 M, N, K 进行调整
@@ -484,7 +485,7 @@ print(A1 @ A2)
 assert torch.allclose(matmul(A1, A2), A1 @ A2)
 ```
 
-![](https://penny-xu.github.io/tmm-59dd890f48435e692c47919d0df4a5e6.gif)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/pytorch_cuda_ext/tmm-59dd890f48435e692c47919d0df4a5e6.gif)
 From https://penny-xu.github.io/blog/tiled-matrix-multiplication
 
 再次回顾这样做的目的，[原作者](https://penny-xu.github.io/blog/tiled-matrix-multiplication)是这么说的：
@@ -495,10 +496,10 @@ From https://penny-xu.github.io/blog/tiled-matrix-multiplication
 
 简而言之，作者的观点是通过拆成 block 的形式，能够并行的读取全局内存数据。个人观点，在某些情况下，拆分后的 block 可以恰好把数据放到共享内存中，以加速计算？
 
-最后，对于`block size`大小的选择：
+最后，对于 `block size`大小的选择：
 
-- 越大的`block size`表示拆分后的矩阵个数变少，这样访问全局内存的次数会更多。但是，每个矩阵比较大，这样线程的并行度会更高。即，IO变小，计算变快。
-- 越小的`block size`表示拆分后的矩阵个数变多，这样访问全局内存的次数会更少。但是，每个矩阵比较小，这样线程的并行度会更低。即，IO变大，计算变慢。
+- 越大的 `block size`表示拆分后的矩阵个数变少，这样访问全局内存的次数会更多。但是，每个矩阵比较大，这样线程的并行度会更高。即，IO变小，计算变快。
+- 越小的 `block size`表示拆分后的矩阵个数变多，这样访问全局内存的次数会更少。但是，每个矩阵比较小，这样线程的并行度会更低。即，IO变大，计算变慢。
 
 ## 算子融合
 
@@ -536,7 +537,7 @@ assert torch.allclose(torch.softmax(X, dim=1), my_softmax(X, dim=1))
 
 但这样跟矩阵乘法进行算子融合是没有优势的，两个函数还是独立计算的。算子融合是需要糅合两种计算操作。所以，需要把 softmax 函数放到矩阵乘法中进行计算。即将计算过程变成一个可迭代的过程，换而言之，随着元素的增加不断更新 softmax 的结果。
 
-[Online normalizer calculation for softmax](https://arxiv.org/pdf/1805.02867.pdf) 提供了这么一种方式。简单起见，从一个元素开始介绍。现在有一个列表，里面只有一个元素`[1]`，其 softmax 计算过程为：
+[Online normalizer calculation for softmax](https://arxiv.org/pdf/1805.02867.pdf) 提供了这么一种方式。简单起见，从一个元素开始介绍。现在有一个列表，里面只有一个元素 `[1]`，其 softmax 计算过程为：
 
 1. exp: 计算 $e^{1}$，得到 $[e^{1}]$
 2. max: 计算 `max(1)`，得到 `1`
@@ -544,7 +545,7 @@ assert torch.allclose(torch.softmax(X, dim=1), my_softmax(X, dim=1))
 4. sum: 计算 $e^{1- 1} $ 的和，得到 $e^{1- 1} $
 5. softmax: 计算 $[e^{1- 1} ] / (e^{1- 1} )$，得到 $[1]$
 
-现在增加一个元素，观察有哪些变化。假设增加的元素为 2，现在有一个列表，里面有两个元素`[1, 2]`，新增的 softmax 计算过程为：
+现在增加一个元素，观察有哪些变化。假设增加的元素为 2，现在有一个列表，里面有两个元素 `[1, 2]`，新增的 softmax 计算过程为：
 
 1. exp: 计算 $e^{2}$，得到 $e^{2}$
 2. max: 与原来的 `max(1)=1` 比较，得到 `max(1, 2)`，得到 `2`
@@ -552,7 +553,7 @@ assert torch.allclose(torch.softmax(X, dim=1), my_softmax(X, dim=1))
 4. sum: 重新计算一遍结果
 5. softmax: 计算 $[e^{1- 2}, e^{2 - 2}] / (e^{1 - 2} + e^{2 - 2})$
 
-对比发现，第 3 步会导致重新第 4 步计算一遍求和结果，但这个求和结果在第 5 步中作为分母是可以灵活调整的。原来是$e^{1-1}$，现在更新为$e^{1-2}+e^{2-2}$。假设原来的最大值为`old_max`，新的最大值为`new_max`，原来的元素为`old_v`，则原来元素的`exp`结果可以更新为
+对比发现，第 3 步会导致重新第 4 步计算一遍求和结果，但这个求和结果在第 5 步中作为分母是可以灵活调整的。原来是$e^{1-1}$，现在更新为$e^{1-2}+e^{2-2}$。假设原来的最大值为 `old_max`，新的最大值为 `new_max`，原来的元素为 `old_v`，则原来元素的 `exp`结果可以更新为
 
 $$
 e^{old\_v-old\_max} \rightarrow e^{old\_v-old\_max+old\_max-new\_max} = e^{old\_v-old\_max} \times e^{old\_max-new\_max}
@@ -577,7 +578,7 @@ softmax_nums = [np.exp(num-max_v)/ norm_v for num in nums]
 
 $$
 \begin{aligned}
-e^{v1-old\_max}+e^{v2-old\_max} &\rightarrow e^{v1-old\_max+old\_max-new\_max}+e^{v2-old\_max+old\_max-new\_max} \\ &= e^{v1-old\_max} \times e^{old\_max-new\_max} + e^{v2-old\_max} \times e^{old\_max-new\_max} \\ &= (e^{v1-old\_max} - e^{v2-old\_max}) \times e^{old\_max-new\_max}
+e^{v1-old\_max}+e^{v2-old\_max} &\rightarrow e^{v1-new\_max}+e^{v2-new\_max} \\ &= e^{v1-old\_max+old\_max-new\_max}+e^{v2-old\_max+old\_max-new\_max} \\  \\ &= e^{v1-old\_max} \times e^{old\_max-new\_max} + e^{v2-old\_max} \times e^{old\_max-new\_max} \\ &= (e^{v1-old\_max} - e^{v2-old\_max}) \times e^{old\_max-new\_max}
 \end{aligned}
 $$
 
@@ -632,10 +633,10 @@ def matmul_softmax(A1, A2):
     output = torch.zeros(size=(A1.shape[0], A2.shape[1]))
     for i in range(A1.shape[0]):
         row_max = 0.0
-        normalizer_term = 0.0    
+        normalizer_term = 0.0  
         for j in range(A2.shape[1]):
             val = output[i, j] = sum(map(lambda x: x[0] * x[1], zip(A1[i], A2[:, j])))
-            
+          
             old_row_max = row_max
             row_max = max(old_row_max, val)
             normalizer_term = normalizer_term * np.exp(old_row_max - row_max) + np.exp(val - row_max)
@@ -661,7 +662,7 @@ def block_matmul(sub_A1, sub_A2):
     for i in range(sub_A1.shape[0]):
         for j in range(sub_A2.shape[1]):
             for k in range(sub_A2.shape[0]):
-                output[i][j] += sub_A1[i][k] * sub_A2[k][j]              
+                output[i][j] += sub_A1[i][k] * sub_A2[k][j]            
     return output
 
 
@@ -685,7 +686,7 @@ def tiled_matmul_softmax(A1, A2):
                 output[start_i:end_i, start_j:end_j] += block_matmul(sub_A1, sub_A2)
 
             # 这里算完了每个block的结果，所以需要将其拆分成每个block，然后再计算softmax
-            for ii, row in enumerate(range(start_i, end_i)):              
+            for ii, row in enumerate(range(start_i, end_i)):            
                 for jj, col in enumerate(range(start_j, end_j)):
                     val = output[row][col]
                     old_row_max[ii][jj] = row_max[ii][jj]
@@ -707,7 +708,7 @@ assert torch.allclose(torch.softmax(A1 @ A2, dim=1), tiled_matmul_softmax(A1, A2
 
 由于这里是每次计算出来是一个 block ，所以要把 block 拆分出每个元素，计算 block 中每行每列的最大值 row_max 以及分母 normalizer_term。
 
-最后在计算 softmax 时，要计算所有 block 的最大值`torch.max(row_max, dim=1)`，还需要计算分母，这里需要考虑所有的 block，可以类比于合并计算`[1, 2]`, `[3, 4]`两个列表的normalizer_term 。已知对应的 normalizer_term $e^{1-2}+e^{2-2}$ 和 $e^{3-4}+e^{3-4}$，合并后的结果应当是 $e^{1-4}+e^{2-4}+e^{3-4}+e^{3-4}$。将其公式化写作：
+最后在计算 softmax 时，要计算所有 block 的最大值 `torch.max(row_max, dim=1)`，还需要计算分母，这里需要考虑所有的 block，可以类比于合并计算 `[1, 2]`, `[3, 4]`两个列表的normalizer_term 。已知对应的 normalizer_term $e^{1-2}+e^{2-2}$ 和 $e^{3-4}+e^{3-4}$，合并后的结果应当是 $e^{1-4}+e^{2-4}+e^{3-4}+e^{3-4}$。将其公式化写作：
 
 $$
 \begin{aligned}
@@ -715,16 +716,379 @@ $$
 \end{aligned}
 $$
 
-假设`max(x,y)=max(x)`，那么对应项将乘 1，这并不会对结果有任何影响。对应的代码为：
+假设 `max(x,y)=max(x)`，那么对应项将乘 1，这并不会对结果有任何影响。对应的代码为：
 
 ```python
 sum_ = torch.sum(normalizer_term[ii] * torch.exp(row_max[ii] - row_max_v[ii]))
 ```
 
-至此，完成了矩阵乘法和 softmax 的融合。接下来，会实现 cpp 和 cuda 版本以对比性能。
+至此，完成了矩阵乘法和 softmax 的融合。接下来，会实现 cuda 版本以对比性能。
+
+### Cuda 实现
+
+首先，接着之前矩阵乘法的cuda实现，
+
+```cpp
+    if (row < input1.size(0) && col < input2.size(1)) {
+        scalar_t value = 0.0;
+        for (int k = 0; k < input1.size(1); ++k) {
+            value += input1[row][k] * input2[k][col];
+        }
+        output[row][col] = value
+    }
+```
+
+在循环之后，已经计算完了输出矩阵中的一项。需要继续算每行的 `row_max`和 `normalizer_term`。但由于这里是 cuda 中的某个 block，所以需要借助共享内存来通信每行的结果。
+
+```cpp
+        // 使用共享内存，计算每个 row 的最大值
+        __shared__ scalar_t row_max[16][16];
+        __shared__ scalar_t normalizer_term[16][16];
+        row_max[threadIdx.y][threadIdx.x] = value; // 先把计算结果放到 row_max 中，以便于比较大小
+        __syncthreads(); // 这行代码是为了保证每个线程都已经计算完了，才能进行下一步的操作
+```
+
+计算过程分为三个步骤：1. 找到每行的最大值
+
+```cpp
+        for (int i = blockDim.x / 2; i > 0; i /= 2) {
+            if (threadIdx.x < i) {
+                row_max[threadIdx.y][threadIdx.x] = max(row_max[threadIdx.y][threadIdx.x], row_max[threadIdx.y][threadIdx.x + i]);
+            }
+            __syncthreads();
+        }
+```
+
+2. 计算每行的 softmax 的分母每项组成
+
+```cpp
+        normalizer_term[threadIdx.y][threadIdx.x] = exp(value - row_max[threadIdx.y][0]);
+        __syncthreads();
+```
+
+3. 计算每行的 softmax 的每项之后
+
+```cpp
+        for (int i = blockDim.x / 2; i > 0; i /= 2) {
+            if (threadIdx.x < i) {
+                normalizer_term[threadIdx.y][threadIdx.x] += normalizer_term[threadIdx.y][threadIdx.x + i];
+            }
+            __syncthreads();
+        }
+        // 最后将其更新到输出矩阵中
+        output[row][col] = exp(value - row_max[threadIdx.y][0]) / normalizer_term[threadIdx.y][0];
+```
+
+完整代码如下（这里没有实现完整的attention，仅仅是一个矩阵乘法 + softmax 计算）：
+
+```cpp
+#include <torch/extension.h>
+
+#include <cuda.h>
+#include <cuda_runtime.h>
+
+#include <vector>
+
+// Matrix multiply kernel
+template <typename scalar_t>
+__global__ void matrix_multiply_kernel(const torch::PackedTensorAccessor<scalar_t,2,torch::RestrictPtrTraits,size_t> input1,
+                                       const torch::PackedTensorAccessor<scalar_t,2,torch::RestrictPtrTraits,size_t> input2,
+                                       torch::PackedTensorAccessor<scalar_t,2,torch::RestrictPtrTraits,size_t> output) {
+    int row = blockIdx.y * blockDim.y + threadIdx.y;
+    int col = blockIdx.x * blockDim.x + threadIdx.x;
+
+    if (row < input1.size(0) && col < input2.size(1)) {
+        scalar_t value = 0.0;
+        for (int k = 0; k < input1.size(1); ++k) {
+            value += input1[row][k] * input2[k][col];
+        }
+
+        // 使用共享内存，计算每个 row 的最大值
+        __shared__ scalar_t row_max[16][16];
+        __shared__ scalar_t normalizer_term[16][16];
+        row_max[threadIdx.y][threadIdx.x] = value;
+        __syncthreads();
+
+        for (int i = blockDim.x / 2; i > 0; i /= 2) {
+            if (threadIdx.x < i) {
+                row_max[threadIdx.y][threadIdx.x] = max(row_max[threadIdx.y][threadIdx.x], row_max[threadIdx.y][threadIdx.x + i]);
+            }
+            __syncthreads();
+        }
+        // 计算每个 row 的 softmax 的分母
+        normalizer_term[threadIdx.y][threadIdx.x] = exp(value - row_max[threadIdx.y][0]);
+
+        __syncthreads();
+        // 计算每个 row  normalizer_term之和
+        for (int i = blockDim.x / 2; i > 0; i /= 2) {
+            if (threadIdx.x < i) {
+                normalizer_term[threadIdx.y][threadIdx.x] += normalizer_term[threadIdx.y][threadIdx.x + i];
+            }
+            __syncthreads();
+        }
+
+        // 计算每个 row 的 softmax
+        output[row][col] = exp(value - row_max[threadIdx.y][0]) / normalizer_term[threadIdx.y][0];
+    }
+}
+
+torch::Tensor matrix_multiply(torch::Tensor input1, torch::Tensor input2) {
+    int rows1 = input1.size(0);
+    int cols1 = input1.size(1);
+    int cols2 = input2.size(1);
+
+    auto options = torch::TensorOptions().device(input1.device());
+    torch::Tensor output = torch::zeros({rows1, cols2}, options);
+
+    const dim3 threads(16, 16);
+    const dim3 blocks((cols2 + threads.x - 1) / threads.x,
+                      (rows1 + threads.y - 1) / threads.y);
+
+    AT_DISPATCH_FLOATING_TYPES(input1.scalar_type(), "matrix_multiply_kernel", ([&] {
+        matrix_multiply_kernel<<<blocks, threads>>>(
+            input1.packed_accessor<scalar_t,2,torch::RestrictPtrTraits,size_t>(),
+            input2.packed_accessor<scalar_t,2,torch::RestrictPtrTraits,size_t>(),
+            output.packed_accessor<scalar_t,2,torch::RestrictPtrTraits,size_t>());
+    }));
+
+    return output;
+}
+
+
+// 这里偷懒没有换名字
+std::vector<torch::Tensor> attention_cuda_forward(
+    torch::Tensor q,
+    torch::Tensor k,
+    torch::Tensor v) {
+
+    torch::Tensor scores = matrix_multiply(q, k);
+    return {scores};
+}
+```
+
+测试代码如下
+
+```python
+import torch
+
+import mulsoftmax
+import timeit
+
+seed = 42
+torch.manual_seed(seed)
+torch.cuda.manual_seed(seed)
+
+def my_py_softmax(x, dim):
+    e = torch.exp(x)
+    s = torch.sum(e, dim=dim, keepdim=True)
+    return e / s
+
+def py_mulsoft(q, k, v):
+    # print(q@k.T)
+    return torch.softmax(q @ k.T, dim=1)
+
+def check_forward(q, k, v):
+    baseline_values = py_mulsoft(q, k, v)
+    cpp_values = mulsoftmax.forward(q, k, v)[0]
+
+    print("base o", baseline_values)
+    print("cpp  o", cpp_values)
+    print(torch.all(torch.isclose(baseline_values, cpp_values)))
+
+def compare_time(loop=100):
+    q, k, v = torch.rand(size=(m, n), device=device), torch.rand(size=(m, n), device=device), torch.rand(size=(m, n), device=device)
+    print("py", timeit.timeit(lambda: py_mulsoft(q, k, v), number=loop))
+    print("cpp", timeit.timeit(lambda: mulsoftmax.forward(q, k, v)[0], number=loop))
+
+if __name__ == "__main__":
+    m, n = 16, 40
+    device = "cuda"
+    q, k, v = torch.rand(size=(m, n), device=device), torch.rand(size=(m, n), device=device), torch.rand(size=(m, n), device=device)
+    # 先检查结果是否正确
+    check_forward(q, k, v)
+    q, k, v = torch.rand(size=(m, n)), torch.rand(size=(m, n)), torch.rand(size=(m, n))
+    # 循环1w次，对比性能差距
+    compare_time(10000)
+```
+
+输出结果如下：
+
+|   | py     | cuda   |
+| - | ------ | ------ |
+| 0 | 0.5136 | 0.2909 |
+| 1 | 0.6143 | 0.3322 |
+| 2 | 0.7300 | 0.3608 |
+
+
+### 其他实现
+
+#### 二维矩阵转一维矩阵，实现矩阵乘法
+
+在某些情况下，为了降低空间复杂度，会把二维矩阵展开为一维矩阵，再进行矩阵乘法。这里在这个基础上，再实现了 softmax 的计算。其本质上是把二维矩阵转为一维矩阵，再进行矩阵乘法。原来的`input1[row][k]` -> `input1[row * K + k]`，`input2[k][col]` -> `input2[k * N + col]`。但这里暂时不好实现 softmax 融合，因为 softmax 需要计算每行的最大值，这里的一维矩阵无法直接计算每行的最大值。所以这里偷懒先使用判断的方法，如果是最后一列，则计算 softmax。因此，导致算的速度会比较慢。
+
+```cpp
+#include <torch/extension.h>
+#include <cuda.h>
+#include <cuda_runtime.h>
+
+#include <vector>
+
+#DEFINE BLOCK_SIZE 256;
+
+template <typename scalar_t>
+__global__ void matrix_multiply_vector_kernel(const torch::PackedTensorAccessor<scalar_t,1,torch::RestrictPtrTraits,size_t> input1,
+                                       const torch::PackedTensorAccessor<scalar_t,1,torch::RestrictPtrTraits,size_t> input2,
+                                       torch::PackedTensorAccessor<scalar_t,1,torch::RestrictPtrTraits,size_t> output,
+                                       const int M, const int N, const int K
+                                       ) {
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = index / N;
+    int col = index % N;
+
+    if (row < M && col < N) {
+        float value = 0.0;
+        for (int k = 0; k < K; ++k) {
+            value += input1[row * K + k] * input2[k * N + col];
+        }
+        output[row * N + col] = value;
+        if (col == N - 1) {
+            float row_max = 0.0;
+            float normalizer_term = 0.0;        
+            float old_row_max = 0.0;
+            for (int i = 0; i < N; ++i) {
+                old_row_max = row_max;
+                row_max = max(row_max, output[row * N + i]);
+                normalizer_term = normalizer_term * exp(old_row_max - row_max) + exp(output[row * N + i] - row_max);
+            }
+            for (int i = 0; i < N; ++i) {
+                output[row * N + i] = exp(output[row * N + i] - row_max) / normalizer_term;
+            }
+        }
+    }
+}
+
+std::vector<torch::Tensor> matmul_vector(torch::Tensor input1, torch::Tensor input2) {
+    int M = input1.size(0);
+    int K = input1.size(1);
+    int N = input2.size(1);
+
+    auto options = torch::TensorOptions().device(input1.device());
+    
+    const dim3 threads(BLOCK_SIZE);
+    const dim3 blocks((M * N + threads.x - 1) / threads.x);
+
+    // Reshape input tensors to vectors
+    auto input1_vector = input1.reshape({-1});
+    auto input2_vector = input2.reshape({-1});    
+    torch::Tensor output_vector = torch::zeros({M * N}, options);
+
+    AT_DISPATCH_FLOATING_TYPES(input1_vector.scalar_type(), "matrix_multiply_vector_kernel", ([&] {
+        matrix_multiply_vector_kernel<<<blocks, threads>>>(
+            input1_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            input2_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            output_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            M, N, K
+        );
+    }));
+    return {output_vector.reshape({M, N}), output_vector.reshape({M, N})};
+}
+
+std::vector<torch::Tensor> attention_cuda_forward(
+    torch::Tensor q,
+    torch::Tensor k,
+    torch::Tensor v) {
+
+    return matmul_vector(q, k);
+}
+```
+
+输出结果如下：
+
+|   | py     | cuda   |
+| - | ------ | ------ |
+| 0 | 0.4239 | 0.4907 |
+| 1 | 0.5069 | 0.4388 |
+| 2 | 0.5462 | 0.5799 |
+
+尽管用了一种比较笨的方法，但是速度实际上与原生的 pytorch 相差无几。
+
+#### 单独实现 softmax
+
+相较于非算子融合的写法，这里实现了一维矩阵的 softmax。相当于在计算矩阵乘法后再算 softmax。比较朴素的写法。。。
+
+```cpp
+template <typename scalar_t>
+__global__ void softmax_kernel(torch::PackedTensorAccessor<scalar_t,1,torch::RestrictPtrTraits,size_t> output,
+                                 const int M, const int N) {
+    int index = blockIdx.x * blockDim.x + threadIdx.x;
+    int row = index / N;
+
+    if (row < M) {
+        float row_max = 0.0;
+        float normalizer_term = 0.0;        
+        float old_row_max = 0.0;
+
+        for (int i = 0; i < N; ++i) {
+            old_row_max = row_max;
+            row_max = max(row_max, output[row * N + i]);
+            normalizer_term = normalizer_term * exp(old_row_max - row_max) + exp(output[row * N + i] - row_max);
+        }
+
+        for (int i = 0; i < N; ++i) {
+            output[row * N + i] = exp(output[row * N + i] - row_max) / normalizer_term;
+        }
+    }
+}
+
+torch::Tensor matrix_softmax_vector_softmax(torch::Tensor input1, torch::Tensor input2) {
+    int M = input1.size(0);
+    int K = input1.size(1);
+    int N = input2.size(1);
+
+    auto options = torch::TensorOptions().device(input1.device());
+    
+    const dim3 threads(BLOCK_SIZE_VECTOR);
+    const dim3 blocks((M * N + threads.x - 1) / threads.x);
+
+    // Reshape input tensors to vectors
+    auto input1_vector = input1.reshape({-1});
+    auto input2_vector = input2.reshape({-1});    
+    torch::Tensor output_vector = torch::zeros({M * N}, options);
+
+    // 普通一维的矩阵乘法
+    AT_DISPATCH_FLOATING_TYPES(input1_vector.scalar_type(), "matrix_multiply_vector_softmax_kernel", ([&] {
+        matrix_multiply_vector_softmax_kernel<<<blocks, threads>>>(
+            input1_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            input2_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            output_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            M, N, K
+        );
+    }));
+
+    cudaDeviceSynchronize();
+
+    AT_DISPATCH_FLOATING_TYPES(output_vector.scalar_type(), "softmax_kernel", ([&] {
+        softmax_kernel<<<blocks, threads>>>(
+            output_vector.packed_accessor<scalar_t,1,torch::RestrictPtrTraits,size_t>(),
+            M, N
+        );
+    }));
+    return output_vector.reshape({M, N});
+
+}
+```
+
+输出结果如下：
+
+|   | py     | cuda   |
+| - | ------ | ------ |
+| 0 | 0.4239 | 1.1874 |
+| 1 | 0.5069 | 1.1101 |
+| 2 | 0.5462 | 1.3238 |
+
+对比发现，这里的cuda还是会比pytorch的慢一些，这是因为没有用自带的softmax，且没有使用算子融合。所以就算速度会更慢。
 
 ## 参考
-
 
 [1] [https://pytorch.org/tutorials/advanced/cpp_extension.html](https://pytorch.org/tutorials/advanced/cpp_extension.html)。
 
