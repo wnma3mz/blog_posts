@@ -25,7 +25,7 @@ MoE（Mixture of Experts）是一种模型结构，由多个专家（expert）�
 
 在[原论文](https://arxiv.org/abs/2101.03961)中公式如下：
 
-![load_balancing_loss](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/MoE/load_balancing_loss.png)
+![load_balancing_loss](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/MoE/load_balancing_loss.png)
 
 
 但这个公式表达的信息不够全面。在深度神经网络中，往往具备很多层，即每层都具备混合专家。因此，这里其实有两种实现方式：
