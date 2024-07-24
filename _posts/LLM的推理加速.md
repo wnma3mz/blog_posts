@@ -30,32 +30,33 @@ mathjax: true
 
 ### KV cache 显存计算公式
 
-$4\times b\times l\times h\times (s+n)$
+$4\times b\times l\times num_heads\times embed_size_per_head \times (s+n)$
 
 参数说明
 
 - b: 句子条数
 - l：层数
-- h：隐层大小
+- num_heads：隐层大小 (num_key_value_heads)
+- embed_size_per_head：每个头的大小 (hidden_size / num_attention_heads)
 - s：输入长度
 - n：输出长度
 - 4：k cache+v cache，均为 float16，所以是(1+1)*2
 
 如果只有1条句子，输入+输出 token 长度由 512 -> 1024，则会增加 $4\times 512 \times l\times h$：
 
-Llama3-8B：$4\times 512\times 4096\times 32 / 1024 / 1024 = 256$ M
+Llama3-8B：$4\times 512\times 1024\times 32 / 1024 / 1024 = 64 $ M
 
-Llama3-70B：$4\times 512\times 8192\times 80 / 1024 / 1024 = 1280$ M
+Llama3-70B：$4\times 512\times 1024\times 80 / 1024 / 1024 = 160$ M
 
 简单来说，每增加一个 token
 
-8B 就会增加 0.5 M 的显存
+8B 就会增加 0.125 M 的显存
 
-70B 就会增加 2.5 M 的显存
+70B 就会增加 0.3125 M 的显存
 
 这个显存占有直到整个句子生成完成之后才会释放，所以对于长句子，KV Cache 的显存占用是非常大的。
 
-显存决定了整体的吞吐量。对于 70B，假设有 1k 个请求，每个请求的总 token 为 1k，那么显存占用为 2.5 * 1000 * 1000 = 25G。
+显存决定了整体的吞吐量。对于 70B，假设有 1k 个请求，每个请求的总 token 为 1k，那么显存占用为 0.3125M * 1000 * 1000 = 0.3G。
 
 ### 方法
 
