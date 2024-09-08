@@ -30,7 +30,7 @@ mathjax: true
 
 ### KV cache 显存计算公式
 
-$4\times b\times l\times num_heads\times embed_size_per_head \times (s+n)$
+$4\times b\times l\times num\_heads\times embed\_size\_per\_head \times (s+n)$
 
 参数说明
 
