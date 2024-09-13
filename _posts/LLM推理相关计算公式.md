@@ -98,11 +98,13 @@ Embedding 可以视作一个哈希表，没有计算量
     - attn_output: $2 \times b \times s^2 \times hidden\_size$
     - o_proj: $2 \times b \times s \times hidden\_size^2$
 - FFN:
-    - gate_proj 和 up_proj: $2\times (b \times s\times hidden\_size)\times (hidden\_size\times intermediate\_size)$
-    - down_proj: $(b \times s\times intermediate\_size)\times (intermediate\_size\times hidden\_size)$
+    - gate_proj 和 up_proj: $2\times 2\times b \times s\times (hidden\_size\times intermediate\_size)$
+    - down_proj: $2\times b \times s\times (intermediate\_size\times hidden\_size)$
 
+参数说明
 - b: 句子条数
-- s：输入长度
+- s: 输入长度
+- 2: 一次乘法操作和一次加法操作
 
 还是以 [llama2-13B](https://huggingface.co/meta-llama/Llama-2-13b-hf/blob/main/config.json) 为例，关键参数
 
@@ -126,12 +128,12 @@ Embedding 可以视作一个哈希表，没有计算量
     - $2\times 5120$
     - $2\times 5120\times 5120$
 - MLP:
-    - $2\times 5120\times 5120\times 13824$
-    - $2\times 13824\times 13824\times 5120$
+    - $4\times 5120\times 13824$
+    - $2\times 13824\times 5120$
 
 模型有 40 层，所以
 
-$2\times 5120\times 32000+ 40*(8\times 5120\times 5120+4\times 5120+ 2\times 5120\times 5120 \times 13824+2\times 13824\times 13824\times 5120) = 1.0727553e+14$
+$2\times 5120\times 32000+ 40\times(8\times 5120\times 5120+4\times 5120+ 2\times 5120\times 13824+2\times 13824\times 5120) = 20,041,728,000$
 
 参考资料：
 
