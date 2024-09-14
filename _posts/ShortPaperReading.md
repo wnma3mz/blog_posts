@@ -501,7 +501,11 @@ Aims to learn a federated model from multiple distributed source domains such th
 - 傅立叶：Amplitude Spectrum + Phase Spectrum
 
 $$
-\begin{array}{l}{{{\cal F}(x_{i}^{k})(u,v,c)=\sum\limits_{h=0}^{H-1}\sum\limits_{w=0}^{W-1}x_{i}^{k}(h,w,c)e^{-j2\pi({\frac{h}{H}}u+{\frac{v}{W}}v)}}}\end{array}
+\begin{array}{l}
+
+{\cal F}(x_{i}^{k})(u,v,c)=\sum\limits_{h=0}^{H-1}\sum\limits_{w=0}^{W-1}x_{i}^{k}(h,w,c)e^{-j2\pi({\frac{h}{H}}u+{\frac{v}{W}}v)}
+
+\end{array}
 $$
 
 - InfoNCE 
