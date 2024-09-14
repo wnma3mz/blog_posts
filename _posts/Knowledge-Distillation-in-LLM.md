@@ -361,7 +361,7 @@ $$
 
 **Step 3**
 
-kd12依赖数学背景公式
+依赖数学背景公式
 
 $$
 \log(x)\leq x-1
@@ -397,13 +397,16 @@ $$R_{t}=\sum_{t^{\prime}=t}^{T}\log\,\frac{p(y_{t^{\prime}}|y_{<t^{\prime}},\mat
 
 单步生成的质量都很重要，所以把单步生成和累积生成拆开，并直接计算单步生成的梯度
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/kdinLLM/kd15.png)
+$$\begin{array}{c}
+\nabla \mathcal{L}(\theta) = \mathbb{E}_{x\sim p_{x},y\sim q_{\theta}(\,\cdot\,|x)}\left[-\sum\limits_{t=1}^{T}\nabla\mathbb{E}_{p_{t}\sim q_{\theta}(t)}[r_t]\right]+{\mathbb{E}}_{x\sim p_{x},y\sim q_{\theta}(\,\cdot\,|x)}\left[-\sum\limits_{t=1}^{T}R_{t+1}\nabla\log q_{\theta}(y_{t}|\bm{y}_{<t},\bm{x})\right]\\ 
+
+=(\nabla \mathcal{L})_\mathrm{single}+(\nabla \mathcal{L})_{\mathrm{Long}}
+\end{array}$$
 
 
 **优化2：Teacher-Mixed Sampling**
 
 教师生成的句子可能会重复，所以用教师和学生的混合分布来代替原有的教师分布 (px)，并且用 $\alpha $ 来控制强度。
-
 
 $$\tilde{p}(y_{t}\,|\,y_{<\,t},x)=\alpha\cdot p(y_{t}\,|\,y_{<\,t},x)+(1-\alpha)\cdot q_{\theta}(y_{t}\,|\,y_{<\,t},x),$$
 
@@ -517,8 +520,9 @@ DKD：样本的“暗知识”
 
 hard to learn 的定义
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/kdinLLM/kd26.png)
-
+$$
+p_{g_{t}}^{t}=\frac{\exp(z_{g_{t}}^{t})}{\sum_{j=1}^{C}\exp(z_{j}^{t})},p_{\backslash g_{t}}^{t}=\frac{\sum_{k=1,k\neq g_{t}}^{C}\exp(z_{k}^{t})}{\sum_{j=1}^{C}\exp(z_{j}^{t})}
+$$
 
 对于每个要预测的 token，教师模型会输出一个 logits，gt 表示 ground truth 的 token，而 \gt 表示非 ground truth 的 token。
 

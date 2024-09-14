@@ -472,8 +472,6 @@ Learn features that are invariant to the domain shift.
 
 It therefore seems reasonable that thehigher layers of the network, which encode higher-level in-formation, should be domain-specific.
 
-
-
 Rozantsev, A., Salzmann, M., & Fua, P. (2019). Beyond Sharing Weights for Deep Domain Adaptation. IEEE Transactions on Pattern Analysis and Machine Intelligence, 41(4), 801-814.
 
 # FedDG: Federated Domain Generalization on Medical Image Segmentation via Episodic Learning in Continuous Frequency Space
@@ -528,7 +526,12 @@ CUHK, 香港中文大学
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image53.png)
 
-$$\begin{array}{l}{{\displaystyle\mathcal{L}_{F R S K D}(\bm{x},y;\theta_{c},\theta_{t},K)}}\\ = \mathcal{L}_{C E}(\bm{x},y;\theta_{c})+\mathcal{L}_{C E}(\bm{x},y;\theta_{t})\\ +\alpha\cdot\mathcal{L}_{K D}(\bm{x};\theta_{c},\theta_{t},K)+\beta\cdot\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})\end{array}$$
+$$
+\begin{array}{l}
+\mathcal{L}_{FRSKD}(\bm{x},y;\theta_{c},\theta_{t},K) = \mathcal{L}_{CE}(\bm{x},y;\theta_{c})+\mathcal{L}_{C E}(\bm{x},y;\theta_{t}) +\alpha\cdot\mathcal{L}_{K D}(\bm{x};\theta_{c},\theta_{t},K)+\beta\cdot\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})
+\end{array}
+$$
+
 
 $$\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})=\Sigma_{i=1}^{n}\vert\vert\phi(T_{i})-\phi(F_{i})\vert\vert_2$$
 
