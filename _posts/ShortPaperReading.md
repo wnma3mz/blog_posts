@@ -269,13 +269,13 @@ Taehyeon Kim, Jaehoon Oh, NakYil Kim, Sangwook Cho, and Se-Young Yun. Comparingk
 
 利用知识蒸馏保留旧任务的知识
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image24.png)
+$${\mathcal{L}}_{\mathrm{FedLSD}}=(1-\beta)\cdot{\mathcal{L}}_{\mathrm{CE}}(q,\;p_{y})+\beta\cdot{\mathcal{L}}_{\mathrm{LSD}}(q_{\tau},\;q_{\tau}^{y})\quad(0<\beta<1)\;$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image23.png)
 
 Weight divergence
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image25.png)
+$$\rm{weight\,divergence}=||w^{F e d A v g}-w^{S G D}||/||w^{S G D}||$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image22.png)
 
@@ -313,17 +313,15 @@ Zhao Y, Li M, Lai L, et al. Federated learning with non-iid data[J]. arXiv prepr
 
 ## 元学习——MAML
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image27.png)
-
+$$w_{k+1}\leftarrow w_{k}-(\beta_{k}/B)\sum_{i\in B_{k}}\bar{\nabla}f_{i}(w_{k+1}^{i},\mathcal{D}_{o}^{i})$$
 
 ## First-Order
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image28.png)
-
+$$w_{k+1}=w_{k}-{\frac{\beta_{k}}{\mathcal{B}}}\sum_{i\in{B_{k}}}\left[\tilde{\nabla}f_{i}\Bigl(w_{k}-\alpha\tilde{\nabla}f_{i}(w_{k},D_{i n}^{i}),D_{o}^{i}\right)-\alpha d_{k}^{i}]$$
 
 ## Hessian-Free
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image30.png)
+$$w_{k+1}=w_{k}-\beta_{k}{\frac{1}{B}}\sum_{i\in{\mathcal{B}_{k}}}\left(I-\alpha\tilde{\nabla}^{2}f_{i}(w_{k},\mathcal{D}_{h}^{i})\right)\tilde{\nabla}f_{i}(w_{k+1}^{i},D_{o}^{i})$$
 
 这篇论文是发表在NIPS2020，是关于个性化联邦学习的文章。作者来自于MIT的LIDS团队。文章主要是通过统计优化角度的层面对问题进行分析，并给予理论分析与实验结果证明方法的有效性。
 
@@ -379,8 +377,7 @@ NSF Center for Big Learning University of Florida
 
 ## Agreement and Fidelity
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image34.png)
- 
+$${\mathrm{Average~Predictive~KL}}:=\frac{1}{n}\sum_{i=1}^{n}{\mathrm{KL}}\left(\hat{p}_{t}({\bf y}|{\bf x}_{i})\mid\right|\hat{p}_{s}({\bf y}|{\bf x}_{i}))$$
 
 ## Generalization vs Fidelity
 
@@ -427,10 +424,9 @@ Method
 
 ## Method
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image37.png)
+$$\ell_{c o n}=-\log\frac{\exp(\mathrm{sim}(z,z_{g l o b})/\tau)}{\exp(\mathrm{sim}(z,z_{g l o b})/\tau)+\exp(\mathrm{sim}(z,z_{p r e e v})/\tau)}$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image36.png)
-
 
 
 Li Q, He B, Song D. Model-Contrastive Federated Learning[C]//Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2021: 10713-10722.
@@ -447,7 +443,8 @@ The ensemble knowledge is not fully utilized to guide local model learning, whic
 
 ## Method
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image39.png)
+$$\operatorname*{min}_{\theta}\operatorname*{lim}_{x\rightarrow\hat{\mathcal{D}}_{\mathrm{p}}}\left[D_{\mathrm{KL}}[\sigma(\frac{1}{K}\sum_{k=1}^{K}g(f(x;\theta_{k}^{f});\theta_{k}^{p})]|\sigma(g(f(x;\theta^{f});\theta^{p})]\right].$$
+
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image38.png)
 
@@ -470,7 +467,6 @@ Learn features that are invariant to the domain shift.
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image41.png)
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image43.png)
-
 
 ## Discussion
 
@@ -532,9 +528,9 @@ CUHK, 香港中文大学
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image53.png)
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image54.png)
+$$\begin{array}{l}{{\displaystyle\mathcal{L}_{F R S K D}(\bm{x},y;\theta_{c},\theta_{t},K)}}\\ = \mathcal{L}_{C E}(\bm{x},y;\theta_{c})+\mathcal{L}_{C E}(\bm{x},y;\theta_{t})\\ +\alpha\cdot\mathcal{L}_{K D}(\bm{x};\theta_{c},\theta_{t},K)+\beta\cdot\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})\end{array}$$
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image55.png)
+$$\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})=\Sigma_{i=1}^{n}\vert\vert\phi(T_{i})-\phi(F_{i})\vert\vert_2$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image56.png)
 
@@ -556,7 +552,7 @@ Ji M, Shin S, Hwang S, et al. Refine Myself by Teaching Myself: Feature Refineme
 
 ## Method
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image60.png)
+$$\mu_{c,k}=\frac{1}{N_{c,k}}\sum_{j=1}^{N_{c,k}}z_{c,k,j},\quad\Sigma_{c,k}=\frac{1}{N_{c,k}-1}\sum_{j=1}^{N_{c,k}}\left(z_{c,k,j}-\mu_{c,k}\right)\left(z_{c,k,j}-\mu_{c,k}\right)^{T}$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image61.png)
 
@@ -583,7 +579,7 @@ Personalized population risk
 
 Empirical risk
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image66.png)
+$$L_{j}^{E R}\big(\displaystyle\mathrm{W}_B,\displaystyle\mathrm{W}_{P}\big)\triangleq\frac{1}{n_{j}}\sum_{i=1}^{n_{j}}l(y_{j,i},f\big(x_{j,i};\displaystyle\mathrm{W}_B,\displaystyle\mathrm{W}_{P}\big)\big)$$
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/FL_papers/image67.png)
 
