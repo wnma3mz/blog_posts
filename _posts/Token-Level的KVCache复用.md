@@ -3,6 +3,7 @@ title: Token-Level 的 KVCache 复用
 date: 2025-01-25 14:09:10
 tags: []
 categories: []
+mathjax: true
 ---
 
 在 LLM 中一大应用场景就是进行多轮对话，发起的第二轮对话大多情况下是基于第一轮对话的结果进行的。因此，完全可以缓存第一轮对话的结果，避免重复计算 KV Cache，以加速第二轮 TTFT 时间。
