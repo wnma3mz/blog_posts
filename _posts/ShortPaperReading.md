@@ -241,10 +241,14 @@ Catastrophic Forgetting: feature shifting induced fitting on biased local
 训练方式: 本地自蒸馏(LSD)
 
 $$
-\tilde{q}_{\tau}(c)=\frac{\exp(z_{c}/\tau)}{\sum_{i=1,i\neq y}^{C}\exp(z_{i}/\tau)}, \\
+\tilde{q}_{\tau}(c)=\frac{\exp(z_{c}/\tau)}{\sum_{i=1,i\neq y}^{C}\exp(z_{i}/\tau)}
+$$
 
-\tilde{q}^g_{\tau}(c)=\frac{\exp(z^g_{c}/\tau)}{\sum_{i=1,i\neq y}^{C}\exp(z^g_{i}/\tau)}, \\
+$$
+\tilde{q}^g_{\tau}(c)=\frac{\exp(z^g_{c}/\tau)}{\sum_{i=1,i\neq y}^{C}\exp(z^g_{i}/\tau)}
+$$
 
+$$
 (\forall c\neq y)
 $$
 
@@ -502,9 +506,7 @@ Aims to learn a federated model from multiple distributed source domains such th
 
 $$
 \begin{array}{l}
-
 {\cal F}(x_{i}^{k})(u,v,c)=\sum\limits_{h=0}^{H-1}\sum\limits_{w=0}^{W-1}x_{i}^{k}(h,w,c)e^{-j2\pi({\frac{h}{H}}u+{\frac{v}{W}}v)}
-
 \end{array}
 $$
 
@@ -558,7 +560,7 @@ $$
 
 $$
 \begin{array}{l}
-\mathcal{L}_{FRSKD}(\bm{x},y;\theta_{c},\theta_{t},K) = \mathcal{L}_{CE}(\bm{x},y;\theta_{c})+\mathcal{L}_{C E}(\bm{x},y;\theta_{t}) +\alpha\cdot\mathcal{L}_{K D}(\bm{x};\theta_{c},\theta_{t},K)+\beta\cdot\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})
+\mathcal{L}_{FRSKD}(\textbf{x},y;\theta_{c},\theta_{t},K) = \mathcal{L}_{CE}(\textbf{x},y;\theta_{c})+\mathcal{L}_{C E}(\textbf{x},y;\theta_{t}) +\alpha\cdot\mathcal{L}_{KD}(\textbf{x};\theta_{c},\theta_{t},K)+\beta\cdot\mathcal{L}_{F}(T,F;\theta_{c},\theta_{t})
 \end{array}
 $$
 
@@ -610,7 +612,7 @@ Personalized population risk
 
 $$
 \begin{array}{l}
-L^{PR}(\bf{W}_{B},\bf{W}_{P_{1}},...,\bf{W}_{P_{N}})=\frac{1}{N}\sum\limits_{j=1}^{N}\mathbb{E}_{(\bf{x},y)\sim P_{j}} [l(y,f(\mathbf{x};\bf{W}_B,\bf{W}_{P_j}))]
+L^{PR}({\bf W}_{B},{\bf W}_{P_{1}},...,{\bf W}_{P_{N}})=\frac{1}{N}\sum\limits_{j=1}^{N}\mathbb{E}_{({\bf x},y)\sim P_{j}} [l(y,f({\bf x};{\bf W}_B,{\bf W}_{P_j}))]
 \end{array}
 $$
 
