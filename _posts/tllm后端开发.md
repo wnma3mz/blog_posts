@@ -57,8 +57,8 @@ Master 和 Client 交互方式 http
     - Client 启动 grpc，HTTP 发送可连接到地址信息（TODO 内存/显存大小/算力等信息）到 Master
     - Master 返回模型名，分配的起始和结束层数（同步操作，不需要状态）
     - Client 下载模型，加载模型，向 Master 发送 InitModel 信息完成
-
     - 之后 Master 会向 Client 定时发送心跳包，确保 Client 连接正常
+
 - 如果 Master 重启，Master 会丢失所有的 Client 信息
     - Client 会有定时心跳检查，带着已有状态重新连接
 
@@ -192,11 +192,12 @@ class AsyncEngine:
 
 ## v0 性能测试
 
+Mac Mini M4 (16G) 
+
 |                                      | `mlx-community/Llama-3.2-1B-Instruct-4bit` | `mlx-community/Llama-3.2-1B-Instruct` | `mlx-community/Meta-Llama-3.1-8B-Instruct-4bit` | `mlx-community/Meta-Llama-3.1-8B-Instruct-bf16` |
 | ------------------------------------ | -------------------------------------------- | --------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
-| Mac Mini M4 (16G) (Engine, Baseline) | 98.10 tok/s                                 | 35.45 tok/s                             | 20.68 tok/s                                       | No Memory                                         |
-| Mac Mini M4 (16G) (Local)            | 45.36 tok/s                                 | 23.60 tok/s                             | 15.80 tok/s                                       | No Memory                                         |
-| Mac Mini M4 (16G) (Server+Client)    | 61.83 tok/s                                 | 34.54 tok/s                             | 14.91 tok/s                                       | No Memory                                         |
+| Engine, Baseline | 98.10 tok/s                                 | 35.45 tok/s                             | 20.68 tok/s                                       | No Memory                                         |
+| Local    | 61.83 tok/s                                 | 34.54 tok/s                             | 14.91 tok/s                                       | No Memory                                         |
 | Mac Mini M4 (16G) + M3 Pro (18G)     |                                              | 16.33 tok/s                             | 11.06 tok/s                                       | 5.64 tok/s                                        |
 
 

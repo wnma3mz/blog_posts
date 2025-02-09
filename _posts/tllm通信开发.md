@@ -18,13 +18,13 @@ mathjax: true
 
 ## 怎么做？
 
-- [X] 流水线并行 pipeline-parallel
+- 流水线并行 pipeline-parallel
 
     - 当前 LLM 架构是由多层串联起来组成的，所以可以拆分成多个部分，每个部分计算一部分，实现流水线作业。
 
     - PP 通信频率取决于 PP 个数。不加速，仅仅是为了减少单个模型的大小。
 
-- [X] 张量 tensor-parallel
+- 张量并行 tensor-parallel
 
     - 矩阵计算本身具备独立性，即可以拆分并行计算，所以可以对应每个矩阵拆分，分发到不同机器上计算，最后再汇总
 
@@ -63,11 +63,9 @@ Q: 为什么 Merge QKV/gate、up 之后在复杂模型中更慢？
 
 A：内存带宽？多核利用？换 CUDA 效果可能会变好？
 
-在 `src2` 文件夹中，用 grpc 通信 PP，`torch.dist` 通信 TP。当前版本在实现的时候，没有通信 kv cache 和 position_ids，所以是有 bug 的。
+在实现的时候，需要注意 `grpc` 只有一个进程能接收到请求，所以需要该进程同步输入至其他进程，以能够实现 `all.reduce`。有一些额外的通信开销，可以优化。
 
-在实现的时候，需要注意 grpc 只有一个进程能接收到请求，所以需要该进程同步输入至其他进程，以能够实现 `all.reduce`。有一些额外的通信开销，可以优化。
-
-`torch.dist` 其实是有 rpc 模块的，所以 `src3` 用 torch.dist.rpc 代替了 grpc 实现了跨机器通信，好处在于无需转换数据类型。用 torch.Tensor 通信即可。
+`torch.dist` 其实是有 rpc 模块的，`torch.dist.rpc` 可以代替了 `grpc` 实现了跨机器通信，好处在于无需转换数据类型。用 `torch.Tensor` 通信即可。
 
 ## 并行策略
 
