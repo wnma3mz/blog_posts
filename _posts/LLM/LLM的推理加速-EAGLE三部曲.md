@@ -14,7 +14,7 @@ mathjax: true
 
 ## LLM 的标准生成过程
 
-![image.png](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image.png)
 
 瓶颈：**token by token** 生成，生成单个 token 的时间很快，但由于要生成**多个** token，导致整个句子的生成时间变久。
 
@@ -22,7 +22,7 @@ mathjax: true
 
 一种代表性的优化方法是**投机解码**。
 
-相关引用：https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests
+相关引用：[https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests](https://huggingface.co/blog/tngtech/llm-performance-prefill-decode-concurrent-requests)
 
 ## 投机解码
 
@@ -70,7 +70,7 @@ mathjax: true
 
 ### 图示
 
-![image.png](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image1.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image1.png)
 
 
 - 每一行表示一次生成
@@ -86,7 +86,7 @@ mathjax: true
 
 | 标准的生成过程                      | 投机解码                                                     |
 | ----------------------------------- | ------------------------------------------------------------ |
-| Target Model 生成 5 个 token 的时间 | Draft Model 生成 5 个 token 的时间 （含拒绝 1 次）Target Model 校验的时间（相对快）Target Model 生成 1 个 token 的时间 |
+| Target Model 生成 5 个 token 的时间 | Draft Model 生成 5 个 token 的时间 （含拒绝 1 次）<br> Target Model 校验的时间（相对快）<br> Target Model 生成 1 个 token 的时间 |
 
 
 
@@ -125,7 +125,7 @@ Target Model 会逐个 token 校验，以「跑」为例
 
 ## EAGLE-1：特征层面的投机解码
 
-https://arxiv.org/pdf/2401.15077
+[https://arxiv.org/pdf/2401.15077](https://arxiv.org/pdf/2401.15077)
 
 
 
@@ -133,7 +133,7 @@ https://arxiv.org/pdf/2401.15077
 
 **特征（feature）** 是指下图中的 Output Token Embeddings，即过完 Decoder-Only Transformer 后的输出
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image2.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image2.png)
 
 
 
@@ -145,7 +145,7 @@ https://arxiv.org/pdf/2401.15077
 
 I 后面为是 always 和 am 的概率差不多，如果用 token 级别的采样，可能会漏掉被接受的 token。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image3.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image3.png)
 
 
 
@@ -157,7 +157,7 @@ I 后面为是 always 和 am 的概率差不多，如果用 token 级别的采�
 
 - feature&shifted-token：使用特征序列和前一个 token 序列（embedding）进行作为输入
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image4.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image4.png)
 
 
 ### prefill 阶段
@@ -166,7 +166,7 @@ I 后面为是 always 和 am 的概率差不多，如果用 token 级别的采�
 
 | 示例图                                                       | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image5.png) | 从下往上看输入<br>「how」和「can」 两个 token <br>$e_{how}$  表示「how」这个 token 过完 Embedding 之后的 tensor <br> $f_{how}$  表示 「how」这个 token 进入 LM Head 之前的 tensor<br>预测的 token 为「I」 |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image5.png) | 从下往上看输入<br>「how」和「can」 两个 token <br>$e_{how}$  表示「how」这个 token 过完 Embedding 之后的 tensor <br> $f_{how}$  表示 「how」这个 token 进入 LM Head 之前的 tensor<br>预测的 token 为「I」 |
 
 
 
@@ -183,7 +183,7 @@ EAGLE 的想法：用训练后的 One Auto-regression Head 代替 **N x transfor
 
 | 标准解码                                                     | EAGLE                                                        | 说明                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image6.png) | ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image7.png) | Step 1:在 prefill 阶段得到前两个 token 的 feature（黄色）以及最新两个 token 的 embedding（绿色）。把它们组合<br>Step 2: 输入到训练后的 One Auto-regression Head 中<br>Step 3: 输出得到新的特征 $f_I$ <br>Step 4: 经过 LM Head，采样得到下一个 token，「make」 |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image6.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image7.png) | Step 1:在 prefill 阶段得到前两个 token 的 feature（黄色）以及最新两个 token 的 embedding（绿色）。把它们组合<br>Step 2: 输入到训练后的 One Auto-regression Head 中<br>Step 3: 输出得到新的特征 $f_I$ <br>Step 4: 经过 LM Head，采样得到下一个 token，「make」 |
 
 
 
@@ -207,13 +207,13 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 - 在 Forward 3 中，同 Forward 2，这里只展示用 with 和 you 进行推理，实际上 a 和 our 也会继续生成
 - Draft Model （One Auto-regression Head）参数量小，生成 token 的速度**很快**。重复这个步骤
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image26.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image26.png)
 
 
 
 #### Draft Tree 每次生成多组可能
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image8.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image8.png)
 
 在一次 Draft Model 推理时，会生成 (Forward 次数)^(采样 token 个数) 的方案
 
@@ -230,7 +230,7 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 
 | 标准                                                         | Draft Tree                                                   |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image9.png) | ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image10.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image9.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image10.png) |
 
 - 以「we」为例，这个 token 只能看到「How」和「can」，不能看到「are」
 
@@ -253,15 +253,9 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 
 注：Decoder Layer 的 hidden size 大小于 Target Model 相同
 
-
-
-
-
 这篇论文实验结果展现的方式不是特别好，没有对比经典投机解码的速度。
 
 在后文中再对比「平均接受长度」，以及其他投机解码方法。
-
-
 
 官方结果
 
@@ -272,13 +266,11 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 
 
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/demosmall.gif)
-
-
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/demosmall.gif)
 
 ## EAGLE-2：工程优化——动态草稿树
 
-https://arxiv.org/pdf/2406.16858
+[https://arxiv.org/pdf/2406.16858](https://arxiv.org/pdf/2406.16858)
 
 个人评价：在 Draft Model 生成时用 Beam Search，始终选分数最高的 N 组方案。
 
@@ -288,9 +280,7 @@ https://arxiv.org/pdf/2406.16858
 
 #### Beam Search
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image11.png)
-
-
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image11.png)
 
 1. Pos 1：选择 **K 个概率最高的词元**（通常是词语或字符）。这里的 K 是设定的 **束宽 (Beam Width)**。
 2. Pos 2：从两组概率中，结合第一个位置的概率，选出 **K 个最佳的“两词元”序列**。并且是从所有可能的组合中，根据它们的**累积概率**进行排序。
@@ -300,15 +290,13 @@ https://arxiv.org/pdf/2406.16858
 
 而“若干”是被限定的，如下图所示，每次只采样 2 个 token。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image12.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image12.png)
 
 期望更精准地确定 Draft Model 生成的哪些 token 是可靠的（剪枝），**降低 Target Model 验证成本**。
 
-
-
 举个例子
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image13.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image13.png)
 
 限定最大采样 token 数为 2，在生成第二个 token 时，
 
@@ -318,7 +306,7 @@ https://arxiv.org/pdf/2406.16858
 
 ### 验证/观察现象
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image14.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image14.png)
 
 
 
@@ -327,19 +315,15 @@ https://arxiv.org/pdf/2406.16858
 - 横坐标：不同位置，对应左图 P1-P6。
 - 纵坐标：每个位置的 Token 接受率
 
-
-
 小结：
 
 - 位置依赖性：P1 （左上角）的接受率相对较高，P6（右下角） 的接受率相对低
 - 上下文依赖：哪怕都在一个位置，接受率存在显著差异。 
   - 每次 Target Model 校验完，Draft Model 需要重新生成 Draft Tree
 
-
-
 为了低成本估计 Draft Token 的接受率，探究了 Draft Model 的置信度分数（即模型输出 token 的概率）与实际接受率之间的关系
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image15.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image15.png)
 
 同样是在 **Alpaca 数据集**上进行了实验（模型大概也是同一个，**Vicuna 7B**）
 
@@ -348,13 +332,11 @@ https://arxiv.org/pdf/2406.16858
 - 置信度分数低于 0.05 的草稿 token 的接受率约为 0.04
 - 置信度分数高于 0.95 的 token 的接受率约为 0.98
 
-
-
 #### 置信度具体计算
 
 在过完 Model 后得到 hidden_states，再过 LM head，此时得到的 logits 。最后进行 softmax ，得到每个 token 的置信度。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image16.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image16.png)
 
 
 
@@ -371,13 +353,11 @@ Step 1：每次都生成 2 个 Token，保留每次生成 Token 的概率值。�
 
 Step 2：每个 Token 的概率值 = 生成该 Token 的概率值 * 父节点的价值。比如 good = It is a good → 1×0.6×0.8×0.7 = 0.34。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image17.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image17.png)
 
 Step 3：排序所有 Token 的概率值，选出最大 M=8 个。剩下的不继续向下扩展
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image18.png)
-
-
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image18.png)
 
 ### 比 EAGLE-1 快在哪？
 
@@ -387,7 +367,7 @@ V 表示 Vicuna 模型，在不同数据集，不同模型尺寸，相较于标�
 
 最后两列是均值。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image19.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image19.png)
 
 
 
@@ -396,7 +376,7 @@ V 表示 Vicuna 模型，在不同数据集，不同模型尺寸，相较于标�
 - **4x** faster than vanilla decoding (13B).
 - **1.4x** faster than EAGLE-1 (13B).
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/eagle2.gif)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/eagle2.gif)
 
 
 
@@ -404,7 +384,7 @@ V 表示 Vicuna 模型，在不同数据集，不同模型尺寸，相较于标�
 
 ## EAGLE-3：多层特征融合
 
-https://arxiv.org/pdf/2503.01840
+[https://arxiv.org/pdf/2503.01840](https://arxiv.org/pdf/2503.01840)
 
 个人评价：feature 雕花  + **训推一致** + 让模型学更难的东西（预测 token vs. 预测 feature）。
 
@@ -414,12 +394,10 @@ https://arxiv.org/pdf/2503.01840
 
 期望**平均接受长度能随着训练数据量的增加而提高**。
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image20.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image20.png)
 
 - 横坐标是相对于 ShareGPT 训练数据量，1x、2x、4x、8x 
   - ShareGPT 是一个数据集
-
-
 
 动机二：特征误差会不断累积
 
@@ -431,10 +409,7 @@ EAGLE 的本质是想用 Draft Model 的输出特征来**近似** Target Model �
 
 - $f_t$  后面会不断增加 $\hat{f}_{t+1}$ 、 $\hat{f}_{t+2}$ … 
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image21.png)
-
-
-
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image21.png)
 
 
 ### 推理
@@ -449,16 +424,13 @@ Step 4：采样生成下一个 token「do」，再生成下一个 token 时，�
 
 
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image22.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image22.png)
 
 
 
 Q：为什么要保留 $g_{how}$ 、 $g_{can}$  作为下一次输入，kv cache 已经有了？
 
 A：这里仅做示意，实际代码中无需再输入
-
-
-
 
 
 ### EAGLE-1 vs EAGLE-3
@@ -478,7 +450,7 @@ A：这里仅做示意，实际代码中无需再输入
 
 | **EAGLE-1**                                                  | **EAGLE-3**                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image23.png) | ![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image24.png) |
+| ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image23.png) | ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image24.png) |
 
 - 在 EAGLE-1 中，这里的 $\hat{f}_{t+1}$ 会随着 Step 的增加而越来越偏（误差累积）
 - 而 EAGLE-3 中，移除了这个 feature 的 loss，并且用**多步生成**的方式训练
@@ -516,7 +488,7 @@ A：这里仅做示意，实际代码中无需再输入
 
 - SpS 标准投机解码，Draft Model 是 Vicuna-68M
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image25.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image25.png)
 
 
 
@@ -525,4 +497,4 @@ A：这里仅做示意，实际代码中无需再输入
 - **5.6x** faster than vanilla decoding (13B).
 - **1.8x** faster than EAGLE-1 (13B).
 
-![img](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/e3.gif)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/e3.gif)
