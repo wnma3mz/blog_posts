@@ -328,8 +328,6 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image16.png)
 
-
-
 ### 方法
 
 定义两个整型变量 K 和 M
