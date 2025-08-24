@@ -1,5 +1,5 @@
 ---
-title: VLM的识别图片能力
+title: MoE 自动选择专家个数 from Top-k to Top-p
 date: 2024-01-24 16:41:53
 tags: [NLP, Attention, MoE]
 categories: [Note]
@@ -9,8 +9,6 @@ mathjax: true
 MoE 自动选择专家个数
 
 <!-- more -->
-
-
 ## 背景
 
 在 MoE 中每次推理需要指定选择专家个数，且每层专家个数完全一致。想到 Nucleus Sampling（Top-p采样），是不是可以把指定专家的数量换成，累计概率值来灵活的选择专家（cumsum）
@@ -20,8 +18,6 @@ MoE 自动选择专家个数
 在保证性能的同时，降低激活的专家数量
 
 ## 代码
-
-
 ### 原 top-K 实现
 
 ```python

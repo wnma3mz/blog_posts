@@ -207,13 +207,11 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 - 在 Forward 3 中，同 Forward 2，这里只展示用 with 和 you 进行推理，实际上 a 和 our 也会继续生成
 - Draft Model （One Auto-regression Head）参数量小，生成 token 的速度**很快**。重复这个步骤
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image26.png)
-
-
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image8.png)
 
 #### Draft Tree 每次生成多组可能
 
-![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image8.png)
+![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image26.png)
 
 在一次 Draft Model 推理时，会生成 (Forward 次数)^(采样 token 个数) 的方案
 
@@ -223,8 +221,6 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 - help with your
 - help you to
 - help you feel
-
-
 
 #### 工程设计：Attention Mask
 
@@ -240,8 +236,6 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 
 - Draft Model 生成的速度 → 模型的参数量
 - Draft Model 的**平均接受长度**
-
-
 
 以 72B（Target Model）和 7B（Draft Model）为例
 
@@ -264,8 +258,6 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
   - 2x faster than Lookahead (13B).
   - 1.6x faster than Medusa (13B).
 
-
-
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/demosmall.gif)
 
 ## EAGLE-2：工程优化——动态草稿树
@@ -273,8 +265,6 @@ FC 的作用是降维，将 feature 和 embedding 两个 tensor 降维成一个�
 [https://arxiv.org/pdf/2406.16858](https://arxiv.org/pdf/2406.16858)
 
 个人评价：在 Draft Model 生成时用 Beam Search，始终选分数最高的 N 组方案。
-
-
 
 ### EAGLE-2 的动机
 
