@@ -1,6 +1,6 @@
 ---
-title: LLM 复杂推理的来源分析I
-date: 2025-08-20 15:52:42
+title: LLM 复杂推理的来源分析II
+date: 2025-08-20 16:52:42
 tags: [NLP, Attention]
 categories: [Note]
 mathjax: true
@@ -22,7 +22,7 @@ mathjax: true
 
 [On the Effect of Pretraining Corpora on In-context Learning by a Large-scale Language Model](https://aclanthology.org/2022.naacl-main.380.pdf)
 
-#### 语料库的来源
+### 语料库的来源
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image6.png)
 
@@ -34,7 +34,7 @@ mathjax: true
 
 发现：比较不同单一语料库模型（如Blog、Cafe、News）的性能，上下文学习能力**高度依赖于语料库的领域来源**。比如，Blog 54B
 
-#### 语料库的多样性
+### 语料库的多样性
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image7.png)
 
@@ -43,7 +43,7 @@ mathjax: true
 - 单独使用 Cafe 或  KiN 语料库时未观察到上下文少样本学习能力，但**组合训练两者（KiN+Ency）则使这种能力得以出现**。
 - 但并非所有组合都有效（如Cafe+News组合可能表现不佳甚至下降）
 
-#### 语料库的大小
+### 语料库的大小
 
 用单一语料库 HyperCLOVA 训练
 
@@ -51,6 +51,7 @@ mathjax: true
 
 - 数据量很重要：6B → 56B 会有显著提升 
 - 多样性很重要：56B → 150B  并不会有显著提升
+
 
 ## 模型架构 —— Attention
 
@@ -76,8 +77,6 @@ mathjax: true
 
 10k 条样本，取均值。
 
-
-
 Q：为什么是看差值，而不是第 500 个 token 的 loss？第 500 个 token 也是看了前面所有 token，也能说明 ICL？
 
 A：
@@ -85,6 +84,7 @@ A：
 - 单独看第 500 个 token 的 loss，只能反映模型在该语境长度下的最终预测效果，无法体现语境的增长对预测能力带来了多少提升。
 - 如果只看第 500 个 token 的 loss ，大模型无疑会表现出更低的 loss。但这并不能直接说明其**上下文学习**比小模型更强
 
+### 结果
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image9.png)
 

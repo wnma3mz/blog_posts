@@ -1,6 +1,6 @@
 ---
 title: LIMA 阅读笔记
-date: 2025-08-20 15:52:42
+date: 2025-08-20 17:52:42
 tags: [NLP, Attention]
 categories: [Note]
 mathjax: true
@@ -12,9 +12,7 @@ mathjax: true
 
 假设：**模型的知识和能力几乎完全在预训练阶段学习，SFT 只是激发模型能力**
 
-## 实验
-
-### 数据
+## 数据
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image10.png)
 
@@ -25,9 +23,9 @@ mathjax: true
 
 
 
-### 结果
+## 评测
 
-#### Q & A
+### Q & A
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image11.png)
 
@@ -36,9 +34,7 @@ mathjax: true
 
 表现可以堪比 GPT-4（Win+Tie = 43%）
 
-
-
-#### Multi-Turn Dialogue
+### Multi-Turn Dialogue
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/ChatGPT能力/image12.png)
 
