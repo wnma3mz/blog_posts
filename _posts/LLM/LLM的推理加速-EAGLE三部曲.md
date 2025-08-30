@@ -40,10 +40,6 @@ mathjax: true
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/LLM的推理加速-EAGLE三部曲/image2.png)
 
-
-
-
-
 动机一：**采样过程中的不确定性**
 
 下图中的 $f_I$  就是上面说的特征，这个特征会再过 LM Head，得到 logits。这个 logtis 再采样生成 token。
