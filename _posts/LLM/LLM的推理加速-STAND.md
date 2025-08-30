@@ -240,7 +240,7 @@ graph TD
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/STAND/1756565018522.png)
 
-消融实验，验证了 `Gumbel-Top-K` 会增加一点点速度，并不能直接贪心。
+消融实验，验证了 `Gumbel-Top-K` 会增加一点点速度，比直接贪心选择候选 token 会更快。
 
 ![](https://raw.githubusercontent.com/wnma3mz/blog_posts/master/imgs/STAND/1756565065957.png)
 
