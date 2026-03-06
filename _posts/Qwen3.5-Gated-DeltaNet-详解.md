@@ -13,6 +13,10 @@ tags:
   - 状态空间模型
 ---
 
+本文介绍 Qwen3.5 在注意力机制上的两大变化：Gated Softmax Attention（Q/K Norm + Gate）与线性复杂度的 Gated DeltaNet。文中说明二者混合比例（每四层中三层为 DeltaNet）、从标准 Attention 到线性 Attention 的数学推导、DeltaNet 的状态递推与门控设计，以及和 Mamba 等工作的联系，便于理解 Qwen3.5 在长序列与推理效率上的取舍。
+
+<!--more-->
+
 ## 概述
 
 Qwen3.5 在架构上引入了显著的变化，主要体现在两种 Attention 机制的混合使用：
