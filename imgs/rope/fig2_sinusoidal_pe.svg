@@ -1,0 +1,131 @@
+<svg width="720" height="420" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="420" fill="#fafafa" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">正弦位置编码：每个位置有唯一"指纹"，但无法直接表达相对距离</text>
+
+  <!-- Example sentence -->
+  <text x="360" y="56" text-anchor="middle" font-size="12" fill="#555">以句子 "The cat sat on the mat" 为例</text>
+
+  <!-- Top: token row with position labels -->
+  <g transform="translate(30, 68)">
+    <!-- Tokens -->
+    <rect x="0"   y="0" width="80" height="32" rx="6" fill="#4361ee"/>
+    <text x="40"  y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">The</text>
+    <text x="40"  y="44" text-anchor="middle" font-size="10" fill="#4361ee">pos=0</text>
+
+    <rect x="100" y="0" width="80" height="32" rx="6" fill="#3a0ca3"/>
+    <text x="140" y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">cat</text>
+    <text x="140" y="44" text-anchor="middle" font-size="10" fill="#3a0ca3">pos=1</text>
+
+    <rect x="200" y="0" width="80" height="32" rx="6" fill="#7209b7"/>
+    <text x="240" y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">sat</text>
+    <text x="240" y="44" text-anchor="middle" font-size="10" fill="#7209b7">pos=2</text>
+
+    <rect x="300" y="0" width="80" height="32" rx="6" fill="#b5179e"/>
+    <text x="340" y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">on</text>
+    <text x="340" y="44" text-anchor="middle" font-size="10" fill="#b5179e">pos=3</text>
+
+    <rect x="400" y="0" width="80" height="32" rx="6" fill="#4361ee" opacity="0.6"/>
+    <text x="440" y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">the</text>
+    <text x="440" y="44" text-anchor="middle" font-size="10" fill="#4361ee">pos=4</text>
+
+    <rect x="500" y="0" width="80" height="32" rx="6" fill="#3a0ca3" opacity="0.6"/>
+    <text x="540" y="21" text-anchor="middle" font-size="12" fill="white" font-weight="bold">mat</text>
+    <text x="540" y="44" text-anchor="middle" font-size="10" fill="#3a0ca3">pos=5</text>
+
+    <!-- PE vector added arrows -->
+    <text x="540" y="56" text-anchor="middle" font-size="10" fill="#888">↑ 各 token 均叠加对应的位置向量</text>
+  </g>
+
+  <!-- Middle: PE value bars for 3 representative dimensions at each position -->
+  <g transform="translate(30, 128)">
+    <text x="330" y="14" text-anchor="middle" font-size="12" fill="#444" font-weight="bold">各 token 的正弦位置编码值（3个维度示例）</text>
+
+    <!-- bar chart: for 6 positions, show 3 dim values -->
+    <!-- Dim 0 (low freq, slow): approximately sin(pos/10000^0)  -->
+    <!-- Dim 2 (mid freq) -->
+    <!-- Dim 4 (high freq, fast) -->
+
+    <!-- Legend -->
+    <rect x="520" y="22" width="12" height="12" fill="#4361ee" rx="2"/>
+    <text x="536" y="33" font-size="10" fill="#333">低频维度 (d=0)</text>
+    <rect x="520" y="40" width="12" height="12" fill="#f72585" rx="2"/>
+    <text x="536" y="51" font-size="10" fill="#333">中频维度 (d=32)</text>
+    <rect x="520" y="58" width="12" height="12" fill="#06d6a0" rx="2"/>
+    <text x="536" y="69" font-size="10" fill="#333">高频维度 (d=63)</text>
+
+    <!-- Axes -->
+    <line x1="30" y1="130" x2="510" y2="130" stroke="#ccc" stroke-width="1"/>
+    <line x1="30" y1="25" x2="30" y2="135" stroke="#ccc" stroke-width="1"/>
+    <text x="25" y="30" text-anchor="end" font-size="9" fill="#aaa">+1</text>
+    <text x="25" y="80" text-anchor="end" font-size="9" fill="#aaa">0</text>
+    <text x="25" y="130" text-anchor="end" font-size="9" fill="#aaa">−1</text>
+    <line x1="30" y1="80" x2="510" y2="80" stroke="#eee" stroke-width="1" stroke-dasharray="3,3"/>
+
+    <!-- For each position, draw 3 bars -->
+    <!-- pos=0: sin(0)=0, mid=0, high=0 — all zero, not very interesting -->
+    <!-- Let's use more realistic values: -->
+    <!-- low freq d=0: ω=1, sin(pos)  -->
+    <!-- mid d=32: ω~0.1, sin(pos*0.1) -->
+    <!-- high d=63: ω=10000^(-1)~0.0001, nearly flat -->
+    <!-- Better: use actual formula approximation for readable display -->
+    <!-- PE(pos,0)=sin(pos/1) — period 2π≈6.28 -->
+    <!-- PE(pos,32)=sin(pos/10000^(32/64))=sin(pos/100) — very slow -->
+    <!-- PE(pos,62)=sin(pos/10000^(62/64))=sin(pos/7943) — nearly flat at small pos -->
+    <!-- Let's reverse: high index = slow. i=0 fast (high freq), i=31 slow (low freq) -->
+    <!-- i=0: ω=1/10000^(0/64)=1, period=6.28 → very fast -->
+    <!-- i=16: ω=1/10000^(16/64)=1/10≈0.1, period=62 -->
+    <!-- i=31: ω=1/10000^(31/64)≈1/100, period=628 — nearly flat for pos 0-5 -->
+
+    <!-- i=0 (high freq, fast): values sin(0)=0, sin(1)=0.84, sin(2)=0.91, sin(3)=0.14, sin(4)=-0.76, sin(5)=-0.96 -->
+    <!-- i=16 (mid): values sin(0)=0, sin(0.1)=0.10, sin(0.2)=0.20, sin(0.3)=0.30, sin(0.4)=0.39, sin(0.5)=0.48 -->
+    <!-- i=31 (low, slow): values ≈ 0, 0.01, 0.02, 0.03, 0.04, 0.05 — too flat to see -->
+    <!-- Rescale for display: center=80, scale=50 (−1→130, +1→30) -->
+
+    <!-- Group spacing: 80px per position, 3 bars per group width=14, gap=2 -->
+    <!-- pos=0: x=45 -->
+    <!-- fast (i=0): h=0 → bar height 0 (just dot) -->
+    <rect x="45"  y="80" width="14" height="0"  rx="1" fill="#06d6a0"/>
+    <rect x="62"  y="80" width="14" height="0"  rx="1" fill="#f72585"/>
+    <rect x="79"  y="80" width="14" height="0"  rx="1" fill="#4361ee"/>
+
+    <!-- pos=1: fast sin(1)=0.84→ h=-42 (above baseline), mid sin(0.1)=0.10→h=-5, slow≈0.01→h=0 -->
+    <rect x="120" y="38" width="14" height="42" rx="1" fill="#06d6a0"/>
+    <rect x="137" y="75" width="14" height="5"  rx="1" fill="#f72585"/>
+    <rect x="154" y="79" width="14" height="1"  rx="1" fill="#4361ee"/>
+
+    <!-- pos=2: fast sin(2)=0.91→h=-45, mid sin(0.2)=0.20→h=-10, slow≈0.02 -->
+    <rect x="195" y="35" width="14" height="45" rx="1" fill="#06d6a0"/>
+    <rect x="212" y="70" width="14" height="10" rx="1" fill="#f72585"/>
+    <rect x="229" y="79" width="14" height="1"  rx="1" fill="#4361ee"/>
+
+    <!-- pos=3: fast sin(3)=0.14→h=-7, mid sin(0.3)=0.30→h=-15, slow≈0.03 -->
+    <rect x="270" y="73" width="14" height="7"  rx="1" fill="#06d6a0"/>
+    <rect x="287" y="65" width="14" height="15" rx="1" fill="#f72585"/>
+    <rect x="304" y="79" width="14" height="1"  rx="1" fill="#4361ee"/>
+
+    <!-- pos=4: fast sin(4)=-0.76→h=+38 (below baseline), mid sin(0.4)=0.39→h=-20 -->
+    <rect x="345" y="80" width="14" height="38" rx="1" fill="#06d6a0"/>
+    <rect x="362" y="60" width="14" height="20" rx="1" fill="#f72585"/>
+    <rect x="379" y="79" width="14" height="2"  rx="1" fill="#4361ee"/>
+
+    <!-- pos=5: fast sin(5)=-0.96→h=+48, mid sin(0.5)=0.48→h=-24 -->
+    <rect x="420" y="80" width="14" height="48" rx="1" fill="#06d6a0"/>
+    <rect x="437" y="56" width="14" height="24" rx="1" fill="#f72585"/>
+    <rect x="454" y="79" width="14" height="2"  rx="1" fill="#4361ee"/>
+
+    <!-- X labels -->
+    <text x="68"  y="148" text-anchor="middle" font-size="10" fill="#555">The(0)</text>
+    <text x="143" y="148" text-anchor="middle" font-size="10" fill="#555">cat(1)</text>
+    <text x="218" y="148" text-anchor="middle" font-size="10" fill="#555">sat(2)</text>
+    <text x="293" y="148" text-anchor="middle" font-size="10" fill="#555">on(3)</text>
+    <text x="368" y="148" text-anchor="middle" font-size="10" fill="#555">the(4)</text>
+    <text x="443" y="148" text-anchor="middle" font-size="10" fill="#555">mat(5)</text>
+  </g>
+
+  <!-- Bottom: key limitation callout -->
+  <rect x="30" y="320" width="660" height="78" rx="8" fill="#fff8f0" stroke="#f4a261" stroke-width="1.5"/>
+  <text x="45" y="342" font-size="13" fill="#8a4a00" font-weight="bold">正弦 PE 的局限</text>
+  <text x="45" y="362" font-size="12" fill="#666">每个位置有唯一的编码向量（"指纹"），但 <tspan font-weight="bold" fill="#c00">相对距离没有被显式表达</tspan>。</text>
+  <text x="45" y="380" font-size="12" fill="#666">模型要自己从 pos=1 和 pos=2 的指纹中"学出"它们是相邻的——这间接且低效。</text>
+  <text x="45" y="396" font-size="12" fill="#666">RoPE 的改进：让 q·k 的内积天然只依赖位置差 (m−n)，无需模型自己推断相对关系。</text>
+</svg>

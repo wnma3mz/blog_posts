@@ -1,0 +1,196 @@
+<svg width="720" height="380" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="380" fill="#fafafa" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">RoPE 的频率分工：位置头用高频，语义头用低频</text>
+
+  <!-- Left: Positional Head attention map -->
+  <g transform="translate(40, 50)">
+    <text x="140" y="18" text-anchor="middle" font-size="13" fill="#4361ee" font-weight="bold">位置头（Positional Head）</text>
+    <text x="140" y="35" text-anchor="middle" font-size="11" fill="#888">注意力集中在对角线——只看邻近 token</text>
+
+    <!-- 12x12 attention heatmap, diagonal pattern -->
+    <!-- cell size ~20px, start x=40, y=50 -->
+    <g transform="translate(40, 45)">
+      <!-- Row/col labels -->
+      <text x="-5" y="15" text-anchor="end" font-size="9" fill="#aaa">1</text>
+      <text x="-5" y="35" text-anchor="end" font-size="9" fill="#aaa">2</text>
+      <text x="-5" y="55" text-anchor="end" font-size="9" fill="#aaa">3</text>
+      <text x="-5" y="75" text-anchor="end" font-size="9" fill="#aaa">4</text>
+      <text x="-5" y="95" text-anchor="end" font-size="9" fill="#aaa">5</text>
+      <text x="-5" y="115" text-anchor="end" font-size="9" fill="#aaa">6</text>
+      <text x="-5" y="135" text-anchor="end" font-size="9" fill="#aaa">7</text>
+      <text x="-5" y="155" text-anchor="end" font-size="9" fill="#aaa">8</text>
+      <!-- Diagonal dominance: high values near diagonal -->
+      <!-- Using opacity to represent value: diagonal = high, off-diagonal = low -->
+      <!-- Row 1 -->
+      <rect x="0" y="0" width="18" height="18" fill="#4361ee" opacity="0.95"/>
+      <rect x="20" y="0" width="18" height="18" fill="#4361ee" opacity="0.05"/>
+      <rect x="40" y="0" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="60" y="0" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="80" y="0" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="100" y="0" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="120" y="0" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="140" y="0" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <!-- Row 2 -->
+      <rect x="0" y="20" width="18" height="18" fill="#4361ee" opacity="0.3"/>
+      <rect x="20" y="20" width="18" height="18" fill="#4361ee" opacity="0.9"/>
+      <rect x="40" y="20" width="18" height="18" fill="#4361ee" opacity="0.05"/>
+      <rect x="60" y="20" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="80" y="20" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="100" y="20" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="120" y="20" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="140" y="20" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <!-- Row 3 -->
+      <rect x="0" y="40" width="18" height="18" fill="#4361ee" opacity="0.05"/>
+      <rect x="20" y="40" width="18" height="18" fill="#4361ee" opacity="0.35"/>
+      <rect x="40" y="40" width="18" height="18" fill="#4361ee" opacity="0.85"/>
+      <rect x="60" y="40" width="18" height="18" fill="#4361ee" opacity="0.08"/>
+      <rect x="80" y="40" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="100" y="40" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="120" y="40" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="140" y="40" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <!-- Row 4 -->
+      <rect x="0" y="60" width="18" height="18" fill="#4361ee" opacity="0.03"/>
+      <rect x="20" y="60" width="18" height="18" fill="#4361ee" opacity="0.07"/>
+      <rect x="40" y="60" width="18" height="18" fill="#4361ee" opacity="0.32"/>
+      <rect x="60" y="60" width="18" height="18" fill="#4361ee" opacity="0.88"/>
+      <rect x="80" y="60" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="100" y="60" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="120" y="60" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="140" y="60" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <!-- Row 5 -->
+      <rect x="0" y="80" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="20" y="80" width="18" height="18" fill="#4361ee" opacity="0.03"/>
+      <rect x="40" y="80" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="60" y="80" width="18" height="18" fill="#4361ee" opacity="0.30"/>
+      <rect x="80" y="80" width="18" height="18" fill="#4361ee" opacity="0.90"/>
+      <rect x="100" y="80" width="18" height="18" fill="#4361ee" opacity="0.07"/>
+      <rect x="120" y="80" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="140" y="80" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <!-- Row 6 -->
+      <rect x="0" y="100" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="20" y="100" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="40" y="100" width="18" height="18" fill="#4361ee" opacity="0.03"/>
+      <rect x="60" y="100" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="80" y="100" width="18" height="18" fill="#4361ee" opacity="0.28"/>
+      <rect x="100" y="100" width="18" height="18" fill="#4361ee" opacity="0.92"/>
+      <rect x="120" y="100" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="140" y="100" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <!-- Row 7 -->
+      <rect x="0" y="120" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="20" y="120" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="40" y="120" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="60" y="120" width="18" height="18" fill="#4361ee" opacity="0.03"/>
+      <rect x="80" y="120" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="100" y="120" width="18" height="18" fill="#4361ee" opacity="0.26"/>
+      <rect x="120" y="120" width="18" height="18" fill="#4361ee" opacity="0.91"/>
+      <rect x="140" y="120" width="18" height="18" fill="#4361ee" opacity="0.05"/>
+      <!-- Row 8 -->
+      <rect x="0" y="140" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="20" y="140" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="40" y="140" width="18" height="18" fill="#4361ee" opacity="0.01"/>
+      <rect x="60" y="140" width="18" height="18" fill="#4361ee" opacity="0.02"/>
+      <rect x="80" y="140" width="18" height="18" fill="#4361ee" opacity="0.03"/>
+      <rect x="100" y="140" width="18" height="18" fill="#4361ee" opacity="0.06"/>
+      <rect x="120" y="140" width="18" height="18" fill="#4361ee" opacity="0.25"/>
+      <rect x="140" y="140" width="18" height="18" fill="#4361ee" opacity="0.93"/>
+
+      <!-- Border -->
+      <rect x="0" y="0" width="158" height="158" fill="none" stroke="#4361ee" stroke-width="1.5" rx="2"/>
+    </g>
+
+    <text x="140" y="225" text-anchor="middle" font-size="11" fill="#4361ee">主要使用高频维度</text>
+    <text x="140" y="240" text-anchor="middle" font-size="10.5" fill="#888">高频旋转快 → 相邻 token 角度差大 → 易区分</text>
+  </g>
+
+  <!-- Right: Semantic Head attention map -->
+  <g transform="translate(390, 50)">
+    <text x="140" y="18" text-anchor="middle" font-size="13" fill="#f72585" font-weight="bold">语义头（Semantic Head）</text>
+    <text x="140" y="35" text-anchor="middle" font-size="11" fill="#888">注意力分散——按内容远程检索</text>
+
+    <g transform="translate(40, 45)">
+      <!-- Scattered attention pattern -->
+      <!-- Row 1: attending to position 6 strongly -->
+      <rect x="0" y="0" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="20" y="0" width="18" height="18" fill="#f72585" opacity="0.12"/>
+      <rect x="40" y="0" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="60" y="0" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="80" y="0" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <rect x="100" y="0" width="18" height="18" fill="#f72585" opacity="0.88"/>
+      <rect x="120" y="0" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="140" y="0" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <!-- Row 2 -->
+      <rect x="0" y="20" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="20" y="20" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="40" y="20" width="18" height="18" fill="#f72585" opacity="0.85"/>
+      <rect x="60" y="20" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="80" y="20" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="100" y="20" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="120" y="20" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <rect x="140" y="20" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <!-- Row 3 -->
+      <rect x="0" y="40" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="20" y="40" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="40" y="40" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="60" y="40" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <rect x="80" y="40" width="18" height="18" fill="#f72585" opacity="0.90"/>
+      <rect x="100" y="40" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="120" y="40" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="140" y="40" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <!-- Row 4 -->
+      <rect x="0" y="60" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="20" y="60" width="18" height="18" fill="#f72585" opacity="0.91"/>
+      <rect x="40" y="60" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="60" y="60" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="80" y="60" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="100" y="60" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="120" y="60" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="140" y="60" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <!-- Row 5 -->
+      <rect x="0" y="80" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="20" y="80" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="40" y="80" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="60" y="80" width="18" height="18" fill="#f72585" opacity="0.87"/>
+      <rect x="80" y="80" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="100" y="80" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="120" y="80" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="140" y="80" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <!-- Row 6 -->
+      <rect x="0" y="100" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <rect x="20" y="100" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="40" y="100" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="60" y="100" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="80" y="100" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="100" y="100" width="18" height="18" fill="#f72585" opacity="0.89"/>
+      <rect x="120" y="100" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="140" y="100" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <!-- Row 7 -->
+      <rect x="0" y="120" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="20" y="120" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <rect x="40" y="120" width="18" height="18" fill="#f72585" opacity="0.88"/>
+      <rect x="60" y="120" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="80" y="120" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="100" y="120" width="18" height="18" fill="#f72585" opacity="0.09"/>
+      <rect x="120" y="120" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="140" y="120" width="18" height="18" fill="#f72585" opacity="0.10"/>
+      <!-- Row 8 -->
+      <rect x="0" y="140" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="20" y="140" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="40" y="140" width="18" height="18" fill="#f72585" opacity="0.08"/>
+      <rect x="60" y="140" width="18" height="18" fill="#f72585" opacity="0.11"/>
+      <rect x="80" y="140" width="18" height="18" fill="#f72585" opacity="0.07"/>
+      <rect x="100" y="140" width="18" height="18" fill="#f72585" opacity="0.06"/>
+      <rect x="120" y="140" width="18" height="18" fill="#f72585" opacity="0.86"/>
+      <rect x="140" y="140" width="18" height="18" fill="#f72585" opacity="0.09"/>
+
+      <rect x="0" y="0" width="158" height="158" fill="none" stroke="#f72585" stroke-width="1.5" rx="2"/>
+    </g>
+
+    <text x="140" y="225" text-anchor="middle" font-size="11" fill="#c9174a">主要使用低频维度</text>
+    <text x="140" y="240" text-anchor="middle" font-size="10.5" fill="#888">低频旋转慢 → 长距离也有区分度 → 远程匹配</text>
+  </g>
+
+  <!-- Bottom explanation -->
+  <rect x="40" y="312" width="640" height="52" rx="8" fill="#fff8f0" stroke="#f4a261" stroke-width="1"/>
+  <text x="360" y="334" text-anchor="middle" font-size="12" fill="#8a4a00" font-weight="bold">RoPE-scaling 的困境</text>
+  <text x="360" y="352" text-anchor="middle" font-size="11.5" fill="#8a6030">扩展 context 必须压缩低频 → 语义头的坐标系被改变 → 超长距离的信息检索失败</text>
+</svg>

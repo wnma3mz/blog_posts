@@ -1,0 +1,93 @@
+<svg width="720" height="410" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="410" fill="#fafafa" rx="12"/>
+  <text x="360" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">Causal Mask 的隐式位置编码：不同位置能"看到"的 token 数量不同</text>
+  <text x="360" y="44" text-anchor="middle" font-size="11.5" fill="#666">句子：The · cat · sat　　无任何显式位置编码，仅凭 causal mask</text>
+
+  <!-- Left: causal mask matrix -->
+  <g transform="translate(50, 70)">
+    <text x="105" y="16" text-anchor="middle" font-size="12" fill="#444" font-weight="bold">Causal Mask（下三角）</text>
+    <text x="105" y="32" text-anchor="middle" font-size="10.5" fill="#888">✓ = 可以 attend，✗ = 被屏蔽</text>
+
+    <!-- Column headers (Key) -->
+    <text x="75"  y="58" text-anchor="middle" font-size="11" fill="#4361ee" font-weight="bold">The</text>
+    <text x="120" y="58" text-anchor="middle" font-size="11" fill="#7209b7" font-weight="bold">cat</text>
+    <text x="165" y="58" text-anchor="middle" font-size="11" fill="#b5179e" font-weight="bold">sat</text>
+    <text x="105" y="48" text-anchor="middle" font-size="9" fill="#aaa">Key →</text>
+
+    <!-- Row headers (Query) -->
+    <text x="30" y="85"  text-anchor="end" font-size="11" fill="#4361ee" font-weight="bold">The</text>
+    <text x="30" y="130" text-anchor="end" font-size="11" fill="#7209b7" font-weight="bold">cat</text>
+    <text x="30" y="175" text-anchor="end" font-size="11" fill="#b5179e" font-weight="bold">sat</text>
+    <text x="18" y="120" text-anchor="middle" font-size="9" fill="#aaa" transform="rotate(-90,18,120)">Query ↓</text>
+
+    <!-- Row 1: The can only see itself -->
+    <rect x="55" y="65" width="40" height="40" rx="4" fill="#4361ee" opacity="0.85"/>
+    <text x="75" y="90" text-anchor="middle" font-size="14" fill="white">✓</text>
+    <rect x="100" y="65" width="40" height="40" rx="4" fill="#ddd"/>
+    <text x="120" y="90" text-anchor="middle" font-size="14" fill="#aaa">✗</text>
+    <rect x="145" y="65" width="40" height="40" rx="4" fill="#ddd"/>
+    <text x="165" y="90" text-anchor="middle" font-size="14" fill="#aaa">✗</text>
+
+    <!-- Row 2: cat can see The + itself -->
+    <rect x="55" y="110" width="40" height="40" rx="4" fill="#7209b7" opacity="0.5"/>
+    <text x="75" y="135" text-anchor="middle" font-size="14" fill="white">✓</text>
+    <rect x="100" y="110" width="40" height="40" rx="4" fill="#7209b7" opacity="0.85"/>
+    <text x="120" y="135" text-anchor="middle" font-size="14" fill="white">✓</text>
+    <rect x="145" y="110" width="40" height="40" rx="4" fill="#ddd"/>
+    <text x="165" y="135" text-anchor="middle" font-size="14" fill="#aaa">✗</text>
+
+    <!-- Row 3: sat can see all three -->
+    <rect x="55" y="155" width="40" height="40" rx="4" fill="#b5179e" opacity="0.35"/>
+    <text x="75" y="180" text-anchor="middle" font-size="14" fill="white">✓</text>
+    <rect x="100" y="155" width="40" height="40" rx="4" fill="#b5179e" opacity="0.6"/>
+    <text x="120" y="180" text-anchor="middle" font-size="14" fill="white">✓</text>
+    <rect x="145" y="155" width="40" height="40" rx="4" fill="#b5179e" opacity="0.85"/>
+    <text x="165" y="180" text-anchor="middle" font-size="14" fill="white">✓</text>
+
+    <!-- Annotation: visible count -->
+    <text x="200" y="89"  font-size="10" fill="#4361ee">attend 1 个</text>
+    <text x="200" y="135" font-size="10" fill="#7209b7">attend 2 个</text>
+    <text x="200" y="179" font-size="10" fill="#b5179e">attend 3 个</text>
+  </g>
+
+  <!-- Arrow -->
+  <text x="310" y="180" text-anchor="middle" font-size="28" fill="#aaa">→</text>
+
+  <!-- Right: first-layer output composition (no PE, uniform softmax) -->
+  <g transform="translate(340, 70)">
+    <text x="165" y="16" text-anchor="middle" font-size="12" fill="#444" font-weight="bold">第一层输出（无 PE，均匀 softmax）</text>
+    <text x="165" y="32" text-anchor="middle" font-size="10.5" fill="#888">每个 token 的输出 = 各可见 token 的等权平均</text>
+
+    <!-- The: 100% itself -->
+    <text x="10" y="75" font-size="11" fill="#4361ee" font-weight="bold">The 的输出</text>
+    <rect x="10" y="82" width="150" height="26" rx="4" fill="#4361ee" opacity="0.85"/>
+    <text x="85" y="100" text-anchor="middle" font-size="11" fill="white">The（100%）</text>
+    <text x="170" y="98" font-size="10" fill="#4361ee">= emb(The) 的变换</text>
+    <text x="170" y="112" font-size="10" fill="#888">纯内容，无位置混入</text>
+
+    <!-- cat: 50% The + 50% cat -->
+    <text x="10" y="140" font-size="11" fill="#7209b7" font-weight="bold">cat 的输出</text>
+    <rect x="10" y="147" width="75" height="26" rx="4" fill="#4361ee" opacity="0.5"/>
+    <text x="47" y="165" text-anchor="middle" font-size="10" fill="white">The 50%</text>
+    <rect x="85" y="147" width="75" height="26" rx="4" fill="#7209b7" opacity="0.85"/>
+    <text x="122" y="165" text-anchor="middle" font-size="10" fill="white">cat 50%</text>
+    <text x="170" y="163" font-size="10" fill="#7209b7">= 两者均值</text>
+    <text x="170" y="177" font-size="10" fill="#888">与 The 的输出不同</text>
+
+    <!-- sat: 33% each -->
+    <text x="10" y="210" font-size="11" fill="#b5179e" font-weight="bold">sat 的输出</text>
+    <rect x="10" y="217" width="50" height="26" rx="4" fill="#4361ee" opacity="0.35"/>
+    <text x="35" y="235" text-anchor="middle" font-size="9.5" fill="white">The 33%</text>
+    <rect x="60" y="217" width="50" height="26" rx="4" fill="#7209b7" opacity="0.6"/>
+    <text x="85" y="235" text-anchor="middle" font-size="9.5" fill="white">cat 33%</text>
+    <rect x="110" y="217" width="50" height="26" rx="4" fill="#b5179e" opacity="0.85"/>
+    <text x="135" y="235" text-anchor="middle" font-size="9.5" fill="white">sat 33%</text>
+    <text x="170" y="233" font-size="10" fill="#b5179e">= 三者均值</text>
+    <text x="170" y="247" font-size="10" fill="#888">又与前两者不同</text>
+  </g>
+
+  <!-- Bottom callout -->
+  <rect x="40" y="348" width="640" height="44" rx="8" fill="#f0fff4" stroke="#06d6a0" stroke-width="1.5"/>
+  <text x="360" y="366" text-anchor="middle" font-size="12" fill="#1a6a3a" font-weight="bold">三个 token 的第一层输出天然不同 → 后续层可从中恢复位置信息</text>
+  <text x="360" y="384" text-anchor="middle" font-size="11" fill="#555">这就是 causal mask 的隐式位置编码：不需要任何显式 PE，"能看到多少 token"本身就是位置的代理指标</text>
+</svg>

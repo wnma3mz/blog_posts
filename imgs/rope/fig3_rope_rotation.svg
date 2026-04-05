@@ -1,0 +1,98 @@
+<svg width="720" height="400" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="400" fill="#fafafa" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">RoPE 的优势：相邻词对的内积模式，在任何位置都一样</text>
+
+  <text x="360" y="52" text-anchor="middle" font-size="12" fill="#555">同一句话中，"The·cat" 和 "the·mat" 的相对距离都是 1，RoPE 下它们的内积行为完全相同</text>
+
+  <!-- Left panel: sinusoidal PE — inner product depends on absolute position -->
+  <g transform="translate(30, 70)">
+    <rect x="0" y="0" width="310" height="270" rx="10" fill="#fff0f3" stroke="#e63946" stroke-width="1.5"/>
+    <text x="155" y="22" text-anchor="middle" font-size="13" fill="#e63946" font-weight="bold">正弦 PE（绝对位置）</text>
+    <text x="155" y="40" text-anchor="middle" font-size="11" fill="#888">内积 = f(绝对位置 m, 绝对位置 n)</text>
+
+    <!-- Token pair 1: The(0) · cat(1) -->
+    <text x="20" y="68" font-size="11" fill="#555">词对 ①：The(pos=0) · cat(pos=1)</text>
+    <!-- Embedding + PE vectors for pos 0 and 1 -->
+    <rect x="20" y="75" width="55" height="28" rx="5" fill="#4361ee"/>
+    <text x="47" y="94" text-anchor="middle" font-size="11" fill="white">emb_The</text>
+    <text x="47" y="117" text-anchor="middle" font-size="9.5" fill="#4361ee">+ PE(0)</text>
+    <text x="90" y="90" text-anchor="middle" font-size="18" fill="#888">+</text>
+    <rect x="108" y="75" width="55" height="28" rx="5" fill="#3a0ca3"/>
+    <text x="135" y="94" text-anchor="middle" font-size="11" fill="white">emb_cat</text>
+    <text x="135" y="117" text-anchor="middle" font-size="9.5" fill="#3a0ca3">+ PE(1)</text>
+    <text x="178" y="90" text-anchor="middle" font-size="16" fill="#888">→</text>
+    <rect x="195" y="72" width="95" height="34" rx="5" fill="#e63946" opacity="0.15" stroke="#e63946" stroke-width="1"/>
+    <text x="242" y="88" text-anchor="middle" font-size="11" fill="#c00">内积 = A</text>
+    <text x="242" y="102" text-anchor="middle" font-size="9.5" fill="#c00">依赖绝对位置 0,1</text>
+
+    <!-- Divider -->
+    <line x1="15" y1="130" x2="295" y2="130" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- Token pair 2: the(4) · mat(5) -->
+    <text x="20" y="150" font-size="11" fill="#555">词对 ②：the(pos=4) · mat(pos=5)</text>
+    <rect x="20" y="157" width="55" height="28" rx="5" fill="#4361ee" opacity="0.6"/>
+    <text x="47" y="176" text-anchor="middle" font-size="11" fill="white">emb_the</text>
+    <text x="47" y="199" text-anchor="middle" font-size="9.5" fill="#4361ee">+ PE(4)</text>
+    <text x="90" y="172" text-anchor="middle" font-size="18" fill="#888">+</text>
+    <rect x="108" y="157" width="55" height="28" rx="5" fill="#3a0ca3" opacity="0.6"/>
+    <text x="135" y="176" text-anchor="middle" font-size="11" fill="white">emb_mat</text>
+    <text x="135" y="199" text-anchor="middle" font-size="9.5" fill="#3a0ca3">+ PE(5)</text>
+    <text x="178" y="172" text-anchor="middle" font-size="16" fill="#888">→</text>
+    <rect x="195" y="154" width="95" height="34" rx="5" fill="#e63946" opacity="0.15" stroke="#e63946" stroke-width="1"/>
+    <text x="242" y="170" text-anchor="middle" font-size="11" fill="#c00">内积 = B</text>
+    <text x="242" y="184" text-anchor="middle" font-size="9.5" fill="#c00">依赖绝对位置 4,5</text>
+
+    <!-- Key problem -->
+    <rect x="15" y="218" width="280" height="40" rx="6" fill="#e63946" opacity="0.1"/>
+    <text x="155" y="235" text-anchor="middle" font-size="12" fill="#c00" font-weight="bold">A ≠ B，尽管两对词的相对距离都是 1</text>
+    <text x="155" y="252" text-anchor="middle" font-size="11" fill="#c00">模型需要自己学习"绝对位置 0 和 4 都表示相邻"</text>
+  </g>
+
+  <!-- Right panel: RoPE — inner product depends only on relative position -->
+  <g transform="translate(380, 70)">
+    <rect x="0" y="0" width="310" height="270" rx="10" fill="#f0fff4" stroke="#06d6a0" stroke-width="1.5"/>
+    <text x="155" y="22" text-anchor="middle" font-size="13" fill="#1a8a6a" font-weight="bold">RoPE（相对位置）</text>
+    <text x="155" y="40" text-anchor="middle" font-size="11" fill="#888">内积 = f(相对位置 m−n)</text>
+
+    <!-- Token pair 1 with rotation -->
+    <text x="20" y="68" font-size="11" fill="#555">词对 ①：The(m=0) · cat(n=1)</text>
+    <rect x="20" y="75" width="55" height="28" rx="5" fill="#4361ee"/>
+    <text x="47" y="94" text-anchor="middle" font-size="11" fill="white">q₀</text>
+    <text x="47" y="117" text-anchor="middle" font-size="9" fill="#4361ee">旋转 0·θ</text>
+    <text x="90" y="90" text-anchor="middle" font-size="18" fill="#888">·</text>
+    <rect x="108" y="75" width="55" height="28" rx="5" fill="#3a0ca3"/>
+    <text x="135" y="94" text-anchor="middle" font-size="11" fill="white">k₁</text>
+    <text x="135" y="117" text-anchor="middle" font-size="9" fill="#3a0ca3">旋转 1·θ</text>
+    <text x="178" y="90" text-anchor="middle" font-size="16" fill="#888">→</text>
+    <rect x="195" y="72" width="95" height="34" rx="5" fill="#06d6a0" opacity="0.2" stroke="#06d6a0" stroke-width="1"/>
+    <text x="242" y="88" text-anchor="middle" font-size="11" fill="#1a6a3a" font-weight="bold">内积 = C</text>
+    <text x="242" y="102" text-anchor="middle" font-size="9.5" fill="#1a6a3a">只依赖差值 1−0=1</text>
+
+    <!-- Divider -->
+    <line x1="15" y1="130" x2="295" y2="130" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+
+    <!-- Token pair 2 with rotation -->
+    <text x="20" y="150" font-size="11" fill="#555">词对 ②：the(m=4) · mat(n=5)</text>
+    <rect x="20" y="157" width="55" height="28" rx="5" fill="#4361ee" opacity="0.6"/>
+    <text x="47" y="176" text-anchor="middle" font-size="11" fill="white">q₄</text>
+    <text x="47" y="199" text-anchor="middle" font-size="9" fill="#4361ee">旋转 4·θ</text>
+    <text x="90" y="172" text-anchor="middle" font-size="18" fill="#888">·</text>
+    <rect x="108" y="157" width="55" height="28" rx="5" fill="#3a0ca3" opacity="0.6"/>
+    <text x="135" y="176" text-anchor="middle" font-size="11" fill="white">k₅</text>
+    <text x="135" y="199" text-anchor="middle" font-size="9" fill="#3a0ca3">旋转 5·θ</text>
+    <text x="178" y="172" text-anchor="middle" font-size="16" fill="#888">→</text>
+    <rect x="195" y="154" width="95" height="34" rx="5" fill="#06d6a0" opacity="0.2" stroke="#06d6a0" stroke-width="1"/>
+    <text x="242" y="170" text-anchor="middle" font-size="11" fill="#1a6a3a" font-weight="bold">内积 = C</text>
+    <text x="242" y="184" text-anchor="middle" font-size="9.5" fill="#1a6a3a">只依赖差值 5−4=1</text>
+
+    <!-- Key advantage -->
+    <rect x="15" y="218" width="280" height="40" rx="6" fill="#06d6a0" opacity="0.15"/>
+    <text x="155" y="235" text-anchor="middle" font-size="12" fill="#1a6a3a" font-weight="bold">两对词的内积相同，无需额外学习</text>
+    <text x="155" y="252" text-anchor="middle" font-size="11" fill="#1a6a3a">"相邻"关系天然由旋转差值 Δθ=1 编码</text>
+  </g>
+
+  <!-- Bottom: RoPE math intuition -->
+  <rect x="30" y="355" width="660" height="34" rx="8" fill="#1a1a2e"/>
+  <text x="360" y="370" text-anchor="middle" font-size="12" fill="white">RoPE 关键性质：</text>
+  <text x="360" y="385" text-anchor="middle" font-size="12" fill="#aaaaff">q̃ₘᵀ · k̃ₙ = qₘᵀ · Rθ,(n−m) · kₙ　→　内积只含相对位置 (n−m)，绝对位置被消掉</text>
+</svg>

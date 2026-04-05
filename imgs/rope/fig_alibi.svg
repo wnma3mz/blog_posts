@@ -1,0 +1,163 @@
+<svg width="720" height="430" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="430" fill="#fafafa" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">ALiBi：直接在注意力分数上施加线性距离惩罚</text>
+
+  <!-- Formula bar -->
+  <rect x="30" y="42" width="660" height="28" rx="6" fill="#f0f4ff" stroke="#4361ee" stroke-width="1"/>
+  <text x="360" y="61" text-anchor="middle" font-size="12" fill="#1a1a2e">softmax( q·kᵀ / √dₖ  +  m · [0, −1, −2, −3, …] )　　m = 每个 head 的固定斜率（几何序列：½, ¼, ⅛, …）</text>
+
+  <!-- Left: bias matrix visualization -->
+  <g transform="translate(40, 90)">
+    <text x="120" y="16" text-anchor="middle" font-size="12" fill="#444" font-weight="bold">线性偏置矩阵（m = −½ 的 head）</text>
+    <text x="120" y="32" text-anchor="middle" font-size="10.5" fill="#888">每格 = 距离 × (−½)，越远惩罚越大</text>
+
+    <!-- Grid: 6x6 lower-triangular, cell=34px -->
+    <!-- Row labels (query positions) -->
+    <text x="-8" y="70" text-anchor="end" font-size="10" fill="#888">q₁</text>
+    <text x="-8" y="104" text-anchor="end" font-size="10" fill="#888">q₂</text>
+    <text x="-8" y="138" text-anchor="end" font-size="10" fill="#888">q₃</text>
+    <text x="-8" y="172" text-anchor="end" font-size="10" fill="#888">q₄</text>
+    <text x="-8" y="206" text-anchor="end" font-size="10" fill="#888">q₅</text>
+    <text x="-8" y="240" text-anchor="end" font-size="10" fill="#888">q₆</text>
+
+    <!-- Col labels (key positions) -->
+    <text x="17" y="50" text-anchor="middle" font-size="10" fill="#888">k₁</text>
+    <text x="51" y="50" text-anchor="middle" font-size="10" fill="#888">k₂</text>
+    <text x="85" y="50" text-anchor="middle" font-size="10" fill="#888">k₃</text>
+    <text x="119" y="50" text-anchor="middle" font-size="10" fill="#888">k₄</text>
+    <text x="153" y="50" text-anchor="middle" font-size="10" fill="#888">k₅</text>
+    <text x="187" y="50" text-anchor="middle" font-size="10" fill="#888">k₆</text>
+
+    <!-- Cells: value = m*(j-i) where m=-0.5, causal so j<=i -->
+    <!-- color: 0 = white/green, more negative = darker red -->
+    <!-- Row 1: q=1, only k1 visible (dist=0) -->
+    <rect x="0"   y="55" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="16"  y="76" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+    <rect x="34"  y="55" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="50"  y="76" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="68"  y="55" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="84"  y="76" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="102" y="55" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="118" y="76" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="136" y="55" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="152" y="76" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="170" y="55" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="186" y="76" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+
+    <!-- Row 2: q=2, k1(dist=1→-0.5), k2(dist=0) -->
+    <rect x="0"   y="89" width="32" height="32" rx="2" fill="#ffcdd2"/><text x="16"  y="110" text-anchor="middle" font-size="10" fill="#c00">−½</text>
+    <rect x="34"  y="89" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="50"  y="110" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+    <rect x="68"  y="89" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="84"  y="110" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="102" y="89" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="118" y="110" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="136" y="89" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="152" y="110" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="170" y="89" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="186" y="110" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+
+    <!-- Row 3: q=3, k1(-1), k2(-0.5), k3(0) -->
+    <rect x="0"   y="123" width="32" height="32" rx="2" fill="#ef9a9a"/><text x="16"  y="144" text-anchor="middle" font-size="10" fill="#c00">−1</text>
+    <rect x="34"  y="123" width="32" height="32" rx="2" fill="#ffcdd2"/><text x="50"  y="144" text-anchor="middle" font-size="10" fill="#c00">−½</text>
+    <rect x="68"  y="123" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="84"  y="144" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+    <rect x="102" y="123" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="118" y="144" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="136" y="123" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="152" y="144" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="170" y="123" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="186" y="144" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+
+    <!-- Row 4: q=4, k1(-1.5), k2(-1), k3(-0.5), k4(0) -->
+    <rect x="0"   y="157" width="32" height="32" rx="2" fill="#e57373"/><text x="16"  y="178" text-anchor="middle" font-size="10" fill="#fff">−1½</text>
+    <rect x="34"  y="157" width="32" height="32" rx="2" fill="#ef9a9a"/><text x="50"  y="178" text-anchor="middle" font-size="10" fill="#c00">−1</text>
+    <rect x="68"  y="157" width="32" height="32" rx="2" fill="#ffcdd2"/><text x="84"  y="178" text-anchor="middle" font-size="10" fill="#c00">−½</text>
+    <rect x="102" y="157" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="118" y="178" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+    <rect x="136" y="157" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="152" y="178" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+    <rect x="170" y="157" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="186" y="178" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+
+    <!-- Row 5: k1(-2), k2(-1.5), k3(-1), k4(-0.5), k5(0) -->
+    <rect x="0"   y="191" width="32" height="32" rx="2" fill="#c62828"/><text x="16"  y="212" text-anchor="middle" font-size="10" fill="#fff">−2</text>
+    <rect x="34"  y="191" width="32" height="32" rx="2" fill="#e57373"/><text x="50"  y="212" text-anchor="middle" font-size="10" fill="#fff">−1½</text>
+    <rect x="68"  y="191" width="32" height="32" rx="2" fill="#ef9a9a"/><text x="84"  y="212" text-anchor="middle" font-size="10" fill="#c00">−1</text>
+    <rect x="102" y="191" width="32" height="32" rx="2" fill="#ffcdd2"/><text x="118" y="212" text-anchor="middle" font-size="10" fill="#c00">−½</text>
+    <rect x="136" y="191" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="152" y="212" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+    <rect x="170" y="191" width="32" height="32" rx="2" fill="#e8e8e8"/><text x="186" y="212" text-anchor="middle" font-size="10" fill="#aaa">−</text>
+
+    <!-- Row 6: k1(-2.5), k2(-2), k3(-1.5), k4(-1), k5(-0.5), k6(0) -->
+    <rect x="0"   y="225" width="32" height="32" rx="2" fill="#b71c1c"/><text x="16"  y="246" text-anchor="middle" font-size="10" fill="#fff">−2½</text>
+    <rect x="34"  y="225" width="32" height="32" rx="2" fill="#c62828"/><text x="50"  y="246" text-anchor="middle" font-size="10" fill="#fff">−2</text>
+    <rect x="68"  y="225" width="32" height="32" rx="2" fill="#e57373"/><text x="84"  y="246" text-anchor="middle" font-size="10" fill="#fff">−1½</text>
+    <rect x="102" y="225" width="32" height="32" rx="2" fill="#ef9a9a"/><text x="118" y="246" text-anchor="middle" font-size="10" fill="#c00">−1</text>
+    <rect x="136" y="225" width="32" height="32" rx="2" fill="#ffcdd2"/><text x="152" y="246" text-anchor="middle" font-size="10" fill="#c00">−½</text>
+    <rect x="170" y="225" width="32" height="32" rx="2" fill="#e8f5e9"/><text x="186" y="246" text-anchor="middle" font-size="10" fill="#1a6a3a">0</text>
+
+    <!-- Labels -->
+    <text x="95" y="275" text-anchor="middle" font-size="10.5" fill="#666">绿色 = 当前位置（无惩罚），越远越红（惩罚越大）</text>
+    <text x="95" y="290" text-anchor="middle" font-size="10" fill="#888">灰色格 = causal mask 遮掉的未来 token</text>
+  </g>
+
+  <!-- Right: multi-head slopes comparison -->
+  <g transform="translate(280, 90)">
+    <text x="200" y="16" text-anchor="middle" font-size="12" fill="#444" font-weight="bold">不同 head 的斜率 m：感知距离的尺度不同</text>
+    <text x="200" y="32" text-anchor="middle" font-size="10.5" fill="#888">斜率大 → 只关注近邻；斜率小 → 能看更远</text>
+
+    <!-- Axes -->
+    <line x1="30" y1="240" x2="380" y2="240" stroke="#bbb" stroke-width="1.5"/>
+    <line x1="30" y1="60"  x2="30"  y2="245" stroke="#bbb" stroke-width="1.5"/>
+    <text x="205" y="262" text-anchor="middle" font-size="10" fill="#888">相对距离 (i − j)</text>
+    <text x="16" y="64" text-anchor="middle" font-size="9" fill="#aaa">0</text>
+    <text x="10" y="240" text-anchor="middle" font-size="9" fill="#aaa">0</text>
+    <text x="22" y="150" text-anchor="middle" font-size="9" fill="#aaa" transform="rotate(-90,22,150)">偏置值</text>
+
+    <!-- X tick labels: 0,1,2,3,4,5,6,7 → x = 30 + dist*46 -->
+    <text x="30"  y="254" text-anchor="middle" font-size="9" fill="#888">0</text>
+    <text x="76"  y="254" text-anchor="middle" font-size="9" fill="#888">1</text>
+    <text x="122" y="254" text-anchor="middle" font-size="9" fill="#888">2</text>
+    <text x="168" y="254" text-anchor="middle" font-size="9" fill="#888">3</text>
+    <text x="214" y="254" text-anchor="middle" font-size="9" fill="#888">4</text>
+    <text x="260" y="254" text-anchor="middle" font-size="9" fill="#888">5</text>
+    <text x="306" y="254" text-anchor="middle" font-size="9" fill="#888">6</text>
+    <text x="352" y="254" text-anchor="middle" font-size="9" fill="#888">7</text>
+
+    <!-- Y tick labels: 0 at y=240, -1 at y=204, -2 at y=168, -3 at y=132, -4 at y=96, each unit=36px -->
+    <text x="22" y="204" text-anchor="end" font-size="9" fill="#aaa">−1</text>
+    <line x1="27" y1="204" x2="33" y2="204" stroke="#bbb" stroke-width="1"/>
+    <text x="22" y="168" text-anchor="end" font-size="9" fill="#aaa">−2</text>
+    <line x1="27" y1="168" x2="33" y2="168" stroke="#bbb" stroke-width="1"/>
+    <text x="22" y="132" text-anchor="end" font-size="9" fill="#aaa">−3</text>
+    <line x1="27" y1="132" x2="33" y2="132" stroke="#bbb" stroke-width="1"/>
+
+    <!-- m = -1/2: bias = -dist/2, per unit drop = 18px -->
+    <!-- points: (0,0)(1,-0.5)(2,-1)(3,-1.5)(4,-2)(5,-2.5)(6,-3)(7,-3.5) -->
+    <!-- y = 240 - value*36; for m=-1/2: y=240+dist*18 -->
+    <polyline points="30,240 76,258 122,276 168,294" fill="none" stroke="#e63946" stroke-width="2.5" opacity="0.9"/>
+    <!-- clip at y=294 visually; just draw to reasonable extent -->
+    <polyline points="30,240 76,258 122,276" fill="none" stroke="#e63946" stroke-width="2.5"/>
+    <!-- extend slightly with dashes -->
+    <polyline points="122,276 168,294 214,312" fill="none" stroke="#e63946" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+    <circle cx="30" cy="240" r="3.5" fill="#e63946"/>
+    <circle cx="76" cy="258" r="3.5" fill="#e63946"/>
+    <circle cx="122" cy="276" r="3.5" fill="#e63946"/>
+    <text x="220" y="96" font-size="10.5" fill="#e63946" font-weight="bold">m = −½（关注近邻）</text>
+
+    <!-- m = -1/4: per unit drop = 9px -->
+    <polyline points="30,240 76,249 122,258 168,267 214,276 260,285 306,294 352,303" fill="none" stroke="#f4a261" stroke-width="2.5"/>
+    <circle cx="30" cy="240" r="3.5" fill="#f4a261"/>
+    <circle cx="76" cy="249" r="3.5" fill="#f4a261"/>
+    <circle cx="122" cy="258" r="3.5" fill="#f4a261"/>
+    <circle cx="168" cy="267" r="3.5" fill="#f4a261"/>
+    <circle cx="214" cy="276" r="3.5" fill="#f4a261"/>
+    <circle cx="260" cy="285" r="3.5" fill="#f4a261"/>
+    <circle cx="306" cy="294" r="3.5" fill="#f4a261"/>
+    <text x="220" y="116" font-size="10.5" fill="#f4a261" font-weight="bold">m = −¼</text>
+
+    <!-- m = -1/8: per unit drop = 4.5px -->
+    <polyline points="30,240 76,244.5 122,249 168,253.5 214,258 260,262.5 306,267 352,271.5" fill="none" stroke="#06d6a0" stroke-width="2.5"/>
+    <circle cx="30" cy="240" r="3.5" fill="#06d6a0"/>
+    <circle cx="76" cy="244.5" r="3.5" fill="#06d6a0"/>
+    <circle cx="122" cy="249" r="3.5" fill="#06d6a0"/>
+    <circle cx="168" cy="253.5" r="3.5" fill="#06d6a0"/>
+    <circle cx="214" cy="258" r="3.5" fill="#06d6a0"/>
+    <circle cx="260" cy="262.5" r="3.5" fill="#06d6a0"/>
+    <circle cx="306" cy="267" r="3.5" fill="#06d6a0"/>
+    <circle cx="352" cy="271.5" r="3.5" fill="#06d6a0"/>
+    <text x="220" y="136" font-size="10.5" fill="#06d6a0" font-weight="bold">m = −⅛（关注远程）</text>
+
+    <!-- Training length marker -->
+    <line x1="168" y1="60" x2="168" y2="240" stroke="#4361ee" stroke-width="1" stroke-dasharray="5,3"/>
+    <text x="170" y="74" font-size="9.5" fill="#4361ee">训练长度边界</text>
+    <text x="170" y="86" font-size="9.5" fill="#4361ee">↑ 右侧仍有效</text>
+  </g>
+
+  <!-- Bottom callout -->
+  <rect x="30" y="394" width="660" height="30" rx="7" fill="#e8f5e9" stroke="#06d6a0" stroke-width="1.5"/>
+  <text x="360" y="408" text-anchor="middle" font-size="11.5" fill="#1a6a3a" font-weight="bold">ALiBi 的关键优势：线性惩罚对任意距离均成立，训练时从未见过的超长位置依然能使用同一公式计算——天然支持外推</text>
+  <text x="360" y="422" text-anchor="middle" font-size="11" fill="#555">代价：强制线性衰减，无法灵活建模长距离依赖（代词←→名词等），绝对性能弱于 RoPE</text>
+</svg>

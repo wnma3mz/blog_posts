@@ -1,0 +1,150 @@
+<svg width="720" height="460" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="460" fill="#fafafa" rx="12"/>
+  <text x="360" y="26" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">三种 RoPE 上下文扩展方案：同一个 token，三种不同的处理方式</text>
+  <text x="360" y="44" text-anchor="middle" font-size="11.5" fill="#666">场景：训练长度 C_train = 2048，推理时 pos = 4096（超出 2 倍），扩展因子 s = 2</text>
+
+  <!-- Scenario strip -->
+  <rect x="30" y="55" width="660" height="34" rx="7" fill="#fff3e0" stroke="#f4a261" stroke-width="1.5"/>
+  <text x="360" y="68" text-anchor="middle" font-size="11" fill="#8a4a00">模型在 pos=4096 处遇到一个 token。它的旋转角度是 <tspan font-weight="bold">4096 × ω</tspan>，而训练时只见过最大 <tspan font-weight="bold">2047 × ω</tspan> 的范围。</text>
+  <text x="360" y="82" text-anchor="middle" font-size="11" fill="#8a4a00">三种方案各有不同的处理方式——但目标相同：<tspan font-weight="bold" fill="#c00">让旋转角度重新落回训练时见过的范围内。</tspan></text>
+
+  <!-- Three columns: PI, NTK, YaRN -->
+
+  <!-- === PI === -->
+  <g transform="translate(30, 108)">
+    <rect x="0" y="0" width="200" height="300" rx="10" fill="#fff5f5" stroke="#e63946" stroke-width="1.5"/>
+    <text x="100" y="22" text-anchor="middle" font-size="13" fill="#e63946" font-weight="bold">方案一：位置插值（PI）</text>
+
+    <!-- Idea -->
+    <text x="100" y="42" text-anchor="middle" font-size="10.5" fill="#555">思路：把位置索引缩小 s 倍</text>
+    <rect x="10" y="50" width="180" height="22" rx="4" fill="#ffe0e0"/>
+    <text x="100" y="65" text-anchor="middle" font-size="11" fill="#c00">pos' = 4096 ÷ 2 = 2048</text>
+
+    <!-- Number line visual -->
+    <text x="100" y="90" text-anchor="middle" font-size="10" fill="#666">插值后 → 落在训练边界上</text>
+
+    <!-- Timeline: 0 ... 2047 | 2048 OOD zone -->
+    <line x1="10" y1="110" x2="190" y2="110" stroke="#ccc" stroke-width="1.5"/>
+    <!-- Train range: 0..2047 → x=10..130 -->
+    <rect x="10" y="104" width="120" height="12" rx="2" fill="#4361ee" opacity="0.18"/>
+    <text x="70" y="128" text-anchor="middle" font-size="9" fill="#4361ee">训练范围 [0, 2048)</text>
+    <!-- OOD zone -->
+    <rect x="130" y="104" width="60" height="12" rx="2" fill="#e63946" opacity="0.15"/>
+    <text x="160" y="128" text-anchor="middle" font-size="9" fill="#e63946">OOD 区域</text>
+    <!-- Original pos marker: x=130+(4096-2048)/(8192-2048)*60 ≈ 130+20=150 -->
+    <!-- Simplified: just show OOD pos and mapped pos -->
+    <circle cx="190" cy="110" r="4" fill="#e63946"/>
+    <text x="188" y="100" text-anchor="end" font-size="9" fill="#e63946">原始 4096</text>
+    <circle cx="130" cy="110" r="4" fill="#1a6a3a"/>
+    <text x="132" y="100" font-size="9" fill="#1a6a3a">插值后 2048</text>
+
+    <!-- Effect on high/low freq -->
+    <text x="100" y="154" text-anchor="middle" font-size="10.5" fill="#555" font-weight="bold">对不同频率维度的影响</text>
+    <!-- High freq -->
+    <rect x="10" y="162" width="80" height="44" rx="4" fill="rgba(67,97,238,0.08)" stroke="#4361ee" stroke-width="1"/>
+    <text x="50" y="177" text-anchor="middle" font-size="9.5" fill="#4361ee">高频维度</text>
+    <text x="50" y="191" text-anchor="middle" font-size="9" fill="#888">相邻 token</text>
+    <text x="50" y="203" text-anchor="middle" font-size="9" fill="#c00">间距从 1→0.5</text>
+    <!-- Low freq -->
+    <rect x="110" y="162" width="80" height="44" rx="4" fill="rgba(247,37,133,0.08)" stroke="#f72585" stroke-width="1"/>
+    <text x="150" y="177" text-anchor="middle" font-size="9.5" fill="#f72585">低频维度</text>
+    <text x="150" y="191" text-anchor="middle" font-size="9" fill="#888">长程语义</text>
+    <text x="150" y="203" text-anchor="middle" font-size="9" fill="#1a6a3a">OOD 缓解</text>
+
+    <!-- Verdict -->
+    <rect x="10" y="220" width="180" height="50" rx="5" fill="rgba(230,57,70,0.08)"/>
+    <text x="100" y="237" text-anchor="middle" font-size="10.5" fill="#c00" font-weight="bold">代价</text>
+    <text x="100" y="253" text-anchor="middle" font-size="10" fill="#666">近距离位置区分度下降</text>
+    <text x="100" y="267" text-anchor="middle" font-size="10" fill="#666">需约 1000 步微调</text>
+  </g>
+
+  <!-- === NTK === -->
+  <g transform="translate(260, 108)">
+    <rect x="0" y="0" width="200" height="300" rx="10" fill="#f0f4ff" stroke="#4361ee" stroke-width="1.5"/>
+    <text x="100" y="22" text-anchor="middle" font-size="13" fill="#4361ee" font-weight="bold">方案二：RoPE-NTK</text>
+
+    <!-- Idea -->
+    <text x="100" y="42" text-anchor="middle" font-size="10.5" fill="#555">思路：把 base 从 10000 调大</text>
+    <rect x="10" y="50" width="180" height="22" rx="4" fill="#dde3ff"/>
+    <text x="100" y="65" text-anchor="middle" font-size="11" fill="#3a0ca3">b' = 10000 × s^(d/(d-2)) ≈ 40000</text>
+
+    <!-- Effect: different treatment per freq -->
+    <text x="100" y="90" text-anchor="middle" font-size="10" fill="#666">不同频率自动获得不同缩放</text>
+
+    <!-- Freq-scaled diagram -->
+    <line x1="10" y1="110" x2="190" y2="110" stroke="#ccc" stroke-width="1.5"/>
+    <rect x="10" y="104" width="120" height="12" rx="2" fill="#4361ee" opacity="0.18"/>
+    <text x="70" y="128" text-anchor="middle" font-size="9" fill="#4361ee">训练范围 [0, 2048)</text>
+    <!-- NTK: high-freq stays, low-freq compressed -->
+    <!-- Show two markers for same pos=4096 under different freqs -->
+    <circle cx="190" cy="110" r="4" fill="#e63946" opacity="0.5"/>
+    <text x="188" y="100" text-anchor="end" font-size="9" fill="#e63946">原始 4096</text>
+    <!-- Low freq mapped back close to training range -->
+    <circle cx="128" cy="110" r="4" fill="#f72585"/>
+    <text x="125" y="100" text-anchor="end" font-size="9" fill="#f72585">低频 ≈落回</text>
+    <!-- High freq barely changes -->
+    <circle cx="185" cy="110" r="4" fill="#4361ee"/>
+    <text x="183" y="122" text-anchor="end" font-size="9" fill="#4361ee">高频≈不变</text>
+
+    <!-- Effect on high/low freq -->
+    <text x="100" y="154" text-anchor="middle" font-size="10.5" fill="#555" font-weight="bold">对不同频率维度的影响</text>
+    <rect x="10" y="162" width="80" height="44" rx="4" fill="rgba(67,97,238,0.08)" stroke="#4361ee" stroke-width="1"/>
+    <text x="50" y="177" text-anchor="middle" font-size="9.5" fill="#4361ee">高频维度</text>
+    <text x="50" y="191" text-anchor="middle" font-size="9" fill="#888">相邻区分度</text>
+    <text x="50" y="203" text-anchor="middle" font-size="9" fill="#1a6a3a">基本保留</text>
+    <rect x="110" y="162" width="80" height="44" rx="4" fill="rgba(247,37,133,0.08)" stroke="#f72585" stroke-width="1"/>
+    <text x="150" y="177" text-anchor="middle" font-size="9.5" fill="#f72585">低频维度</text>
+    <text x="150" y="191" text-anchor="middle" font-size="9" fill="#888">长程语义</text>
+    <text x="150" y="203" text-anchor="middle" font-size="9" fill="#c00">大幅压缩</text>
+
+    <!-- Verdict -->
+    <rect x="10" y="220" width="180" height="50" rx="5" fill="rgba(67,97,238,0.08)"/>
+    <text x="100" y="237" text-anchor="middle" font-size="10.5" fill="#4361ee" font-weight="bold">改进</text>
+    <text x="100" y="253" text-anchor="middle" font-size="10" fill="#666">近距区分度比 PI 更好</text>
+    <text x="100" y="267" text-anchor="middle" font-size="10" fill="#666">仍需微调，低频仍受损</text>
+  </g>
+
+  <!-- === YaRN === -->
+  <g transform="translate(490, 108)">
+    <rect x="0" y="0" width="200" height="300" rx="10" fill="#f0fff4" stroke="#06d6a0" stroke-width="1.5"/>
+    <text x="100" y="22" text-anchor="middle" font-size="13" fill="#1a8a6a" font-weight="bold">方案三：YaRN</text>
+
+    <!-- Idea -->
+    <text x="100" y="42" text-anchor="middle" font-size="10.5" fill="#555">思路：按频率分三段处理</text>
+    <rect x="10" y="50" width="180" height="22" rx="4" fill="#d0f5ea"/>
+    <text x="100" y="65" text-anchor="middle" font-size="11" fill="#1a8a6a">高频保留 · 中频过渡 · 低频插值</text>
+
+    <!-- Three-zone bar -->
+    <text x="100" y="90" text-anchor="middle" font-size="10" fill="#666">频率维度的三段策略</text>
+    <line x1="10" y1="110" x2="190" y2="110" stroke="#ccc" stroke-width="1.5"/>
+    <!-- Three zones on the frequency axis -->
+    <rect x="10" y="104" width="55" height="12" rx="2" fill="#f72585" opacity="0.3"/>
+    <text x="37" y="128" text-anchor="middle" font-size="8.5" fill="#c9174a">低频：插值</text>
+    <rect x="66" y="104" width="70" height="12" rx="2" fill="#f4a261" opacity="0.5"/>
+    <text x="101" y="128" text-anchor="middle" font-size="8.5" fill="#b05000">中频：平滑过渡</text>
+    <rect x="137" y="104" width="53" height="12" rx="2" fill="#06d6a0" opacity="0.4"/>
+    <text x="163" y="128" text-anchor="middle" font-size="8.5" fill="#1a6a3a">高频：保留</text>
+
+    <!-- Effect on high/low freq -->
+    <text x="100" y="154" text-anchor="middle" font-size="10.5" fill="#555" font-weight="bold">对不同频率维度的影响</text>
+    <rect x="10" y="162" width="80" height="44" rx="4" fill="rgba(6,214,160,0.1)" stroke="#06d6a0" stroke-width="1"/>
+    <text x="50" y="177" text-anchor="middle" font-size="9.5" fill="#1a8a6a">高频维度</text>
+    <text x="50" y="191" text-anchor="middle" font-size="9" fill="#888">相邻区分度</text>
+    <text x="50" y="203" text-anchor="middle" font-size="9" fill="#1a6a3a">完全保留</text>
+    <rect x="110" y="162" width="80" height="44" rx="4" fill="rgba(247,37,133,0.08)" stroke="#f72585" stroke-width="1"/>
+    <text x="150" y="177" text-anchor="middle" font-size="9.5" fill="#f72585">低频维度</text>
+    <text x="150" y="191" text-anchor="middle" font-size="9" fill="#888">长程语义</text>
+    <text x="150" y="203" text-anchor="middle" font-size="9" fill="#c00">仍需压缩</text>
+
+    <!-- Verdict -->
+    <rect x="10" y="220" width="180" height="50" rx="5" fill="rgba(6,214,160,0.08)"/>
+    <text x="100" y="237" text-anchor="middle" font-size="10.5" fill="#1a8a6a" font-weight="bold">最佳方案（三者中）</text>
+    <text x="100" y="253" text-anchor="middle" font-size="10" fill="#666">高频完全无损，微调最少</text>
+    <text x="100" y="267" text-anchor="middle" font-size="10" fill="#666">但低频压缩问题无法回避</text>
+  </g>
+
+  <!-- Bottom: shared limitation -->
+  <rect x="30" y="420" width="660" height="30" rx="7" fill="#fff0f3" stroke="#e63946" stroke-width="1.5"/>
+  <text x="360" y="433" text-anchor="middle" font-size="11.5" fill="#c00" font-weight="bold">三种方案的共同困境：低频维度是语义头的工作频段，但扩展上下文必然压缩低频——语义检索能力因此受损</text>
+  <text x="360" y="448" text-anchor="middle" font-size="11" fill="#666">在 perplexity 指标上看起来不错，但 Needle-in-a-Haystack 等精确检索任务上全部失效</text>
+</svg>

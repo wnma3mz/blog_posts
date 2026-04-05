@@ -1,0 +1,83 @@
+<svg width="720" height="300" xmlns="http://www.w3.org/2000/svg" font-family="'PingFang SC', 'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="300" fill="#fafafa" rx="12"/>
+  <text x="360" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#1a1a2e">DroPE 三阶段流程</text>
+
+  <!-- Stage 1: Pretraining with RoPE -->
+  <g transform="translate(30, 55)">
+    <rect x="0" y="0" width="190" height="170" rx="10" fill="#eef2ff" stroke="#4361ee" stroke-width="2"/>
+    <text x="95" y="25" text-anchor="middle" font-size="13" fill="#4361ee" font-weight="bold">阶段一：预训练</text>
+    <!-- RoPE icon: rotation symbol -->
+    <circle cx="95" cy="75" r="32" fill="none" stroke="#4361ee" stroke-width="2.5"/>
+    <path d="M 95,43 A 32,32 0 1,1 63,75" fill="none" stroke="#4361ee" stroke-width="2.5" marker-end="url(#arr1)"/>
+    <text x="95" y="80" text-anchor="middle" font-size="22" fill="#4361ee">↻</text>
+    <text x="95" y="122" text-anchor="middle" font-size="12" fill="#4361ee" font-weight="bold">使用 RoPE</text>
+    <text x="95" y="140" text-anchor="middle" font-size="11" fill="#666">提供位置归纳偏置</text>
+    <text x="95" y="157" text-anchor="middle" font-size="11" fill="#666">训练快速收敛</text>
+  </g>
+
+  <!-- Arrow 1 -->
+  <g transform="translate(228, 120)">
+    <line x1="0" y1="20" x2="55" y2="20" stroke="#555" stroke-width="2" marker-end="url(#arr2)"/>
+    <text x="27" y="13" text-anchor="middle" font-size="10" fill="#888">训练完成</text>
+    <text x="27" y="40" text-anchor="middle" font-size="9.5" fill="#c00">移除所有层</text>
+    <text x="27" y="52" text-anchor="middle" font-size="9.5" fill="#c00">的 PE</text>
+  </g>
+
+  <!-- Stage 2: Recalibration -->
+  <g transform="translate(290, 55)">
+    <rect x="0" y="0" width="190" height="170" rx="10" fill="#fff0f3" stroke="#f72585" stroke-width="2"/>
+    <text x="95" y="25" text-anchor="middle" font-size="13" fill="#f72585" font-weight="bold">阶段二：再校准</text>
+    <!-- No PE icon -->
+    <circle cx="95" cy="75" r="32" fill="none" stroke="#f72585" stroke-width="2.5"/>
+    <line x1="73" y1="53" x2="117" y2="97" stroke="#f72585" stroke-width="3"/>
+    <text x="95" y="80" text-anchor="middle" font-size="14" fill="#f72585">无 PE</text>
+    <text x="95" y="122" text-anchor="middle" font-size="12" fill="#f72585" font-weight="bold">去掉 RoPE</text>
+    <text x="95" y="140" text-anchor="middle" font-size="11" fill="#666">在原始 context 长度上</text>
+    <text x="95" y="157" text-anchor="middle" font-size="11" fill="#666">继续训练 ~2B tokens</text>
+  </g>
+
+  <!-- Arrow 2 -->
+  <g transform="translate(488, 120)">
+    <line x1="0" y1="20" x2="55" y2="20" stroke="#555" stroke-width="2" marker-end="url(#arr3)"/>
+    <text x="27" y="13" text-anchor="middle" font-size="10" fill="#888">再校准完成</text>
+    <text x="27" y="40" text-anchor="middle" font-size="9.5" fill="#2d6a4f">零样本</text>
+    <text x="27" y="52" text-anchor="middle" font-size="9.5" fill="#2d6a4f">长度泛化</text>
+  </g>
+
+  <!-- Stage 3: Inference -->
+  <g transform="translate(550, 55)">
+    <rect x="0" y="0" width="140" height="170" rx="10" fill="#f0fff4" stroke="#06d6a0" stroke-width="2"/>
+    <text x="70" y="25" text-anchor="middle" font-size="13" fill="#1a8a6a" font-weight="bold">阶段三：推理</text>
+    <!-- Infinity context icon -->
+    <text x="70" y="85" text-anchor="middle" font-size="36" fill="#06d6a0">∞</text>
+    <text x="70" y="122" text-anchor="middle" font-size="12" fill="#1a8a6a" font-weight="bold">任意长度</text>
+    <text x="70" y="140" text-anchor="middle" font-size="11" fill="#666">无位置编码</text>
+    <text x="70" y="157" text-anchor="middle" font-size="11" fill="#666">零样本泛化</text>
+  </g>
+
+  <!-- Markers -->
+  <defs>
+    <marker id="arr1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4361ee"/>
+    </marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arr3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom: cost annotation -->
+  <rect x="30" y="242" width="190" height="40" rx="5" fill="rgba(67,97,238,0.08)"/>
+  <text x="125" y="259" text-anchor="middle" font-size="10.5" fill="#4361ee">全量预训练 token</text>
+  <text x="125" y="275" text-anchor="middle" font-size="10.5" fill="#4361ee">（e.g., 16B tokens）</text>
+
+  <rect x="290" y="242" width="190" height="40" rx="5" fill="rgba(247,37,133,0.08)"/>
+  <text x="385" y="259" text-anchor="middle" font-size="10.5" fill="#c9174a">仅需 ~2B tokens（12.5%）</text>
+  <text x="385" y="275" text-anchor="middle" font-size="10.5" fill="#c9174a">在原始 context 长度上完成</text>
+
+  <rect x="550" y="242" width="140" height="40" rx="5" fill="rgba(6,214,160,0.08)"/>
+  <text x="620" y="259" text-anchor="middle" font-size="10.5" fill="#1a8a6a">超越所有</text>
+  <text x="620" y="275" text-anchor="middle" font-size="10.5" fill="#1a8a6a">RoPE-scaling 方案</text>
+</svg>
