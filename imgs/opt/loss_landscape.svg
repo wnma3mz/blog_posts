@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" font-family="serif">
+
+  <!-- 背景 -->
+  <rect width="800" height="340" fill="#fafafa"/>
+
+  <!-- 左侧标题：凸函数 -->
+  <text x="200" y="30" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">凸函数（Convex）</text>
+  <text x="200" y="50" text-anchor="middle" font-size="13" fill="#666">只有一个最低点，从任何地方都能到达</text>
+
+  <!-- 左侧坐标轴 -->
+  <line x1="40" y1="290" x2="360" y2="290" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="40" y1="290" x2="40" y2="70" stroke="#aaa" stroke-width="1.5"/>
+  <text x="365" y="294" font-size="12" fill="#aaa">θ</text>
+  <text x="44" y="65" font-size="12" fill="#aaa">L</text>
+
+  <!-- 左侧碗形曲线（凸函数）-->
+  <path d="M 55 260 Q 100 290 200 160 Q 300 290 345 260"
+        fill="none" stroke="#4a90d9" stroke-width="2.5"/>
+  <!-- 最低点标记 -->
+  <circle cx="200" cy="160" r="5" fill="#e05252"/>
+  <text x="210" y="155" font-size="12" fill="#e05252">全局最小值</text>
+  <!-- 两个箭头表示从任意位置都能到最低点 -->
+  <line x1="90" y1="240" x2="185" y2="168" stroke="#4a90d9" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+  <line x1="310" y1="240" x2="215" y2="168" stroke="#4a90d9" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+
+  <!-- 右侧标题：非凸函数 -->
+  <text x="600" y="30" text-anchor="middle" font-size="16" fill="#333" font-weight="bold">非凸函数（Non-Convex）</text>
+  <text x="600" y="50" text-anchor="middle" font-size="13" fill="#666">局部最小值、鞍点、平坦区域并存</text>
+
+  <!-- 右侧坐标轴 -->
+  <line x1="440" y1="290" x2="760" y2="290" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="440" y1="290" x2="440" y2="70" stroke="#aaa" stroke-width="1.5"/>
+  <text x="765" y="294" font-size="12" fill="#aaa">θ</text>
+  <text x="444" y="65" font-size="12" fill="#aaa">L</text>
+
+  <!-- 右侧非凸曲线：多个局部最小值、鞍点 -->
+  <path d="M 455 220
+           C 480 220 490 170 510 160
+           C 530 150 535 200 555 195
+           C 575 190 580 130 610 120
+           C 640 110 645 175 665 170
+           C 685 165 690 230 710 240
+           C 730 250 740 220 745 210"
+        fill="none" stroke="#e07b3a" stroke-width="2.5"/>
+
+  <!-- 局部最小值 1 -->
+  <circle cx="510" cy="160" r="5" fill="#aaa"/>
+  <text x="490" y="150" font-size="11" fill="#888">局部最小值</text>
+
+  <!-- 全局最小值 -->
+  <circle cx="610" cy="120" r="5" fill="#e05252"/>
+  <text x="618" y="115" font-size="11" fill="#e05252">全局最小值</text>
+
+  <!-- 局部最小值 2 -->
+  <circle cx="665" cy="170" r="5" fill="#aaa"/>
+  <text x="670" y="165" font-size="11" fill="#888">局部最小值</text>
+
+  <!-- 鞍点标记（曲线中间梯度为0但不是最低点的位置）-->
+  <circle cx="555" cy="195" r="5" fill="#9b59b6"/>
+  <text x="540" y="215" font-size="11" fill="#9b59b6">鞍点</text>
+
+  <!-- 平坦区域标注 -->
+  <line x1="455" y1="225" x2="510" y2="225" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+  <text x="456" y="242" font-size="11" fill="#999">平坦区域</text>
+
+  <!-- 陷入局部最小值的箭头示意 -->
+  <line x1="490" y1="240" x2="510" y2="168" stroke="#e07b3a" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-orange)"/>
+  <text x="460" y="258" font-size="11" fill="#e07b3a">梯度下降</text>
+  <text x="460" y="272" font-size="11" fill="#e07b3a">困在此处</text>
+
+  <!-- 箭头定义 -->
+  <defs>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 z" fill="#4a90d9"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 z" fill="#e07b3a"/>
+    </marker>
+  </defs>
+
+  <!-- 分隔线 -->
+  <line x1="400" y1="20" x2="400" y2="310" stroke="#ddd" stroke-width="1" stroke-dasharray="6,4"/>
+
+</svg>

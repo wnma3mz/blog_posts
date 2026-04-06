@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 450" font-family="serif">
+  <rect width="860" height="450" fill="#fafafa"/>
+
+  <!-- 标题 -->
+  <text x="430" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">同一个参数，SGD 震荡，Adam 平稳收敛</text>
+
+  <!-- ===== 左图：SGD ===== -->
+  <text x="215" y="58" text-anchor="middle" font-size="15" fill="#e07b3a" font-weight="bold">SGD（固定学习率）</text>
+
+  <!-- 坐标轴 -->
+  <line x1="55" y1="330" x2="375" y2="330" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="55" y1="330" x2="55" y2="90" stroke="#bbb" stroke-width="1.5"/>
+  <text x="383" y="334" font-size="12" fill="#bbb">step</text>
+  <text x="40" y="88" font-size="12" fill="#bbb">L</text>
+
+  <!-- 最优值虚线 -->
+  <line x1="55" y1="210" x2="375" y2="210" stroke="#e05252" stroke-width="1.2" stroke-dasharray="6,4"/>
+  <text x="295" y="205" font-size="11" fill="#e05252">最优值</text>
+
+  <!-- SGD 折线 -->
+  <polyline
+    points="75,310 95,220 115,140 128,240 145,295 160,190 180,150 195,260 210,285 225,175 245,160 260,240 275,275 290,165 305,170 320,250 335,265 350,180 365,185"
+    fill="none" stroke="#e07b3a" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- SGD 各点（密集，体现震荡） -->
+  <circle cx="75"  cy="310" r="3.5" fill="#e07b3a"/>
+  <circle cx="95"  cy="220" r="3.5" fill="#e07b3a"/>
+  <circle cx="115" cy="140" r="3.5" fill="#e07b3a"/>
+  <circle cx="128" cy="240" r="3.5" fill="#e07b3a"/>
+  <circle cx="145" cy="295" r="3.5" fill="#e07b3a"/>
+  <circle cx="160" cy="190" r="3.5" fill="#e07b3a"/>
+  <circle cx="180" cy="150" r="3.5" fill="#e07b3a"/>
+  <circle cx="195" cy="260" r="3.5" fill="#e07b3a"/>
+  <circle cx="210" cy="285" r="3.5" fill="#e07b3a"/>
+  <circle cx="225" cy="175" r="3.5" fill="#e07b3a"/>
+  <circle cx="245" cy="160" r="3.5" fill="#e07b3a"/>
+  <circle cx="260" cy="240" r="3.5" fill="#e07b3a"/>
+  <circle cx="275" cy="275" r="3.5" fill="#e07b3a"/>
+  <circle cx="290" cy="165" r="3.5" fill="#e07b3a"/>
+  <circle cx="305" cy="170" r="3.5" fill="#e07b3a"/>
+  <circle cx="320" cy="250" r="3.5" fill="#e07b3a"/>
+  <circle cx="335" cy="265" r="3.5" fill="#e07b3a"/>
+  <circle cx="350" cy="180" r="3.5" fill="#e07b3a"/>
+  <circle cx="365" cy="185" r="3.5" fill="#e07b3a"/>
+
+  <!-- start 标注 -->
+  <text x="80" y="325" font-size="11" fill="#e07b3a">start</text>
+
+  <!-- 震荡幅度标注 -->
+  <line x1="38" y1="140" x2="38" y2="295" stroke="#e07b3a" stroke-width="1" stroke-dasharray="3,3"/>
+  <line x1="33" y1="140" x2="43" y2="140" stroke="#e07b3a" stroke-width="1"/>
+  <line x1="33" y1="295" x2="43" y2="295" stroke="#e07b3a" stroke-width="1"/>
+  <text x="14" y="222" font-size="10" fill="#e07b3a" text-anchor="middle" transform="rotate(-90,14,218)">震荡幅度大</text>
+
+  <text x="215" y="375" text-anchor="middle" font-size="12" fill="#e07b3a">步长固定，梯度大时反复跨过最优值，无法稳定</text>
+
+  <!-- ===== 右图：Adam ===== -->
+  <text x="645" y="58" text-anchor="middle" font-size="15" fill="#27ae60" font-weight="bold">Adam（自适应步长）</text>
+
+  <!-- 坐标轴 -->
+  <line x1="485" y1="330" x2="805" y2="330" stroke="#bbb" stroke-width="1.5"/>
+  <line x1="485" y1="330" x2="485" y2="90" stroke="#bbb" stroke-width="1.5"/>
+  <text x="813" y="334" font-size="12" fill="#bbb">step</text>
+  <text x="470" y="88" font-size="12" fill="#bbb">L</text>
+
+  <!-- 最优值虚线 -->
+  <line x1="485" y1="210" x2="805" y2="210" stroke="#e05252" stroke-width="1.2" stroke-dasharray="6,4"/>
+  <!-- 最优值标签放在左侧，避开收敛点 -->
+  <text x="500" y="204" font-size="11" fill="#e05252">最优值</text>
+
+  <!-- Adam 折线（平滑下降） -->
+  <polyline
+    points="505,310 545,272 580,250 612,232 640,220 665,215 690,212 715,211 740,210 768,210"
+    fill="none" stroke="#27ae60" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Adam 各点（稀疏，体现平稳） -->
+  <circle cx="505" cy="310" r="3.5" fill="#27ae60"/>
+  <circle cx="545" cy="272" r="3.5" fill="#27ae60"/>
+  <circle cx="580" cy="250" r="3.5" fill="#27ae60"/>
+  <circle cx="612" cy="232" r="3.5" fill="#27ae60"/>
+  <circle cx="640" cy="220" r="3.5" fill="#27ae60"/>
+  <circle cx="665" cy="215" r="3.5" fill="#27ae60"/>
+  <circle cx="690" cy="212" r="3.5" fill="#27ae60"/>
+  <circle cx="715" cy="211" r="3.5" fill="#27ae60"/>
+  <circle cx="740" cy="210" r="3.5" fill="#27ae60"/>
+  <circle cx="768" cy="210" r="4.5" fill="#e05252"/>
+
+  <!-- start 标注 -->
+  <text x="510" y="325" font-size="11" fill="#27ae60">start</text>
+
+  <!-- 收敛标注：放在终点右上方 -->
+  <text x="756" y="200" font-size="11" fill="#e05252">收敛</text>
+
+  <!-- 步长递减标注：分开放置，避免重叠 -->
+  <!-- 步长大：标在第一段折线上方 -->
+  <text x="518" y="258" font-size="10" fill="#27ae60">步长大</text>
+  <!-- 步长极小：标在末段折线下方 -->
+  <text x="710" y="228" font-size="10" fill="#27ae60">步长极小</text>
+
+  <text x="645" y="375" text-anchor="middle" font-size="12" fill="#27ae60">v_t 随梯度累积变大，步长自动收窄，稳定落在最优值</text>
+
+  <!-- 分隔线 -->
+  <line x1="430" y1="45" x2="430" y2="355" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- 底部说明 -->
+  <rect x="180" y="400" width="500" height="34" rx="5" fill="#f5f5f5" stroke="#ccc" stroke-width="1"/>
+  <text x="430" y="422" text-anchor="middle" font-size="12" fill="#555">相同的参数、相同的起点——区别只在于步长是否自适应</text>
+</svg>

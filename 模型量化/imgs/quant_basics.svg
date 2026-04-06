@@ -1,0 +1,134 @@
+<svg viewBox="0 0 880 530" xmlns="http://www.w3.org/2000/svg" font-family="serif">
+  <rect width="880" height="530" fill="#fafafa" rx="8"/>
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <linearGradient id="symGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#3b82f6" stop-opacity="0.3"/>
+      <stop offset="50%"  stop-color="#93c5fd" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.3"/>
+    </linearGradient>
+    <linearGradient id="asymGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#f59e0b" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 标题 -->
+  <text x="440" y="34" text-anchor="middle" font-size="16" font-weight="bold" fill="#1a1a2e">量化基本原理：浮点值域 → INT8 整数值域</text>
+
+  <!-- ══════════ ROW 1: 对称量化 ══════════ -->
+  <text x="28" y="68" font-size="13" font-weight="bold" fill="#2563eb">对称量化（Symmetric）</text>
+
+  <!-- 浮点数轴 -->
+  <line x1="55" y1="108" x2="295" y2="108" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="55"  y1="108" x2="55"  y2="82" stroke="#555" stroke-width="1.2"/>
+  <line x1="174" y1="108" x2="174" y2="88" stroke="#555" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="292" y1="108" x2="292" y2="82" stroke="#555" stroke-width="1.2"/>
+  <text x="55"  y="78" text-anchor="middle" font-size="11" fill="#e63946">−Amax</text>
+  <text x="174" y="84" text-anchor="middle" font-size="11" fill="#666">0</text>
+  <text x="292" y="78" text-anchor="middle" font-size="11" fill="#e63946">+Amax</text>
+  <rect x="55" y="94" width="237" height="14" fill="url(#symGrad)" rx="3"/>
+  <text x="174" y="132" text-anchor="middle" font-size="11" fill="#555">浮点值域 float32</text>
+
+  <!-- 箭头 -->
+  <text x="335" y="107" text-anchor="middle" font-size="20" fill="#888">→</text>
+
+  <!-- 公式框（对称） -->
+  <rect x="360" y="76" width="210" height="66" rx="7" fill="#eff6ff" stroke="#93c5fd" stroke-width="1.3"/>
+  <text x="465" y="95" text-anchor="middle" font-size="12" font-weight="bold" fill="#1e40af">对称量化公式</text>
+  <text x="375" y="113" font-size="11" fill="#1e3a8a">s  =  Amax / 127</text>
+  <text x="375" y="130" font-size="11" fill="#1e3a8a">q  =  round( x / s )  ∈ [−127, 127]</text>
+
+  <!-- 箭头 -->
+  <text x="592" y="107" text-anchor="middle" font-size="20" fill="#888">→</text>
+
+  <!-- INT8 数轴（对称） -->
+  <line x1="620" y1="108" x2="840" y2="108" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="620" y1="108" x2="620" y2="82" stroke="#555" stroke-width="1.2"/>
+  <line x1="729" y1="108" x2="729" y2="88" stroke="#555" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <line x1="837" y1="108" x2="837" y2="82" stroke="#555" stroke-width="1.2"/>
+  <text x="620" y="78" text-anchor="middle" font-size="11" fill="#e63946">−127</text>
+  <text x="729" y="84" text-anchor="middle" font-size="11" fill="#666">0</text>
+  <text x="837" y="78" text-anchor="middle" font-size="11" fill="#e63946">+127</text>
+  <rect x="620" y="94" width="217" height="14" fill="#bfdbfe" rx="3" opacity="0.8"/>
+  <text x="729" y="132" text-anchor="middle" font-size="11" fill="#555">INT8 值域 [−127, 127]</text>
+  <text x="729" y="148" text-anchor="middle" font-size="10.5" fill="#888">zero_point = 0</text>
+
+  <!-- 分隔线 -->
+  <line x1="30" y1="168" x2="850" y2="168" stroke="#d1d5db" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- ══════════ ROW 2: 非对称量化 ══════════ -->
+  <text x="28" y="194" font-size="13" font-weight="bold" fill="#d97706">非对称量化（Asymmetric）</text>
+
+  <!-- 浮点数轴（偏移，如 [−1, 5]） -->
+  <line x1="55" y1="234" x2="295" y2="234" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="55"  y1="234" x2="55"  y2="208" stroke="#555" stroke-width="1.2"/>
+  <line x1="292" y1="234" x2="292" y2="208" stroke="#555" stroke-width="1.2"/>
+  <line x1="95"  y1="234" x2="95"  y2="216" stroke="#555" stroke-width="1.2" stroke-dasharray="4,3"/>
+  <text x="55"  y="204" text-anchor="middle" font-size="11" fill="#e63946">xmin</text>
+  <text x="292" y="204" text-anchor="middle" font-size="11" fill="#e63946">xmax</text>
+  <text x="95"  y="212" text-anchor="middle" font-size="11" fill="#666">0</text>
+  <rect x="55" y="220" width="237" height="14" fill="url(#asymGrad)" rx="3"/>
+  <text x="174" y="258" text-anchor="middle" font-size="11" fill="#555">浮点值域（非对称，含偏移）</text>
+
+  <!-- 箭头 -->
+  <text x="335" y="233" text-anchor="middle" font-size="20" fill="#888">→</text>
+
+  <!-- 公式框（非对称）——加高到 88px 放三行 -->
+  <rect x="360" y="200" width="210" height="88" rx="7" fill="#fffbeb" stroke="#fcd34d" stroke-width="1.3"/>
+  <text x="465" y="219" text-anchor="middle" font-size="12" font-weight="bold" fill="#92400e">非对称量化公式</text>
+  <text x="375" y="237" font-size="11" fill="#78350f">s  =  (xmax − xmin) / 255</text>
+  <text x="375" y="254" font-size="11" fill="#78350f">zp  =  round( −xmin / s )</text>
+  <text x="375" y="271" font-size="11" fill="#78350f">q  =  round( x / s )  +  zp</text>
+
+  <!-- 箭头 -->
+  <text x="592" y="233" text-anchor="middle" font-size="20" fill="#888">→</text>
+
+  <!-- INT8 数轴（非对称） -->
+  <line x1="620" y1="234" x2="840" y2="234" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="620" y1="234" x2="620" y2="208" stroke="#555" stroke-width="1.2"/>
+  <line x1="837" y1="234" x2="837" y2="208" stroke="#555" stroke-width="1.2"/>
+  <line x1="660" y1="234" x2="660" y2="216" stroke="#d97706" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="620" y="204" text-anchor="middle" font-size="11" fill="#e63946">−128</text>
+  <text x="837" y="204" text-anchor="middle" font-size="11" fill="#e63946">+127</text>
+  <text x="660" y="212" text-anchor="middle" font-size="11" fill="#d97706">zp</text>
+  <rect x="620" y="220" width="217" height="14" fill="#fde68a" rx="3" opacity="0.8"/>
+  <text x="729" y="258" text-anchor="middle" font-size="11" fill="#555">INT8 值域 [−128, 127]</text>
+  <text x="729" y="274" text-anchor="middle" font-size="10.5" fill="#888">zero_point ≠ 0，对应 xmin 的整数位置</text>
+
+  <!-- 分隔线 -->
+  <line x1="30" y1="300" x2="850" y2="300" stroke="#d1d5db" stroke-width="1" stroke-dasharray="6,4"/>
+
+  <!-- ══════════ ROW 3: per-tensor vs per-channel ══════════ -->
+  <text x="440" y="326" text-anchor="middle" font-size="13" font-weight="bold" fill="#374151">per-tensor vs per-channel 粒度对比</text>
+
+  <!-- per-tensor 框 -->
+  <rect x="55" y="342" width="340" height="100" rx="8" fill="#f0fdf4" stroke="#86efac" stroke-width="1.3"/>
+  <text x="225" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#166534">per-tensor</text>
+  <rect x="75"  y="372" width="66" height="50" fill="#4ade80" opacity="0.45" rx="4"/>
+  <rect x="147" y="372" width="66" height="50" fill="#4ade80" opacity="0.45" rx="4"/>
+  <rect x="219" y="372" width="66" height="50" fill="#4ade80" opacity="0.45" rx="4"/>
+  <rect x="291" y="372" width="66" height="50" fill="#4ade80" opacity="0.45" rx="4"/>
+  <!-- 单一 scale 括号示意 -->
+  <text x="225" y="436" text-anchor="middle" font-size="10.5" fill="#166534">整个张量共用一组 (s, zp)</text>
+  <text x="225" y="450" text-anchor="middle" font-size="10" fill="#6b7280">简单快速，精度较低</text>
+
+  <!-- per-channel 框 -->
+  <rect x="475" y="342" width="340" height="100" rx="8" fill="#fdf4ff" stroke="#d8b4fe" stroke-width="1.3"/>
+  <text x="645" y="362" text-anchor="middle" font-size="12" font-weight="bold" fill="#581c87">per-channel</text>
+  <rect x="495" y="372" width="66" height="50" fill="#a855f7" opacity="0.3" rx="4"/>
+  <rect x="567" y="372" width="66" height="50" fill="#3b82f6" opacity="0.3" rx="4"/>
+  <rect x="639" y="372" width="66" height="50" fill="#ec4899" opacity="0.3" rx="4"/>
+  <rect x="711" y="372" width="66" height="50" fill="#f59e0b" opacity="0.3" rx="4"/>
+  <text x="528" y="432" text-anchor="middle" font-size="10" fill="#4c1d95">s₁</text>
+  <text x="600" y="432" text-anchor="middle" font-size="10" fill="#1e3a8a">s₂</text>
+  <text x="672" y="432" text-anchor="middle" font-size="10" fill="#831843">s₃</text>
+  <text x="744" y="432" text-anchor="middle" font-size="10" fill="#78350f">s₄</text>
+  <text x="645" y="450" text-anchor="middle" font-size="10.5" fill="#581c87">每个通道独立一组 (s, zp)，精度更高</text>
+
+  <!-- 底部说明 -->
+  <text x="440" y="480" text-anchor="middle" font-size="10.5" fill="#9ca3af">反量化：x_dequant = s · (q − zp)</text>
+</svg>

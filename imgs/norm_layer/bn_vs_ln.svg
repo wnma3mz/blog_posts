@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 390" font-family="serif">
+  <rect width="780" height="390" fill="#fafafa"/>
+
+  <defs>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 z" fill="#4a90d9"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M0,0 L0,8 L8,4 z" fill="#27ae60"/>
+    </marker>
+  </defs>
+
+  <!-- 标题 -->
+  <text x="390" y="28" text-anchor="middle" font-size="15" font-weight="bold" fill="#333">BN 与 LN：归一化的维度不同</text>
+
+  <!-- ===== 左图：BN ===== -->
+  <text x="195" y="56" text-anchor="middle" font-size="14" font-weight="bold" fill="#4a90d9">Batch Normalization</text>
+  <text x="195" y="74" text-anchor="middle" font-size="11" fill="#888">沿 batch 维度归一化，每个特征独立</text>
+
+  <!--
+    格子布局（左图）：4列 × 4行
+    列 x 起点：C1=10, C2=77, C3=144, C4=211
+    格子 width=55, 行 height=42, 行间距 8px
+    行 y 起点：row1=10, row2=60, row3=110, row4=160
+  -->
+  <g transform="translate(45, 95)">
+    <!-- 背景框 -->
+    <rect x="0" y="0" width="276" height="210" rx="4" fill="#f0f0f0" stroke="#ddd"/>
+
+    <!-- 行标签 -->
+    <text x="-8" y="35"  text-anchor="end" font-size="11" fill="#888">样本 1</text>
+    <text x="-8" y="85"  text-anchor="end" font-size="11" fill="#888">样本 2</text>
+    <text x="-8" y="135" text-anchor="end" font-size="11" fill="#888">样本 3</text>
+    <text x="-8" y="185" text-anchor="end" font-size="11" fill="#888">样本 4</text>
+
+    <!-- 列标签 -->
+    <text x="37"  y="-6" text-anchor="middle" font-size="11" fill="#888">C1</text>
+    <text x="104" y="-6" text-anchor="middle" font-size="11" fill="#4a90d9" font-weight="bold">C2</text>
+    <text x="171" y="-6" text-anchor="middle" font-size="11" fill="#888">C3</text>
+    <text x="238" y="-6" text-anchor="middle" font-size="11" fill="#888">C4</text>
+
+    <!-- 普通格子（C1, C3, C4） -->
+    <!-- row1 -->
+    <rect x="10"  y="10" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="144" y="10" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="211" y="10" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <!-- row2 -->
+    <rect x="10"  y="60" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="144" y="60" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="211" y="60" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <!-- row3 -->
+    <rect x="10"  y="110" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="144" y="110" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="211" y="110" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <!-- row4 -->
+    <rect x="10"  y="160" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="144" y="160" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+    <rect x="211" y="160" width="55" height="42" rx="3" fill="#dce8f5" stroke="#b0c8e8"/>
+
+    <!-- 高亮列（C2）：BN 在这一列的所有样本上做统计 -->
+    <rect x="77" y="10"  width="55" height="42" rx="3" fill="#4a90d9" stroke="#2c6fad" opacity="0.85"/>
+    <rect x="77" y="60"  width="55" height="42" rx="3" fill="#4a90d9" stroke="#2c6fad" opacity="0.85"/>
+    <rect x="77" y="110" width="55" height="42" rx="3" fill="#4a90d9" stroke="#2c6fad" opacity="0.85"/>
+    <rect x="77" y="160" width="55" height="42" rx="3" fill="#4a90d9" stroke="#2c6fad" opacity="0.85"/>
+
+    <!-- 向下箭头：从高亮列底部延伸 -->
+    <line x1="104" y1="212" x2="104" y2="232" stroke="#4a90d9" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  </g>
+
+  <!-- BN 说明文字 -->
+  <text x="195" y="345" text-anchor="middle" font-size="11" fill="#4a90d9">对同一特征（C2），收集</text>
+  <text x="195" y="360" text-anchor="middle" font-size="11" fill="#4a90d9">所有样本的值求均值和方差</text>
+
+  <!-- ===== 右图：LN ===== -->
+  <text x="585" y="56" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">Layer Normalization</text>
+  <text x="585" y="74" text-anchor="middle" font-size="11" fill="#888">沿特征维度归一化，每个样本独立</text>
+
+  <g transform="translate(447, 95)">
+    <rect x="0" y="0" width="276" height="210" rx="4" fill="#f0f0f0" stroke="#ddd"/>
+
+    <!-- 行标签 -->
+    <text x="-8" y="35"  text-anchor="end" font-size="11" fill="#27ae60" font-weight="bold">样本 1</text>
+    <text x="-8" y="85"  text-anchor="end" font-size="11" fill="#888">样本 2</text>
+    <text x="-8" y="135" text-anchor="end" font-size="11" fill="#888">样本 3</text>
+    <text x="-8" y="185" text-anchor="end" font-size="11" fill="#888">样本 4</text>
+
+    <!-- 列标签 -->
+    <text x="37"  y="-6" text-anchor="middle" font-size="11" fill="#888">C1</text>
+    <text x="104" y="-6" text-anchor="middle" font-size="11" fill="#888">C2</text>
+    <text x="171" y="-6" text-anchor="middle" font-size="11" fill="#888">C3</text>
+    <text x="238" y="-6" text-anchor="middle" font-size="11" fill="#888">C4</text>
+
+    <!-- 普通格子（row2, row3, row4） -->
+    <!-- row2 -->
+    <rect x="10"  y="60" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="77"  y="60" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="144" y="60" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="211" y="60" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <!-- row3 -->
+    <rect x="10"  y="110" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="77"  y="110" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="144" y="110" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="211" y="110" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <!-- row4 -->
+    <rect x="10"  y="160" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="77"  y="160" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="144" y="160" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+    <rect x="211" y="160" width="55" height="42" rx="3" fill="#c8e6c9" stroke="#a5d6a7"/>
+
+    <!-- 高亮行（样本1）：LN 在这一行的所有特征上做统计 -->
+    <rect x="10"  y="10" width="55" height="42" rx="3" fill="#27ae60" stroke="#1e8449" opacity="0.85"/>
+    <rect x="77"  y="10" width="55" height="42" rx="3" fill="#27ae60" stroke="#1e8449" opacity="0.85"/>
+    <rect x="144" y="10" width="55" height="42" rx="3" fill="#27ae60" stroke="#1e8449" opacity="0.85"/>
+    <rect x="211" y="10" width="55" height="42" rx="3" fill="#27ae60" stroke="#1e8449" opacity="0.85"/>
+
+    <!-- 向右箭头：从高亮行右侧延伸 -->
+    <line x1="278" y1="31" x2="298" y2="31" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow-green)"/>
+  </g>
+
+  <!-- LN 说明文字 -->
+  <text x="585" y="345" text-anchor="middle" font-size="11" fill="#27ae60">对同一样本（样本1），收集</text>
+  <text x="585" y="360" text-anchor="middle" font-size="11" fill="#27ae60">所有特征的值求均值和方差</text>
+
+  <!-- 分隔线 -->
+  <line x1="390" y1="50" x2="390" y2="375" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6,4"/>
+</svg>

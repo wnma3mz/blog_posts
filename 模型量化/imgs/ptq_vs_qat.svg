@@ -1,0 +1,112 @@
+<svg viewBox="0 0 900 440" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue', Arial, sans-serif">
+
+  <!-- Background -->
+  <rect width="900" height="440" fill="#fafafa" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="36" text-anchor="middle" font-size="17" font-weight="bold" fill="#1a1a2e">PTQ vs QAT：两条量化路径对比</text>
+
+  <!-- ═══════ DIVIDER ═══════ -->
+  <line x1="450" y1="55" x2="450" y2="420" stroke="#e5e7eb" stroke-width="1.5" stroke-dasharray="6,4"/>
+
+  <!-- ═══════ LEFT: PTQ ═══════ -->
+  <text x="225" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">PTQ（训练后量化）</text>
+
+  <defs>
+    <!-- arrowhead -->
+    <marker id="arrowB" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#6b7280"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#d97706"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#16a34a"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto">
+      <path d="M0,0 L0,7 L9,3.5 z" fill="#dc2626"/>
+    </marker>
+  </defs>
+
+  <!-- Step 1 PTQ: Pre-trained Model -->
+  <rect x="90" y="84" width="270" height="52" rx="9" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="225" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">预训练 FP32 模型</text>
+  <text x="225" y="125" text-anchor="middle" font-size="11" fill="#3b82f6">已收敛的浮点权重</text>
+
+  <!-- Arrow -->
+  <line x1="225" y1="136" x2="225" y2="158" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 2 PTQ: Calibration -->
+  <rect x="90" y="160" width="270" height="52" rx="9" fill="#fef3c7" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="225" y="183" text-anchor="middle" font-size="13" font-weight="bold" fill="#92400e">校准数据集</text>
+  <text x="225" y="201" text-anchor="middle" font-size="11" fill="#b45309">少量无标签样本（几百条）统计激活分布</text>
+
+  <!-- Arrow -->
+  <line x1="225" y1="212" x2="225" y2="234" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 3 PTQ: Quantization -->
+  <rect x="90" y="236" width="270" height="52" rx="9" fill="#dcfce7" stroke="#22c55e" stroke-width="1.5"/>
+  <text x="225" y="259" text-anchor="middle" font-size="13" font-weight="bold" fill="#14532d">计算 scale / zero_point</text>
+  <text x="225" y="277" text-anchor="middle" font-size="11" fill="#16a34a">MinMax / Percentile / KL 散度等策略</text>
+
+  <!-- Arrow -->
+  <line x1="225" y1="288" x2="225" y2="310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 4 PTQ: Quantized Model -->
+  <rect x="90" y="312" width="270" height="52" rx="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="225" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="#3730a3">INT8/INT4 量化模型</text>
+  <text x="225" y="353" text-anchor="middle" font-size="11" fill="#4338ca">权重和/或激活转为低精度整数</text>
+
+  <!-- PTQ annotation -->
+  <rect x="90" y="378" width="270" height="40" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="225" y="396" text-anchor="middle" font-size="11" fill="#475569">优点：无需重新训练，数小时内完成</text>
+  <text x="225" y="411" text-anchor="middle" font-size="11" fill="#dc2626">缺点：精度损失，LLM 激活量化困难</text>
+
+  <!-- ═══════ RIGHT: QAT ═══════ -->
+  <text x="675" y="68" text-anchor="middle" font-size="14" font-weight="bold" fill="#d97706">QAT（量化感知训练）</text>
+
+  <!-- Step 1 QAT: Base Model -->
+  <rect x="540" y="84" width="270" height="52" rx="9" fill="#dbeafe" stroke="#3b82f6" stroke-width="1.5"/>
+  <text x="675" y="107" text-anchor="middle" font-size="13" font-weight="bold" fill="#1e40af">预训练 / 随机初始化模型</text>
+  <text x="675" y="125" text-anchor="middle" font-size="11" fill="#3b82f6">FP32 权重，准备插入量化节点</text>
+
+  <!-- Arrow -->
+  <line x1="675" y1="136" x2="675" y2="158" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 2 QAT: Insert fake quant -->
+  <rect x="540" y="160" width="270" height="52" rx="9" fill="#fef9c3" stroke="#eab308" stroke-width="1.5"/>
+  <text x="675" y="181" text-anchor="middle" font-size="13" font-weight="bold" fill="#713f12">插入 Fake Quantization 节点</text>
+  <text x="675" y="199" text-anchor="middle" font-size="11" fill="#a16207">前向：模拟 round → clamp（量化噪声）</text>
+
+  <!-- Arrow -->
+  <line x1="675" y1="212" x2="675" y2="234" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 3 QAT: STE backward -->
+  <rect x="540" y="236" width="270" height="52" rx="9" fill="#fce7f3" stroke="#ec4899" stroke-width="1.5"/>
+  <text x="675" y="257" text-anchor="middle" font-size="13" font-weight="bold" fill="#831843">STE 梯度反传</text>
+  <text x="675" y="275" text-anchor="middle" font-size="11" fill="#be185d">反向：∂round/∂x ≈ 1（恒等映射近似）</text>
+
+  <!-- Arrow -->
+  <line x1="675" y1="288" x2="675" y2="310" stroke="#6b7280" stroke-width="1.5" marker-end="url(#arrowB)"/>
+
+  <!-- Step 4 QAT: Fine-tuned model -->
+  <rect x="540" y="312" width="270" height="52" rx="9" fill="#e0e7ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="675" y="335" text-anchor="middle" font-size="13" font-weight="bold" fill="#3730a3">量化感知微调完成</text>
+  <text x="675" y="353" text-anchor="middle" font-size="11" fill="#4338ca">权重已适应量化噪声，精度更高</text>
+
+  <!-- QAT annotation -->
+  <rect x="540" y="378" width="270" height="40" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1"/>
+  <text x="675" y="396" text-anchor="middle" font-size="11" fill="#475569">优点：精度损失小，甚至超过 FP32 基线</text>
+  <text x="675" y="411" text-anchor="middle" font-size="11" fill="#dc2626">缺点：需完整训练流程，LLM 无法承受</text>
+
+  <!-- STE detail callout -->
+  <rect x="540" y="228" width="11" height="11" rx="2" fill="#ec4899" opacity="0"/>
+  <!-- STE micro diagram inside step3 box -->
+  <!-- forward path label -->
+  <text x="557" y="254" font-size="9.5" fill="#9d174d">前向</text>
+  <text x="557" y="272" font-size="9.5" fill="#9d174d">反向</text>
+
+</svg>
