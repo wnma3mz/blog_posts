@@ -1,7 +1,9 @@
 ---
 title: ssh笔记（端口转发）
 date: 2018-02-11 19:40:56
-tags: [SSH, Port Forwarding, 内网穿透]
+tags:
+  - SSH
+  - Port Forwarding
 categories: [Reference]
 ---
 

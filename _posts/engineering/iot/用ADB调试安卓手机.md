@@ -1,7 +1,8 @@
 ---
 title: 用ADB调试安卓手机
 date: 2018-01-25 13:55:11
-tags: [ADB, Android]
+tags:
+  - Android
 categories: [Reference]
 ---
 

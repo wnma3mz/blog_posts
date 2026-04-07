@@ -1,11 +1,7 @@
 ---
 title: 矩阵分解介绍及Python实现（QR、SVD、LU）
 date: 2018-04-13 11:12:23
-tags:
-  - Matrix Decomposition
-  - QR
-  - SVD
-  - LU
+tags: []
 categories: [Tutorial]
 mathjax: true
 ---

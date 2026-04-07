@@ -1,7 +1,7 @@
 ---
 title: LIMA 阅读笔记
 date: 2025-08-20 17:52:42
-tags: [LIMA, Instruction Tuning, Alignment]
+tags: []
 categories: [PaperReading]
 mathjax: true
 ---

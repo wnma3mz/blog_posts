@@ -1,7 +1,8 @@
 ---
 title: 在Hadoop基础上Hive的安装
 date: 2017-05-07 13:03:12
-tags: [Hadoop, Hive]
+tags:
+  - Hadoop
 categories: [Engineering]
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: SPSA随机优化算法
 date: 2023-08-19 12:47:28
-tags: [SPSA, Stochastic Approximation, Optimization]
+tags:
+  - Optimization
 categories: [Tutorial]
 mathjax: true
 ---

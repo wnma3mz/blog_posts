@@ -1,7 +1,8 @@
 ---
 title: LLM的推理加速-EAGLE三部曲
 date: 2025-05-12 14:23:00
-tags: [Speculative Decoding, EAGLE]
+tags:
+  - Speculative Decoding
 categories: [Survey]
 mathjax: true
 ---

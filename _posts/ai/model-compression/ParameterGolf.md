@@ -2,7 +2,8 @@
 title: Parameter Golf：16MB 内存下的大模型极限压缩
 date: 2026-04-03 22:33:00
 categories: [Survey]
-tags: [Parameter Golf, 模型压缩, 量化]
+tags:
+  - 量化
 mathjax: true
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Bash 操作查询
 date: 2025-09-06 17:33:52
-tags: [Bash, Shell]
+tags: []
 categories: [Reference]
 ---
 

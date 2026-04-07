@@ -1,7 +1,8 @@
 ---
 title: MoE 自动选择专家个数 from Top-k to Top-p
 date: 2024-01-24 16:41:53
-tags: [MoE, Top-k, Top-p]
+tags:
+  - MoE
 categories: [PaperReading]
 mathjax: true
 ---

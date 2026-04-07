@@ -1,9 +1,7 @@
 ---
 title: Tracing Model Outputs to the Training Data
 date: 2023-11-17 18:45:20
-tags:
-  - Interpretability
-  - Training Data Attribution
+tags: []
 categories: [PaperReading]
 mathjax: true
 ---

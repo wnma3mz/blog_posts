@@ -1,7 +1,8 @@
 ---
 title: vLLM  的 PageAttention
 date: 2023-11-24 16:21:32
-tags: [vLLM, PagedAttention, KV Cache]
+tags:
+  - KV Cache
 categories: [SourceReading]
 mathjax: true
 ---

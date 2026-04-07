@@ -1,7 +1,7 @@
 ---
 title: OpenWrt路由器折腾记录
 date: 2023-01-10 20:21:22
-tags: [OpenWrt, Router]
+tags: []
 categories: [Engineering]
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: 安卓手机利用Termux安装Linux
 date: 2021-07-21 21:36:28
-tags: [Termux, Android, Linux]
+tags:
+  - Android
 categories: [Engineering]
 ---
 

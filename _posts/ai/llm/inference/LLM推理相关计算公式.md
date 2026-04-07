@@ -1,7 +1,9 @@
 ---
 title: LLM的推理相关计算公式
 date: 2024-09-05 13:45:43
-tags: [Inference, FLOPs, KV Cache]
+tags:
+  - Inference
+  - KV Cache
 categories: [Reference]
 mathjax: true
 ---

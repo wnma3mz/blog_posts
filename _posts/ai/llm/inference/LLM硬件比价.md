@@ -1,7 +1,9 @@
 ---
 title: LLM 不同硬件推理速度对比
 date: 2024-07-21 20:02:00
-tags: [Hardware Benchmark, GPU, Raspberry Pi]
+tags:
+  - GPU
+  - Raspberry Pi
 categories: [Reference]
 mathjax: true
 ---

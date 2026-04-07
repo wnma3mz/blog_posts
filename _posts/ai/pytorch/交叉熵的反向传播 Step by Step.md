@@ -1,7 +1,8 @@
 ---
 title: 交叉熵的反向传播 Step by Step（PyTorch）
 date: 2023-09-03 21:49:20
-tags: [Cross Entropy, Backpropagation, PyTorch]
+tags:
+  - PyTorch
 categories: [Tutorial]
 mathjax: true
 ---

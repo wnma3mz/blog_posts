@@ -1,7 +1,7 @@
 ---
 title: LLM 深度的”稀疏性“
 date: 2024-03-28 13:02:21
-tags: [Layer Pruning, Depth Sparsity, Model Pruning]
+tags: []
 categories: [PaperReading]
 mathjax: true
 ---

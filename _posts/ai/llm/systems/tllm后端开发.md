@@ -4,7 +4,6 @@ date: 2024-11-15 22:05:06
 tags:
   - together-LLM
   - Distributed Inference
-  - Tensor Parallel
   - gRPC
 categories: [SourceReading]
 mathjax: true

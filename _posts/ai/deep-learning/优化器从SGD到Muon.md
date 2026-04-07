@@ -1,12 +1,7 @@
 ---
 title: 优化器的前世今生：从 SGD 到 Muon
 date: 2026-04-06
-tags:
-  - Optimizer
-  - SGD
-  - Adam
-  - AdamW
-  - Muon
+tags: []
 categories: [Survey]
 mathjax: true
 ---

@@ -1,7 +1,8 @@
 ---
 title: Hadoop伪分布式安装（Centos7）
 date: 2017-04-09 17:42:00
-tags: [Hadoop, CentOS]
+tags:
+  - Hadoop
 categories: [Engineering]
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Python魔术方法
 date: 2018-03-14 15:24:02
-tags: [Magic Methods]
+tags: []
 categories: [Tutorial]
 ---
 

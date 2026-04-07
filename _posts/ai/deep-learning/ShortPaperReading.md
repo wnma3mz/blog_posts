@@ -1,7 +1,7 @@
 ---
 title: Short Paper Reading
 date: 2022-12-31 21:12:43
-tags: [Federated Learning]
+tags: []
 categories: [PaperReading]
 mathjax: true
 ---

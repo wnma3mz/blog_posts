@@ -1,7 +1,7 @@
 ---
 title: 优化pandas内存入门
 date: 2018-03-17 16:11:12
-tags: [pandas, Memory Optimization]
+tags: []
 categories: [Tutorial]
 ---
 

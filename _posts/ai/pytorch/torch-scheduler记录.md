@@ -1,7 +1,8 @@
 ---
 title: torch中的scheduler
 date: 2021-02-03 11:18:01
-tags: [PyTorch, Scheduler]
+tags:
+  - PyTorch
 categories: [Reference]
 ---
 

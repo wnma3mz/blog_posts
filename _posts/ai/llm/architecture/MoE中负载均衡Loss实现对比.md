@@ -1,7 +1,8 @@
 ---
 title: MoE中负载均衡Loss实现
 date: 2024-06-15 20:00:00
-tags: [MoE, Load Balancing, Auxiliary Loss]
+tags:
+  - MoE
 categories: [Survey]
 mathjax: true
 ---

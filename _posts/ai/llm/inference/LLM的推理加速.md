@@ -1,7 +1,9 @@
 ---
 title: LLM的推理加速
 date: 2024-06-15 20:00:00
-tags: [Inference Optimization, KV Cache, Continuous Batching]
+tags:
+  - Inference
+  - KV Cache
 categories: [Survey]
 mathjax: true
 ---

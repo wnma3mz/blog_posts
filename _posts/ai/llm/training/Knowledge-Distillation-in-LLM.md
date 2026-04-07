@@ -1,7 +1,7 @@
 ---
 title: Knowledge Distillation in LLM
 date: 2024-08-08 10:44:12
-tags: [LLM, Knowledge Distillation]
+tags: []
 categories: [PaperReading]
 mathjax: true
 ---

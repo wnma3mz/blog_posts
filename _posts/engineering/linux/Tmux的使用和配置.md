@@ -1,7 +1,7 @@
 ---
 title: Tmux 的使用和配置
 date: 2023/08/13 17:11:22
-tags: [Tmux]
+tags: []
 categories: [Reference]
 ---
 

@@ -1,7 +1,8 @@
 ---
 title: LLM的推理加速-Prompt Lookup
 date: 2025-08-24 21:48:23
-tags: [Prompt Lookup, Speculative Decoding]
+tags:
+  - Speculative Decoding
 categories: [Survey]
 mathjax: true
 ---

@@ -1,7 +1,9 @@
 ---
 title: Birthday in Pi：查找日期在Pi中的位置
 date: 2021-03-18 22:18:23
-tags: [Pi, WeChat, Iterator]
+tags:
+  - Raspberry Pi
+  - WeChat
 categories: [Engineering]
 ---
 

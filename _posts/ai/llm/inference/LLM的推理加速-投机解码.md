@@ -1,7 +1,8 @@
 ---
 title: LLM的推理加速-投机解码
 date: 2025-08-30 15:04:12
-tags: [Speculative Decoding, Draft Model]
+tags:
+  - Speculative Decoding
 categories: [Survey]
 mathjax: true
 ---

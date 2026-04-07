@@ -3,11 +3,8 @@ title: TurboQuant 详解
 date: 2026-03-30 11:00:00
 categories: [PaperReading]
 tags:
-  - TurboQuant
   - 量化
   - KV Cache
-  - 向量检索
-  - 信息论
 mathjax: true
 ---
 

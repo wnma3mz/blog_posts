@@ -1,7 +1,7 @@
 ---
 title: Python杂谈
 date: 2018-03-14 15:24:02
-tags: [GIL, Metaclass]
+tags: []
 categories: [Tutorial]
 ---
 

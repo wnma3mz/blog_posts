@@ -4,9 +4,6 @@ date: 2020-08-08 15:15:23
 tags:
   - Port Forwarding
   - SSH
-  - iptables
-  - ufw
-  - netsh
 categories: [Reference]
 ---
 

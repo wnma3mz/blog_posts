@@ -1,7 +1,8 @@
 ---
 title: LLM的推理加速-STAND
 date: 2025-08-30 21:34:58
-tags: [STAND, Speculative Decoding]
+tags:
+  - Speculative Decoding
 categories: [Survey]
 mathjax: true
 ---

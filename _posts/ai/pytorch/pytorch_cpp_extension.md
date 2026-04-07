@@ -1,7 +1,9 @@
 ---
 title: 用 Cpp 写 PyTorch 的插件
 date: 2023/12/03 19:42:25
-tags: [PyTorch, C++, CUDA]
+tags:
+  - PyTorch
+  - CUDA
 categories: [Engineering]
 mathjax: true
 ---

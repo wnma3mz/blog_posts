@@ -1,7 +1,7 @@
 ---
 title: VLM的识别图片能力
 date: 2025-08-04 17:12:00
-tags: [VLM, OCR, Image Understanding]
+tags: []
 categories: [Survey]
 mathjax: true
 ---

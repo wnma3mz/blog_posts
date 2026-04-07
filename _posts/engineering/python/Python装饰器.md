@@ -1,7 +1,7 @@
 ---
 title: Python装饰器
 date: 2018-01-30 10:41:52
-tags: [Decorators]
+tags: []
 categories: [Tutorial]
 ---
 
