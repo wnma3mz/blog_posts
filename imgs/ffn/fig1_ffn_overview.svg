@@ -1,0 +1,71 @@
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue', Arial, sans-serif">
+  <!-- Background -->
+  <rect width="700" height="320" fill="#fafafa" rx="12"/>
+
+  <!-- Title -->
+  <text x="350" y="36" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a2e">Transformer 层参数分布</text>
+
+  <!-- ===== Left: Pie Chart ===== -->
+  <!-- FFN slice ~67%: angle 0 → 241.2 deg -->
+  <path d="M 175 175 L 175 55 A 120 120 0 1 1 58.5 229.5 Z" fill="#4A90D9" opacity="0.88"/>
+  <!-- Attention slice ~25%: angle 241.2 → 331.2 deg -->
+  <path d="M 175 175 L 58.5 229.5 A 120 120 0 0 1 163.2 55.8 Z" fill="#E67E22" opacity="0.88"/>
+  <!-- Embedding slice ~8%: angle 331.2 → 360 deg -->
+  <path d="M 175 175 L 163.2 55.8 A 120 120 0 0 1 175 55 Z" fill="#2ECC71" opacity="0.88"/>
+
+  <!-- Center circle (donut) -->
+  <circle cx="175" cy="175" r="52" fill="#fafafa"/>
+  <text x="175" y="171" text-anchor="middle" font-size="12" fill="#555">参数</text>
+  <text x="175" y="188" text-anchor="middle" font-size="12" fill="#555">分布</text>
+
+  <!-- Legend -->
+  <rect x="40" y="275" width="14" height="14" rx="3" fill="#4A90D9" opacity="0.88"/>
+  <text x="60" y="286" font-size="13" fill="#333">FFN 层 ~67%</text>
+
+  <rect x="160" y="275" width="14" height="14" rx="3" fill="#E67E22" opacity="0.88"/>
+  <text x="180" y="286" font-size="13" fill="#333">Attention ~25%</text>
+
+  <rect x="300" y="275" width="14" height="14" rx="3" fill="#2ECC71" opacity="0.88"/>
+  <text x="320" y="286" font-size="13" fill="#333">Embedding ~8%</text>
+
+  <!-- Divider -->
+  <line x1="340" y1="50" x2="340" y2="280" stroke="#ddd" stroke-width="1.5"/>
+
+  <!-- ===== Right: Transformer Layer Structure ===== -->
+  <text x="520" y="70" text-anchor="middle" font-size="14" font-weight="600" fill="#1a1a2e">层内结构</text>
+
+  <!-- Input -->
+  <rect x="420" y="85" width="200" height="36" rx="6" fill="#E8F4FD" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="520" y="108" text-anchor="middle" font-size="13" fill="#2c3e50">Input Embeddings</text>
+
+  <!-- Arrow -->
+  <line x1="520" y1="121" x2="520" y2="138" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- MHA block -->
+  <rect x="420" y="138" width="200" height="44" rx="6" fill="#FEF9E7" stroke="#E67E22" stroke-width="1.5"/>
+  <text x="520" y="158" text-anchor="middle" font-size="13" fill="#2c3e50">Multi-Head Attention</text>
+  <text x="520" y="175" text-anchor="middle" font-size="11" fill="#888">Q·K·V + Softmax  (~25%)</text>
+
+  <!-- Arrow -->
+  <line x1="520" y1="182" x2="520" y2="199" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- FFN block -->
+  <rect x="420" y="199" width="200" height="52" rx="6" fill="#E9F7EF" stroke="#2ECC71" stroke-width="1.5"/>
+  <text x="520" y="220" text-anchor="middle" font-size="13" fill="#2c3e50">Feed-Forward Network</text>
+  <text x="520" y="237" text-anchor="middle" font-size="11" fill="#888">W₁ → Act → W₂  (~67%)</text>
+  <text x="520" y="245" text-anchor="middle" font-size="10" fill="#aaa">d_ff = 4× d_model</text>
+
+  <!-- Arrow -->
+  <line x1="520" y1="251" x2="520" y2="268" stroke="#999" stroke-width="1.5" marker-end="url(#arr)"/>
+
+  <!-- Output -->
+  <rect x="420" y="268" width="200" height="34" rx="6" fill="#E8F4FD" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="520" y="290" text-anchor="middle" font-size="13" fill="#2c3e50">Output</text>
+
+  <!-- Arrow marker -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#999"/>
+    </marker>
+  </defs>
+</svg>

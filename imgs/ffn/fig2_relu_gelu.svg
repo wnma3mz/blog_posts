@@ -1,0 +1,89 @@
+<svg viewBox="0 0 700 360" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="700" height="360" fill="#fafafa" rx="12"/>
+  <text x="350" y="34" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a2e">激活函数对比：ReLU vs GELU vs Swish</text>
+
+  <!-- Axes -->
+  <!-- X axis -->
+  <line x1="80" y1="200" x2="620" y2="200" stroke="#bbb" stroke-width="1.5"/>
+  <!-- Y axis -->
+  <line x1="350" y1="50" x2="350" y2="320" stroke="#bbb" stroke-width="1.5"/>
+
+  <!-- X ticks -->
+  <line x1="170" y1="196" x2="170" y2="204" stroke="#bbb" stroke-width="1"/>
+  <text x="170" y="218" text-anchor="middle" font-size="11" fill="#888">-2</text>
+  <line x1="260" y1="196" x2="260" y2="204" stroke="#bbb" stroke-width="1"/>
+  <text x="260" y="218" text-anchor="middle" font-size="11" fill="#888">-1</text>
+  <line x1="440" y1="196" x2="440" y2="204" stroke="#bbb" stroke-width="1"/>
+  <text x="440" y="218" text-anchor="middle" font-size="11" fill="#888">1</text>
+  <line x1="530" y1="196" x2="530" y2="204" stroke="#bbb" stroke-width="1"/>
+  <text x="530" y="218" text-anchor="middle" font-size="11" fill="#888">2</text>
+  <line x1="620" y1="196" x2="620" y2="204" stroke="#bbb" stroke-width="1"/>
+  <text x="620" y="218" text-anchor="middle" font-size="11" fill="#888">3</text>
+  <text x="80" y="218" text-anchor="middle" font-size="11" fill="#888">-3</text>
+
+  <!-- Y ticks -->
+  <line x1="346" y1="110" x2="354" y2="110" stroke="#bbb" stroke-width="1"/>
+  <text x="336" y="114" text-anchor="end" font-size="11" fill="#888">1</text>
+  <line x1="346" y1="290" x2="354" y2="290" stroke="#bbb" stroke-width="1"/>
+  <text x="336" y="294" text-anchor="end" font-size="11" fill="#888">-1</text>
+
+  <!-- Grid lines (subtle) -->
+  <line x1="80" y1="110" x2="620" y2="110" stroke="#eee" stroke-width="1"/>
+  <line x1="80" y1="290" x2="620" y2="290" stroke="#eee" stroke-width="1"/>
+
+  <!-- Scale: x range [-3,3] maps to [80,620], center=350, scale=90px per unit
+             y range [-1.2,2.5] maps to [320,50], center at y=0→200
+             y scale: 1 unit = 90px (so y=0→200, y=1→110, y=-1→290)  -->
+
+  <!-- ReLU: f(x) = max(0,x)
+       x=-3 → (80,200), x=0 → (350,200), x=3 → (620,200-270=... 620,200 for x=0, 620 for x=3: 200-3*90=200-270=-70, clamp... let's go y=200-90*x)
+       x=-3→(80,200), x=0→(350,200), x=3→(620, 200-270) ← negative pixel. Use y=200-70*x instead, 1unit=70px
+       Better: x in [-3,3] → [80,620], scale_x = 90. y=0→200, 1unit = 70px, so y_pixel = 200 - 70*f(x) -->
+  <!-- ReLU: x<0: y=200; x>=0: y=200-70x -->
+  <polyline points="80,200 350,200 620,200" stroke="#E74C3C" stroke-width="0" fill="none"/>
+  <!-- left half: flat at y=200 -->
+  <line x1="80" y1="200" x2="350" y2="200" stroke="#E74C3C" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- right half: slope up -->
+  <line x1="350" y1="200" x2="620" y2="200" stroke="#E74C3C" stroke-width="2.5" stroke-dasharray="4 0"/>
+  <!-- actually x=3 → f=3, y=200-70*3=200-210=-10, clamped. Let scale_y=60px/unit -->
+  <!-- ReLU y at x=3: 200-60*3=200-180=20 -->
+  <line x1="80" y1="200" x2="350" y2="200" stroke="#E74C3C" stroke-width="2.5"/>
+  <line x1="350" y1="200" x2="620" y2="20" stroke="#E74C3C" stroke-width="2.5"/>
+
+  <!-- GELU approximation: points sampled (x from -3 to 3, scale_x=90, scale_y=60) -->
+  <!-- GELU(x) = 0.5x(1+tanh(sqrt(2/pi)*(x+0.044715x^3))) -->
+  <!-- Sample points (x, GELU(x)) → pixel (350+90x, 200-60*GELU):
+    x=-3.0: GELU≈-0.00; x=-2.5: ≈-0.01; x=-2.0: ≈-0.05; x=-1.5: ≈-0.10; x=-1.0: ≈-0.17;
+    x=-0.5: ≈-0.15; x=0: 0; x=0.5: 0.35; x=1.0: 0.84; x=1.5: 1.40; x=2.0: 1.95; x=2.5: 2.49; x=3.0: 3.00 -->
+  <polyline fill="none" stroke="#4A90D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    points="80,200.3 125,200.6 170,203.0 215,206.0 260,210.2 305,209.0 350,200 395,179.0 440,149.6 485,116.0 530,83.0 575,50.6 620,20"/>
+
+  <!-- Swish: f(x)=x*sigmoid(x)
+    x=-3: ≈-0.14; x=-2.5: ≈-0.16; x=-2: ≈-0.24; x=-1.5: ≈-0.28; x=-1: ≈-0.27; x=-0.5: ≈-0.19;
+    x=0: 0; x=0.5: 0.31; x=1: 0.73; x=1.5: 1.22; x=2: 1.76; x=2.5: 2.31; x=3: 2.86 -->
+  <polyline fill="none" stroke="#27AE60" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    points="80,208.4 125,209.6 170,214.4 215,216.8 260,216.2 305,211.4 350,200 395,181.4 440,156.2 485,126.8 530,94.4 575,61.4 620,28.4"/>
+
+  <!-- Annotations for negative region -->
+  <text x="180" y="230" font-size="11" fill="#E74C3C">ReLU: 完全截断</text>
+  <line x1="175" y1="225" x2="150" y2="210" stroke="#E74C3C" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <text x="90" y="175" font-size="11" fill="#4A90D9">GELU: 平滑衰减</text>
+  <line x1="155" y1="175" x2="215" y2="204" stroke="#4A90D9" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <text x="90" y="156" font-size="11" fill="#27AE60">Swish: 可学习软门控</text>
+  <line x1="190" y1="155" x2="230" y2="186" stroke="#27AE60" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <!-- Legend -->
+  <rect x="430" y="270" width="180" height="70" rx="8" fill="white" stroke="#ddd"/>
+  <line x1="446" y1="289" x2="476" y2="289" stroke="#E74C3C" stroke-width="2.5"/>
+  <text x="482" y="293" font-size="12" fill="#333">ReLU</text>
+  <line x1="446" y1="309" x2="476" y2="309" stroke="#4A90D9" stroke-width="2.5"/>
+  <text x="482" y="313" font-size="12" fill="#333">GELU</text>
+  <line x1="446" y1="329" x2="476" y2="329" stroke="#27AE60" stroke-width="2.5"/>
+  <text x="482" y="333" font-size="12" fill="#333">Swish</text>
+
+  <!-- Axis labels -->
+  <text x="630" y="204" font-size="12" fill="#888">x</text>
+  <text x="356" y="48" font-size="12" fill="#888">f(x)</text>
+</svg>

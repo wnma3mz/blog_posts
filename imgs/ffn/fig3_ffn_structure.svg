@@ -1,0 +1,103 @@
+<svg viewBox="0 0 720 380" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="720" height="380" fill="#fafafa" rx="12"/>
+  <text x="360" y="34" text-anchor="middle" font-size="16" font-weight="600" fill="#1a1a2e">FFN 结构演进：标准 FFN vs SwiGLU FFN</text>
+
+  <!-- ===== LEFT: Standard FFN ===== -->
+  <text x="170" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#555">标准 FFN（ReLU/GELU）</text>
+
+  <!-- Input x -->
+  <rect x="110" y="78" width="120" height="34" rx="6" fill="#EBF5FB" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="170" y="100" text-anchor="middle" font-size="13" fill="#2c3e50">输入 x</text>
+  <text x="170" y="112" text-anchor="middle" font-size="10" fill="#888">∈ ℝ^d</text>
+
+  <!-- Arrow down -->
+  <line x1="170" y1="114" x2="170" y2="138" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- W1 layer -->
+  <rect x="85" y="138" width="170" height="40" rx="6" fill="#FEF9E7" stroke="#E67E22" stroke-width="1.5"/>
+  <text x="170" y="156" text-anchor="middle" font-size="13" fill="#2c3e50">Linear W₁</text>
+  <text x="170" y="171" text-anchor="middle" font-size="10" fill="#888">d → 4d 展开</text>
+
+  <!-- Arrow + activation -->
+  <line x1="170" y1="178" x2="170" y2="202" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- Activation -->
+  <rect x="105" y="202" width="130" height="36" rx="6" fill="#FDEDEC" stroke="#E74C3C" stroke-width="1.5"/>
+  <text x="170" y="225" text-anchor="middle" font-size="13" fill="#c0392b">ReLU / GELU</text>
+
+  <!-- Arrow -->
+  <line x1="170" y1="238" x2="170" y2="262" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- W2 layer -->
+  <rect x="85" y="262" width="170" height="40" rx="6" fill="#FEF9E7" stroke="#E67E22" stroke-width="1.5"/>
+  <text x="170" y="280" text-anchor="middle" font-size="13" fill="#2c3e50">Linear W₂</text>
+  <text x="170" y="295" text-anchor="middle" font-size="10" fill="#888">4d → d 压缩</text>
+
+  <!-- Arrow -->
+  <line x1="170" y1="302" x2="170" y2="326" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- Output -->
+  <rect x="110" y="326" width="120" height="34" rx="6" fill="#EBF5FB" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="170" y="348" text-anchor="middle" font-size="13" fill="#2c3e50">输出</text>
+
+  <!-- Params note -->
+  <text x="170" y="372" text-anchor="middle" font-size="11" fill="#888">2 个矩阵：W₁, W₂</text>
+
+  <!-- Divider -->
+  <line x1="360" y1="55" x2="360" y2="370" stroke="#ddd" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+  <!-- ===== RIGHT: SwiGLU FFN ===== -->
+  <text x="535" y="64" text-anchor="middle" font-size="14" font-weight="600" fill="#555">SwiGLU FFN（现代标准）</text>
+
+  <!-- Input x -->
+  <rect x="475" y="78" width="120" height="34" rx="6" fill="#EBF5FB" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="535" y="100" text-anchor="middle" font-size="13" fill="#2c3e50">输入 x</text>
+  <text x="535" y="112" text-anchor="middle" font-size="10" fill="#888">∈ ℝ^d</text>
+
+  <!-- Two arrows splitting -->
+  <line x1="500" y1="112" x2="450" y2="148" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+  <line x1="570" y1="112" x2="620" y2="148" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- Left branch: W1 + Swish (gate) -->
+  <rect x="390" y="148" width="130" height="48" rx="6" fill="#E9F7EF" stroke="#27AE60" stroke-width="1.5"/>
+  <text x="455" y="168" text-anchor="middle" font-size="12" fill="#1e8449">门 (Gate)</text>
+  <text x="455" y="184" text-anchor="middle" font-size="11" fill="#27AE60">Swish(x·W₁)</text>
+
+  <!-- Right branch: V (value) -->
+  <rect x="545" y="148" width="130" height="48" rx="6" fill="#EBF5FB" stroke="#4A90D9" stroke-width="1.5"/>
+  <text x="610" y="168" text-anchor="middle" font-size="12" fill="#1a5276">值 (Value)</text>
+  <text x="610" y="184" text-anchor="middle" font-size="11" fill="#4A90D9">x · V</text>
+
+  <!-- Merge arrows to ⊗ -->
+  <line x1="455" y1="196" x2="510" y2="248" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+  <line x1="610" y1="196" x2="560" y2="248" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- Element-wise multiply -->
+  <circle cx="535" cy="258" r="18" fill="white" stroke="#8E44AD" stroke-width="2"/>
+  <text x="535" y="264" text-anchor="middle" font-size="18" fill="#8E44AD">⊗</text>
+
+  <!-- Arrow down -->
+  <line x1="535" y1="276" x2="535" y2="300" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- W2 -->
+  <rect x="450" y="300" width="170" height="40" rx="6" fill="#FEF9E7" stroke="#E67E22" stroke-width="1.5"/>
+  <text x="535" y="318" text-anchor="middle" font-size="13" fill="#2c3e50">Linear W₂</text>
+  <text x="535" y="333" text-anchor="middle" font-size="10" fill="#888">~8/3·d → d</text>
+
+  <!-- Arrow -->
+  <line x1="535" y1="340" x2="535" y2="356" stroke="#999" stroke-width="1.5" marker-end="url(#a1)"/>
+
+  <!-- Output -->
+  <rect x="475" y="356" width="120" height="0" rx="0"/>
+  <text x="535" y="370" text-anchor="middle" font-size="11" fill="#888">3 个矩阵：W₁, V, W₂</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="a1" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <path d="M1,1 L7,4 L1,7 Z" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- Bottom comparison box -->
+  <rect x="60" y="374" width="600" height="0" rx="8"/>
+</svg>
