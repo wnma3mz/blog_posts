@@ -1,5 +1,5 @@
 ---
-title: 优化器的前世今生：从 SGD 到 Muon
+title: 从 SGD 到 Muon
 date: 2026-04-06
 tags: []
 categories: [Survey]

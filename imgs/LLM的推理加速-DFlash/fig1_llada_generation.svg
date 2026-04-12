@@ -1,0 +1,63 @@
+<svg width="620" height="210" viewBox="0 0 620 210" xmlns="http://www.w3.org/2000/svg">
+  <style>text { font-family: monospace; font-size: 11px; }</style>
+  <defs>
+    <marker id="a1" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="620" height="210" fill="#f9f9f9" rx="8"/>
+  <text x="310" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">LLaDA 的生成过程（逆向扩散）</text>
+
+  <!-- Step t=1: all masked -->
+  <rect x="15" y="50" width="105" height="120" fill="#eee" stroke="#bbb" rx="5"/>
+  <text x="67" y="43" text-anchor="middle" fill="#555">t = 1</text>
+  <rect x="23" y="60" width="89" height="22" fill="#c9c9c9" stroke="#999" rx="3"/>
+  <text x="67" y="76" text-anchor="middle" fill="#666">[M] [M] [M]</text>
+  <rect x="23" y="88" width="89" height="22" fill="#c9c9c9" stroke="#999" rx="3"/>
+  <text x="67" y="104" text-anchor="middle" fill="#666">[M] [M] [M]</text>
+  <rect x="23" y="116" width="89" height="22" fill="#c9c9c9" stroke="#999" rx="3"/>
+  <text x="67" y="132" text-anchor="middle" fill="#666">[M] [M] [M]</text>
+
+  <!-- Arrow -->
+  <line x1="122" y1="110" x2="158" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+  <text x="140" y="104" text-anchor="middle" fill="#888" font-size="10">去噪</text>
+
+  <!-- Step t=0.6 -->
+  <rect x="163" y="50" width="105" height="120" fill="#eef" stroke="#aac" rx="5"/>
+  <text x="215" y="43" text-anchor="middle" fill="#555">t = 0.6</text>
+  <rect x="171" y="60" width="89" height="22" fill="#d5e8ff" stroke="#7ab" rx="3"/>
+  <text x="215" y="76" text-anchor="middle" fill="#334">[M] can [M]</text>
+  <rect x="171" y="88" width="89" height="22" fill="#c9c9c9" stroke="#999" rx="3"/>
+  <text x="215" y="104" text-anchor="middle" fill="#666">[M] [M] [M]</text>
+  <rect x="171" y="116" width="89" height="22" fill="#d5e8ff" stroke="#7ab" rx="3"/>
+  <text x="215" y="132" text-anchor="middle" fill="#334">I [M] you</text>
+
+  <!-- Arrow -->
+  <line x1="270" y1="110" x2="306" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+  <text x="288" y="104" text-anchor="middle" fill="#888" font-size="10">去噪</text>
+
+  <!-- Step t=0.3 -->
+  <rect x="311" y="50" width="105" height="120" fill="#efe" stroke="#aca" rx="5"/>
+  <text x="363" y="43" text-anchor="middle" fill="#555">t = 0.3</text>
+  <rect x="319" y="60" width="89" height="22" fill="#c8f0c8" stroke="#5a5" rx="3"/>
+  <text x="363" y="76" text-anchor="middle" fill="#232">How can I</text>
+  <rect x="319" y="88" width="89" height="22" fill="#d5e8ff" stroke="#7ab" rx="3"/>
+  <text x="363" y="104" text-anchor="middle" fill="#334">help [M] you</text>
+  <rect x="319" y="116" width="89" height="22" fill="#c8f0c8" stroke="#5a5" rx="3"/>
+  <text x="363" y="132" text-anchor="middle" fill="#232">I help you</text>
+
+  <!-- Arrow -->
+  <line x1="418" y1="110" x2="454" y2="110" stroke="#555" stroke-width="1.5" marker-end="url(#a1)"/>
+  <text x="436" y="104" text-anchor="middle" fill="#888" font-size="10">去噪</text>
+
+  <!-- Step t=0: fully recovered -->
+  <rect x="459" y="50" width="145" height="120" fill="#f0fff0" stroke="#5a5" rx="5"/>
+  <text x="531" y="43" text-anchor="middle" fill="#555">t = 0</text>
+  <rect x="467" y="60" width="129" height="22" fill="#c8f0c8" stroke="#5a5" rx="3"/>
+  <text x="531" y="76" text-anchor="middle" fill="#131">How can I</text>
+  <rect x="467" y="88" width="129" height="22" fill="#c8f0c8" stroke="#5a5" rx="3"/>
+  <text x="531" y="104" text-anchor="middle" fill="#131">help assist you</text>
+  <rect x="467" y="116" width="129" height="22" fill="#c8f0c8" stroke="#5a5" rx="3"/>
+  <text x="531" y="132" text-anchor="middle" fill="#131">I can help you</text>
+  <text x="531" y="185" text-anchor="middle" fill="#5a5" font-size="11">✓ 完整序列</text>
+</svg>

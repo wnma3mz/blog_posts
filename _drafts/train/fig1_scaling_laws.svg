@@ -1,0 +1,171 @@
+<svg viewBox="0 0 780 340" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue', Arial, sans-serif">
+  <rect width="780" height="340" fill="#fafafa" rx="12"/>
+  <text x="390" y="30" text-anchor="middle" font-size="15" font-weight="600" fill="#1a1a2e">Kaplan Scaling Laws：损失与参数量 / 数据量 / 计算量的幂律关系</text>
+
+  <!-- ============================================================ -->
+  <!-- Shared defs -->
+  <!-- ============================================================ -->
+  <defs>
+    <marker id="arr" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto">
+      <path d="M1,1 L6,3.5 L1,6 Z" fill="#999"/>
+    </marker>
+  </defs>
+
+  <!-- ============================================================ -->
+  <!-- Panel 1: L vs N  (x: 50–250, y: 55–270) -->
+  <!-- ============================================================ -->
+  <text x="150" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#444">Loss vs 参数量 N</text>
+
+  <!-- axes -->
+  <line x1="54" y1="270" x2="248" y2="270" stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="54" y1="270" x2="54"  y2="60"  stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+
+  <!-- axis labels -->
+  <text x="150" y="288" text-anchor="middle" font-size="10" fill="#888">log N（参数量）</text>
+  <text x="16"  y="168" text-anchor="middle" font-size="10" fill="#888" transform="rotate(-90,16,168)">log Loss</text>
+
+  <!-- x ticks -->
+  <line x1="90"  y1="270" x2="90"  y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="130" y1="270" x2="130" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="170" y1="270" x2="170" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="210" y1="270" x2="210" y2="274" stroke="#ccc" stroke-width="1"/>
+  <text x="90"  y="282" text-anchor="middle" font-size="9" fill="#aaa">10⁷</text>
+  <text x="130" y="282" text-anchor="middle" font-size="9" fill="#aaa">10⁸</text>
+  <text x="170" y="282" text-anchor="middle" font-size="9" fill="#aaa">10⁹</text>
+  <text x="210" y="282" text-anchor="middle" font-size="9" fill="#aaa">10¹⁰</text>
+
+  <!-- y ticks -->
+  <line x1="50" y1="240" x2="54" y2="240" stroke="#ccc" stroke-width="1"/>
+  <line x1="50" y1="175" x2="54" y2="175" stroke="#ccc" stroke-width="1"/>
+  <line x1="50" y1="110" x2="54" y2="110" stroke="#ccc" stroke-width="1"/>
+  <text x="48" y="244" text-anchor="end" font-size="9" fill="#aaa">3.5</text>
+  <text x="48" y="179" text-anchor="end" font-size="9" fill="#aaa">3.0</text>
+  <text x="48" y="114" text-anchor="end" font-size="9" fill="#aaa">2.5</text>
+
+  <!-- grid lines (light) -->
+  <line x1="54" y1="240" x2="245" y2="240" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="54" y1="175" x2="245" y2="175" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="54" y1="110" x2="245" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+
+  <!-- Power law curve L(N) ~ N^{-0.076}, log-log → slope -0.076
+       Points computed as: y_px = 270 - (log10(N)-7)/(4)*210, x_px = 54 + (log10(N)-7)/(4)*196
+       Loss drop per decade: 0.076 * (210/3.5 * 0.5) ≈ 22.8 px per decade (scaled to look right) -->
+  <polyline fill="none" stroke="#4A90D9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    points="90,252 130,237 170,222 210,208"/>
+
+  <!-- slope annotation -->
+  <line x1="130" y1="237" x2="170" y2="222" stroke="#4A90D9" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  <text x="176" y="218" font-size="10" fill="#4A90D9">斜率 −0.076</text>
+
+  <!-- ============================================================ -->
+  <!-- Divider 1 -->
+  <!-- ============================================================ -->
+  <line x1="268" y1="48" x2="268" y2="300" stroke="#ddd" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- ============================================================ -->
+  <!-- Panel 2: L vs D  (x: 288–488) -->
+  <!-- ============================================================ -->
+  <text x="388" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#444">Loss vs 数据量 D</text>
+
+  <!-- axes -->
+  <line x1="292" y1="270" x2="486" y2="270" stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="292" y1="270" x2="292" y2="60"  stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+
+  <!-- axis labels -->
+  <text x="388" y="288" text-anchor="middle" font-size="10" fill="#888">log D（训练 tokens）</text>
+  <text x="256" y="168" text-anchor="middle" font-size="10" fill="#888" transform="rotate(-90,256,168)">log Loss</text>
+
+  <!-- x ticks -->
+  <line x1="328" y1="270" x2="328" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="368" y1="270" x2="368" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="408" y1="270" x2="408" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="448" y1="270" x2="448" y2="274" stroke="#ccc" stroke-width="1"/>
+  <text x="328" y="282" text-anchor="middle" font-size="9" fill="#aaa">10⁸</text>
+  <text x="368" y="282" text-anchor="middle" font-size="9" fill="#aaa">10⁹</text>
+  <text x="408" y="282" text-anchor="middle" font-size="9" fill="#aaa">10¹⁰</text>
+  <text x="448" y="282" text-anchor="middle" font-size="9" fill="#aaa">10¹¹</text>
+
+  <!-- y ticks -->
+  <line x1="288" y1="240" x2="292" y2="240" stroke="#ccc" stroke-width="1"/>
+  <line x1="288" y1="175" x2="292" y2="175" stroke="#ccc" stroke-width="1"/>
+  <line x1="288" y1="110" x2="292" y2="110" stroke="#ccc" stroke-width="1"/>
+  <text x="286" y="244" text-anchor="end" font-size="9" fill="#aaa">3.5</text>
+  <text x="286" y="179" text-anchor="end" font-size="9" fill="#aaa">3.0</text>
+  <text x="286" y="114" text-anchor="end" font-size="9" fill="#aaa">2.5</text>
+
+  <!-- grid lines -->
+  <line x1="292" y1="240" x2="483" y2="240" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="292" y1="175" x2="483" y2="175" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="292" y1="110" x2="483" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+
+  <!-- L(D) ~ D^{-0.095} → steeper than L(N): slope −0.095, ~28.5 px per decade -->
+  <polyline fill="none" stroke="#E67E22" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    points="328,256 368,237 408,218 448,200"/>
+
+  <!-- slope annotation -->
+  <line x1="368" y1="237" x2="408" y2="218" stroke="#E67E22" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  <text x="414" y="214" font-size="10" fill="#E67E22">斜率 −0.095</text>
+
+  <!-- ============================================================ -->
+  <!-- Divider 2 -->
+  <!-- ============================================================ -->
+  <line x1="506" y1="48" x2="506" y2="300" stroke="#ddd" stroke-width="1" stroke-dasharray="5 4"/>
+
+  <!-- ============================================================ -->
+  <!-- Panel 3: L vs C  (x: 526–726) -->
+  <!-- ============================================================ -->
+  <text x="630" y="54" text-anchor="middle" font-size="12" font-weight="600" fill="#444">Loss vs 计算量 C（FLOPs）</text>
+
+  <!-- axes -->
+  <line x1="530" y1="270" x2="724" y2="270" stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="530" y1="270" x2="530" y2="60"  stroke="#ccc" stroke-width="1.4" marker-end="url(#arr)"/>
+
+  <!-- axis labels -->
+  <text x="630" y="288" text-anchor="middle" font-size="10" fill="#888">log C（FLOPs）</text>
+  <text x="494" y="168" text-anchor="middle" font-size="10" fill="#888" transform="rotate(-90,494,168)">log Loss</text>
+
+  <!-- x ticks -->
+  <line x1="566" y1="270" x2="566" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="606" y1="270" x2="606" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="646" y1="270" x2="646" y2="274" stroke="#ccc" stroke-width="1"/>
+  <line x1="686" y1="270" x2="686" y2="274" stroke="#ccc" stroke-width="1"/>
+  <text x="566" y="282" text-anchor="middle" font-size="9" fill="#aaa">10¹⁹</text>
+  <text x="606" y="282" text-anchor="middle" font-size="9" fill="#aaa">10²⁰</text>
+  <text x="646" y="282" text-anchor="middle" font-size="9" fill="#aaa">10²¹</text>
+  <text x="686" y="282" text-anchor="middle" font-size="9" fill="#aaa">10²²</text>
+
+  <!-- y ticks -->
+  <line x1="526" y1="240" x2="530" y2="240" stroke="#ccc" stroke-width="1"/>
+  <line x1="526" y1="175" x2="530" y2="175" stroke="#ccc" stroke-width="1"/>
+  <line x1="526" y1="110" x2="530" y2="110" stroke="#ccc" stroke-width="1"/>
+  <text x="524" y="244" text-anchor="end" font-size="9" fill="#aaa">3.5</text>
+  <text x="524" y="179" text-anchor="end" font-size="9" fill="#aaa">3.0</text>
+  <text x="524" y="114" text-anchor="end" font-size="9" fill="#aaa">2.5</text>
+
+  <!-- grid lines -->
+  <line x1="530" y1="240" x2="721" y2="240" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="530" y1="175" x2="721" y2="175" stroke="#e8e8e8" stroke-width="1"/>
+  <line x1="530" y1="110" x2="721" y2="110" stroke="#e8e8e8" stroke-width="1"/>
+
+  <!-- L(C) ~ C^{-0.050} → shallowest slope: ~15 px per decade -->
+  <polyline fill="none" stroke="#8E44AD" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+    points="566,250 606,240 646,230 686,220"/>
+
+  <!-- slope annotation -->
+  <line x1="606" y1="240" x2="646" y2="230" stroke="#8E44AD" stroke-width="1" stroke-dasharray="3 2" opacity="0.6"/>
+  <text x="652" y="226" font-size="10" fill="#8E44AD">斜率 −0.050</text>
+
+  <!-- ============================================================ -->
+  <!-- Bottom legend (centered) -->
+  <!-- ============================================================ -->
+  <rect x="160" y="304" width="460" height="28" rx="6" fill="white" stroke="#eee" stroke-width="1"/>
+  <line x1="178" y1="318" x2="208" y2="318" stroke="#4A90D9" stroke-width="2.5"/>
+  <text x="214" y="322" font-size="10" fill="#333">L(N)，α=0.076</text>
+  <line x1="310" y1="318" x2="340" y2="318" stroke="#E67E22" stroke-width="2.5"/>
+  <text x="346" y="322" font-size="10" fill="#333">L(D)，α=0.095</text>
+  <line x1="446" y1="318" x2="476" y2="318" stroke="#8E44AD" stroke-width="2.5"/>
+  <text x="482" y="322" font-size="10" fill="#333">L(C)，α=0.050</text>
+
+  <!-- slope comparison note -->
+  <text x="390" y="338" text-anchor="middle" font-size="10" fill="#888">斜率绝对值：D &gt; N &gt; C　→　单位对数资源下，增加数据量的边际收益最大</text>
+</svg>

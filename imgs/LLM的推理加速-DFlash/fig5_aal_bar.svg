@@ -1,0 +1,35 @@
+<svg width="560" height="200" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
+  <style>text { font-family: monospace; font-size: 12px; }</style>
+  <rect width="560" height="200" fill="#f9f9f9" rx="8"/>
+  <text x="280" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">平均接受长度对比（Qwen3-8B，温度=0）</text>
+  <!-- Y axis -->
+  <line x1="70" y1="40" x2="70" y2="165" stroke="#aaa" stroke-width="1.5"/>
+  <line x1="70" y1="165" x2="500" y2="165" stroke="#aaa" stroke-width="1.5"/>
+  <!-- Y labels -->
+  <text x="62" y="168" text-anchor="end" fill="#888">0</text>
+  <text x="62" y="142" text-anchor="end" fill="#888">2</text>
+  <text x="62" y="116" text-anchor="end" fill="#888">4</text>
+  <text x="62" y="90" text-anchor="end" fill="#888">6</text>
+  <text x="62" y="64" text-anchor="end" fill="#888">8</text>
+  <line x1="68" y1="142" x2="72" y2="142" stroke="#aaa"/>
+  <line x1="68" y1="116" x2="72" y2="116" stroke="#aaa"/>
+  <line x1="68" y1="90" x2="72" y2="90" stroke="#aaa"/>
+  <line x1="68" y1="64" x2="72" y2="64" stroke="#aaa"/>
+  <!-- Bar: EAGLE-3(16): 2.96 -->
+  <rect x="100" y="119" width="80" height="46" fill="#e05252" rx="3"/>
+  <text x="140" y="114" text-anchor="middle" fill="#e05252" font-weight="bold">2.96</text>
+  <text x="140" y="182" text-anchor="middle" fill="#555">EAGLE-3</text>
+  <text x="140" y="194" text-anchor="middle" fill="#555">(budget=16)</text>
+  <!-- Bar: EAGLE-3(60): 3.40 -->
+  <rect x="230" y="112" width="80" height="53" fill="#e08252" rx="3"/>
+  <text x="270" y="107" text-anchor="middle" fill="#e08252" font-weight="bold">3.40</text>
+  <text x="270" y="182" text-anchor="middle" fill="#555">EAGLE-3</text>
+  <text x="270" y="194" text-anchor="middle" fill="#555">(budget=60)</text>
+  <!-- Bar: DFlash: 6.49 -->
+  <rect x="360" y="64" width="80" height="101" fill="#4a90d9" rx="3"/>
+  <text x="400" y="59" text-anchor="middle" fill="#4a90d9" font-weight="bold">6.49</text>
+  <text x="400" y="182" text-anchor="middle" fill="#555">DFlash</text>
+  <text x="400" y="194" text-anchor="middle" fill="#555">(block=16)</text>
+  <!-- Y axis label -->
+  <text x="20" y="110" fill="#888" font-size="11">AAL</text>
+</svg>

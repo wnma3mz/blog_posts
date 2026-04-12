@@ -1,0 +1,68 @@
+<svg width="600" height="230" viewBox="0 0 600 230" xmlns="http://www.w3.org/2000/svg">
+  <style>text { font-family: monospace; font-size: 12px; }</style>
+  <defs>
+    <marker id="a3" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="600" height="230" fill="#f9f9f9" rx="8"/>
+  <text x="300" y="22" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">投机解码草稿成本对比（γ=8 示意）</text>
+
+  <!-- EAGLE-3 row -->
+  <text x="70" y="60" text-anchor="middle" fill="#c00" font-weight="bold">EAGLE-3</text>
+  <text x="70" y="75" text-anchor="middle" fill="#888" font-size="10">（自回归）</text>
+  <!-- 8 sequential boxes -->
+  <rect x="115" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="135" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="155" y1="65" x2="165" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="165" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="185" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="205" y1="65" x2="215" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="215" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="235" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="255" y1="65" x2="265" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="265" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="285" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="305" y1="65" x2="315" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="315" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="335" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="355" y1="65" x2="365" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="365" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="385" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="405" y1="65" x2="415" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="415" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="435" y="70" text-anchor="middle" fill="#900">1L</text>
+  <line x1="455" y1="65" x2="465" y2="65" stroke="#e05252" stroke-width="1.2" marker-end="url(#a3)"/>
+  <rect x="465" y="50" width="40" height="30" fill="#fdd" stroke="#e05252" rx="3"/>
+  <text x="485" y="70" text-anchor="middle" fill="#900">1L</text>
+  <text x="530" y="70" fill="#e05252" font-weight="bold">× 8 步</text>
+
+  <!-- DFlash row -->
+  <text x="70" y="145" text-anchor="middle" fill="#1a6bcc" font-weight="bold">DFlash</text>
+  <text x="70" y="160" text-anchor="middle" fill="#888" font-size="10">（块扩散）</text>
+  <!-- 5 layers, 1 step, all 8 tokens output simultaneously -->
+  <rect x="115" y="125" width="40" height="30" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="135" y="145" text-anchor="middle" fill="#14c">5L</text>
+  <!-- bracket for all 8 outputs -->
+  <line x1="155" y1="140" x2="510" y2="140" stroke="#4a90d9" stroke-width="1.5"/>
+  <line x1="155" y1="136" x2="155" y2="143" stroke="#4a90d9" stroke-width="1.5"/>
+  <line x1="510" y1="136" x2="510" y2="143" stroke="#4a90d9" stroke-width="1.5"/>
+  <!-- 8 output tokens -->
+  <rect x="160" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="180" y="170" text-anchor="middle" fill="#14c">t&#x2081;</text>
+  <rect x="205" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="225" y="170" text-anchor="middle" fill="#14c">t&#x2082;</text>
+  <rect x="250" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="270" y="170" text-anchor="middle" fill="#14c">t&#x2083;</text>
+  <rect x="295" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="315" y="170" text-anchor="middle" fill="#14c">t&#x2084;</text>
+  <rect x="340" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="360" y="170" text-anchor="middle" fill="#14c">t&#x2085;</text>
+  <rect x="385" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="405" y="170" text-anchor="middle" fill="#14c">t&#x2086;</text>
+  <rect x="430" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="450" y="170" text-anchor="middle" fill="#14c">t&#x2087;</text>
+  <rect x="475" y="155" width="40" height="22" fill="#d8eafd" stroke="#4a90d9" rx="3"/>
+  <text x="495" y="170" text-anchor="middle" fill="#14c">t&#x2088;</text>
+  <text x="335" y="210" text-anchor="middle" fill="#4a90d9" font-size="11">同时输出 8 个 token，仅 1 步</text>
+</svg>

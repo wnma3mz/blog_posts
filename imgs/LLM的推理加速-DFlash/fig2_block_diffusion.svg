@@ -1,0 +1,125 @@
+<svg width="680" height="310" viewBox="0 0 680 310" xmlns="http://www.w3.org/2000/svg">
+  <style>text { font-family: monospace; font-size: 11px; }</style>
+  <defs>
+    <marker id="a2" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#555"/>
+    </marker>
+    <marker id="a2g" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#5a5"/>
+    </marker>
+    <marker id="a2b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0,8 3,0 6" fill="#4a90d9"/>
+    </marker>
+  </defs>
+  <rect width="680" height="310" fill="#f9f9f9" rx="8"/>
+  <text x="340" y="20" text-anchor="middle" font-size="13" font-weight="bold" fill="#222">Block Diffusion：块间 AR，块内扩散</text>
+
+  <!-- ── Row 1: block overview ── -->
+  <!-- Block 1 done -->
+  <rect x="20" y="35" width="118" height="42" fill="#c8f0c8" stroke="#5a5" rx="4"/>
+  <text x="79" y="52" text-anchor="middle" fill="#232" font-weight="bold">Block 1 ✓</text>
+  <text x="79" y="66" text-anchor="middle" fill="#555">jumps over the lazy</text>
+
+  <!-- AR arrow -->
+  <line x1="140" y1="56" x2="160" y2="56" stroke="#5a5" stroke-width="1.5" marker-end="url(#a2g)"/>
+  <text x="150" y="50" text-anchor="middle" fill="#5a5" font-size="9">AR</text>
+
+  <!-- Block 2 done -->
+  <rect x="163" y="35" width="118" height="42" fill="#c8f0c8" stroke="#5a5" rx="4"/>
+  <text x="222" y="52" text-anchor="middle" fill="#232" font-weight="bold">Block 2 ✓</text>
+  <text x="222" y="66" text-anchor="middle" fill="#555">dog sits down here</text>
+
+  <!-- AR arrow -->
+  <line x1="283" y1="56" x2="303" y2="56" stroke="#5a5" stroke-width="1.5" marker-end="url(#a2g)"/>
+  <text x="293" y="50" text-anchor="middle" fill="#5a5" font-size="9">AR</text>
+
+  <!-- Block 3 generating -->
+  <rect x="306" y="28" width="148" height="56" fill="#fff3d8" stroke="#f0a500" stroke-dasharray="4,2" rx="4"/>
+  <text x="380" y="45" text-anchor="middle" fill="#c06000" font-weight="bold">Block 3（扩散去噪中）</text>
+  <rect x="314" y="52" width="30" height="18" fill="#fdd" stroke="#e05252" rx="2"/>
+  <text x="329" y="65" text-anchor="middle" fill="#900">[M]</text>
+  <rect x="348" y="52" width="30" height="18" fill="#c8f0c8" stroke="#5a5" rx="2"/>
+  <text x="363" y="65" text-anchor="middle" fill="#232">cat</text>
+  <rect x="382" y="52" width="30" height="18" fill="#fdd" stroke="#e05252" rx="2"/>
+  <text x="397" y="65" text-anchor="middle" fill="#900">[M]</text>
+  <rect x="416" y="52" width="30" height="18" fill="#c8f0c8" stroke="#5a5" rx="2"/>
+  <text x="431" y="65" text-anchor="middle" fill="#232">sat</text>
+
+  <!-- AR arrow -->
+  <line x1="456" y1="56" x2="476" y2="56" stroke="#5a5" stroke-width="1.5" marker-end="url(#a2g)"/>
+  <text x="466" y="50" text-anchor="middle" fill="#5a5" font-size="9">AR</text>
+
+  <!-- Block 4 future -->
+  <rect x="479" y="35" width="118" height="42" fill="#eee" stroke="#bbb" stroke-dasharray="3,2" rx="4"/>
+  <text x="538" y="52" text-anchor="middle" fill="#999" font-weight="bold">Block 4</text>
+  <text x="538" y="66" text-anchor="middle" fill="#bbb">[待生成]</text>
+
+  <!-- ── KV Cache flow ── -->
+  <text x="340" y="102" text-anchor="middle" fill="#4a90d9" font-size="10" font-weight="bold">KV Cache 跨块传递（无需重算前置内容）</text>
+  <line x1="79" y1="77" x2="79" y2="114" stroke="#4a90d9" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <line x1="222" y1="77" x2="222" y2="114" stroke="#4a90d9" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <line x1="79" y1="114" x2="375" y2="114" stroke="#4a90d9" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <line x1="375" y1="114" x2="375" y2="85" stroke="#4a90d9" stroke-width="1.5" marker-end="url(#a2b)"/>
+  <text x="145" y="127" text-anchor="middle" fill="#4a90d9" font-size="9">K¹,V¹</text>
+  <text x="278" y="127" text-anchor="middle" fill="#4a90d9" font-size="9">K²,V²</text>
+
+  <!-- ── Row 2: attention mask ── -->
+  <text x="340" y="152" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">Attention Mask 结构（3 个 block 示意）</text>
+
+  <!-- legend -->
+  <rect x="20" y="162" width="12" height="12" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <text x="36" y="172" fill="#555">干净 token（前置 block）</text>
+  <rect x="195" y="162" width="12" height="12" fill="#fff3d8" stroke="#f0a500" rx="1"/>
+  <text x="211" y="172" fill="#555">加噪 token（当前 block）</text>
+  <rect x="390" y="162" width="12" height="12" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <text x="406" y="172" fill="#555">不可见（mask=0）</text>
+
+  <!-- matrix header row -->
+  <text x="185" y="190" text-anchor="middle" fill="#888" font-size="9">B1t1 B1t2 B1t3</text>
+  <text x="310" y="190" text-anchor="middle" fill="#888" font-size="9">B2t1 B2t2 B2t3</text>
+  <text x="435" y="190" text-anchor="middle" fill="#888" font-size="9">B3t1 B3t2 B3t3</text>
+
+  <!-- row labels + matrix row 1: B1 clean -->
+  <text x="88" y="203" text-anchor="end" fill="#555" font-size="9">B1(干净)</text>
+  <rect x="92"  y="193" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="132" y="193" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="172" y="193" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="212" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="252" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="292" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="332" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="372" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="412" y="193" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <text x="462" y="203" fill="#5a5" font-size="9">← M_BC：只看本块</text>
+
+  <!-- row 2: B2 noisy -->
+  <text x="88" y="221" text-anchor="end" fill="#555" font-size="9">B2(加噪)</text>
+  <rect x="92"  y="211" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="132" y="211" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="172" y="211" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="212" y="211" width="38" height="14" fill="#fff3d8" stroke="#f0a500" rx="1"/>
+  <rect x="252" y="211" width="38" height="14" fill="#fff3d8" stroke="#f0a500" rx="1"/>
+  <rect x="292" y="211" width="38" height="14" fill="#fff3d8" stroke="#f0a500" rx="1"/>
+  <rect x="332" y="211" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="372" y="211" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <rect x="412" y="211" width="38" height="14" fill="#e8e8e8" stroke="#999" rx="1"/>
+  <text x="462" y="218" fill="#f0a500" font-size="9">← M_OBC + M_BD：</text>
+  <text x="462" y="229" fill="#f0a500" font-size="9">   看前块 + 本块加噪</text>
+
+  <!-- row 3: B3 clean -->
+  <text x="88" y="239" text-anchor="end" fill="#555" font-size="9">B3(干净)</text>
+  <rect x="92"  y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="132" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="172" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="212" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="252" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="292" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="332" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="372" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <rect x="412" y="229" width="38" height="14" fill="#c8f0c8" stroke="#5a5" rx="1"/>
+  <text x="462" y="239" fill="#5a5" font-size="9">← M_BC：看所有前块</text>
+
+  <!-- carry-over note (two lines) -->
+  <text x="340" y="266" text-anchor="middle" fill="#888" font-size="10">解锁后不再重新 Mask（Carry-Over Unmasking）：</text>
+  <text x="340" y="280" text-anchor="middle" fill="#888" font-size="10">已定下的 token 保持稳定，作为后续 block 的可靠上下文。</text>
+</svg>
