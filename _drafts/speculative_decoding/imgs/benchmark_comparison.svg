@@ -1,0 +1,96 @@
+<svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+  <rect width="860" height="400" fill="#fafafa" rx="8"/>
+  <text x="430" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">Multi-trajectory 性能对比（DeepSeek-R1-Distill-Qwen-7B, A100）</text>
+  <text x="430" y="54" text-anchor="middle" font-size="12" fill="#666">指标：Throughput (tokens/s) × Speedup，平均值取 AIME/GPQA/LCB 三个任务</text>
+
+  <!-- Grid lines -->
+  <line x1="140" y1="80" x2="140" y2="310" stroke="#dee2e6" stroke-width="1"/>
+  <line x1="140" y1="80"  x2="820" y2="80"  stroke="#dee2e6" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="140" y1="130" x2="820" y2="130" stroke="#dee2e6" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="140" y1="180" x2="820" y2="180" stroke="#dee2e6" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="140" y1="230" x2="820" y2="230" stroke="#dee2e6" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="140" y1="280" x2="820" y2="280" stroke="#dee2e6" stroke-width="0.8" stroke-dasharray="4,3"/>
+  <line x1="140" y1="310" x2="820" y2="310" stroke="#dee2e6" stroke-width="0.8"/>
+
+  <!-- Y-axis labels (speedup) -->
+  <text x="130" y="84"  text-anchor="end" font-size="11" fill="#666">3.0×</text>
+  <text x="130" y="134" text-anchor="end" font-size="11" fill="#666">2.5×</text>
+  <text x="130" y="184" text-anchor="end" font-size="11" fill="#666">2.0×</text>
+  <text x="130" y="234" text-anchor="end" font-size="11" fill="#666">1.5×</text>
+  <text x="130" y="284" text-anchor="end" font-size="11" fill="#666">1.0×</text>
+
+  <!-- Y axis label -->
+  <text x="30" y="200" text-anchor="middle" font-size="12" fill="#555" transform="rotate(-90,30,200)">Speedup vs Plain</text>
+
+  <!-- X-axis: trajectories -->
+  <text x="238" y="330" text-anchor="middle" font-size="12" fill="#444">4 trajectories</text>
+  <text x="480" y="330" text-anchor="middle" font-size="12" fill="#444">8 trajectories</text>
+  <text x="720" y="330" text-anchor="middle" font-size="12" fill="#444">16 trajectories</text>
+
+  <!-- Scale: y=310 means 1x, y=80 means 3x. So each 0.1x = (310-80)/20 = 11.5px -->
+  <!-- Speedup formula: y = 310 - (speedup - 1.0) * 230 -->
+
+  <!-- Plain baseline -->
+  <line x1="160" y1="310" x2="770" y2="310" stroke="#adb5bd" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <text x="775" y="314" font-size="10" fill="#adb5bd">Plain 1.0×</text>
+
+  <!-- Eagle-2: 4→x1.04, 8→x1.04, 16→x1.04 -->
+  <!-- y = 310 - (1.04-1)*230 = 310-9.2=300.8 -->
+  <polyline points="238,301 480,301 720,301" fill="none" stroke="#9e9e9e" stroke-width="1.8" stroke-dasharray="4,3"/>
+  <circle cx="238" cy="301" r="5" fill="#9e9e9e"/>
+  <circle cx="480" cy="301" r="5" fill="#9e9e9e"/>
+  <circle cx="720" cy="301" r="5" fill="#9e9e9e"/>
+
+  <!-- ANPD: 4→1.74, 8→1.79, 16→1.82 -->
+  <!-- y = 310-(1.74-1)*230=310-170.2=139.8; 310-(1.79-1)*230=128.3; 310-(1.82-1)*230=122.4 -->
+  <polyline points="238,140 480,128 720,122" fill="none" stroke="#ff9800" stroke-width="1.8"/>
+  <circle cx="238" cy="140" r="5" fill="#ff9800"/>
+  <circle cx="480" cy="128" r="5" fill="#ff9800"/>
+  <circle cx="720" cy="122" r="5" fill="#ff9800"/>
+
+  <!-- Token Recycle: x2.26, x2.27, x2.26 -->
+  <!-- y=310-(2.26-1)*230=310-289.8=20.2 → clip to 80. Let's show proportionally:
+       scale: 1x=310, 2.5x=130, so each 0.1x=18px. -->
+  <!-- Re-scale: y=310-(speedup-1.0)/(3.0-1.0)*(310-80) = 310-(speedup-1)*115 -->
+  <!-- Recycle: 310-(2.26-1)*115=310-144.9=165.1; same approx -->
+  <polyline points="238,165 480,163 720,164" fill="none" stroke="#4361ee" stroke-width="1.8"/>
+  <circle cx="238" cy="165" r="5" fill="#4361ee"/>
+  <circle cx="480" cy="163" r="5" fill="#4361ee"/>
+  <circle cx="720" cy="164" r="5" fill="#4361ee"/>
+
+  <!-- STAND: x2.44, x2.63, x2.74 -->
+  <!-- 310-(2.44-1)*115=310-165.6=144.4; 310-(2.63-1)*115=310-187.45=122.6; 310-(2.74-1)*115=310-200.1=109.9 -->
+  <polyline points="238,144 480,123 720,110" fill="none" stroke="#f72585" stroke-width="2.8"/>
+  <circle cx="238" cy="144" r="7" fill="#f72585" stroke="#fff" stroke-width="2"/>
+  <circle cx="480" cy="123" r="7" fill="#f72585" stroke="#fff" stroke-width="2"/>
+  <circle cx="720" cy="110" r="7" fill="#f72585" stroke="#fff" stroke-width="2"/>
+
+  <!-- Speedup labels for STAND -->
+  <text x="238" y="137" text-anchor="middle" font-size="10.5" font-weight="600" fill="#f72585">2.44×</text>
+  <text x="480" y="116" text-anchor="middle" font-size="10.5" font-weight="600" fill="#f72585">2.63×</text>
+  <text x="720" y="103" text-anchor="middle" font-size="10.5" font-weight="600" fill="#f72585">2.74×</text>
+
+  <!-- Recycle labels -->
+  <text x="238" y="158" text-anchor="middle" font-size="10" fill="#4361ee">2.26×</text>
+  <text x="480" y="156" text-anchor="middle" font-size="10" fill="#4361ee">2.27×</text>
+  <text x="720" y="157" text-anchor="middle" font-size="10" fill="#4361ee">2.26×</text>
+
+  <!-- Gap annotation -->
+  <line x1="720" y1="110" x2="720" y2="164" stroke="#e91e63" stroke-width="1.2" stroke-dasharray="3,2"/>
+  <text x="736" y="140" font-size="10.5" fill="#e91e63" font-weight="600">+21%</text>
+
+  <!-- Legend -->
+  <rect x="155" y="348" width="12" height="4" fill="#9e9e9e" rx="2"/>
+  <text x="172" y="356" font-size="11" fill="#555">Eagle-2 (model-based)</text>
+
+  <rect x="305" y="348" width="12" height="4" fill="#ff9800" rx="2"/>
+  <text x="322" y="356" font-size="11" fill="#555">ANPD</text>
+
+  <rect x="395" y="348" width="12" height="4" fill="#4361ee" rx="2"/>
+  <text x="412" y="356" font-size="11" fill="#555">Token Recycle</text>
+
+  <circle cx="546" cy="352" r="6" fill="#f72585" stroke="#fff" stroke-width="1.5"/>
+  <text x="558" y="356" font-size="11" fill="#f72585" font-weight="600">STAND（本文重点）</text>
+
+  <text x="430" y="390" text-anchor="middle" font-size="11" fill="#999">注：STAND 随轨迹数增加优势持续扩大；Eagle-2 因长上下文问题性能基本持平 plain</text>
+</svg>

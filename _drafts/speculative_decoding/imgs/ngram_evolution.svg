@@ -1,0 +1,75 @@
+<svg viewBox="0 0 860 360" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+  <rect width="860" height="360" fill="#fafafa" rx="8"/>
+  <text x="430" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">N-gram 方法演进：从 PLD 到 STAND</text>
+
+  <!-- Arrow line -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4361ee"/>
+    </marker>
+  </defs>
+  <line x1="60" y1="200" x2="810" y2="200" stroke="#4361ee" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- Year labels -->
+  <text x="60"  y="230" text-anchor="middle" font-size="11" fill="#888">2023</text>
+  <text x="210" y="230" text-anchor="middle" font-size="11" fill="#888">2023</text>
+  <text x="360" y="230" text-anchor="middle" font-size="11" fill="#888">2024</text>
+  <text x="510" y="230" text-anchor="middle" font-size="11" fill="#888">2024</text>
+  <text x="660" y="230" text-anchor="middle" font-size="11" fill="#888">2025</text>
+
+  <!-- Nodes on axis -->
+  <circle cx="60"  cy="200" r="8" fill="#4cc9f0"/>
+  <circle cx="210" cy="200" r="8" fill="#f77f00"/>
+  <circle cx="360" cy="200" r="8" fill="#4361ee"/>
+  <circle cx="510" cy="200" r="8" fill="#4361ee"/>
+  <circle cx="660" cy="200" r="10" fill="#f72585" stroke="#fff" stroke-width="2"/>
+
+  <!-- PLD -->
+  <rect x="10" y="90" width="100" height="90" rx="8" fill="#e0f7fa" stroke="#4cc9f0" stroke-width="1.5"/>
+  <text x="60" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#006064">PLD</text>
+  <text x="60" y="128" text-anchor="middle" font-size="10" fill="#444">从 prompt</text>
+  <text x="60" y="142" text-anchor="middle" font-size="10" fill="#444">查找 n-gram</text>
+  <text x="60" y="157" text-anchor="middle" font-size="9.5" fill="#777">无需存储</text>
+  <text x="60" y="170" text-anchor="middle" font-size="9.5" fill="#777">仅限复制任务</text>
+  <line x1="60" y1="180" x2="60" y2="192" stroke="#4cc9f0" stroke-width="1.5"/>
+
+  <!-- REST -->
+  <rect x="160" y="250" width="100" height="82" rx="8" fill="#fff3e0" stroke="#f77f00" stroke-width="1.5"/>
+  <text x="210" y="272" text-anchor="middle" font-size="12" font-weight="700" fill="#e65100">REST</text>
+  <text x="210" y="288" text-anchor="middle" font-size="10" fill="#444">检索外部</text>
+  <text x="210" y="302" text-anchor="middle" font-size="10" fill="#444">datastore</text>
+  <text x="210" y="318" text-anchor="middle" font-size="9.5" fill="#777">数据库需提前</text>
+  <text x="210" y="330" text-anchor="middle" font-size="9.5" fill="#777">构建</text>
+  <line x1="210" y1="208" x2="210" y2="250" stroke="#f77f00" stroke-width="1.5"/>
+
+  <!-- ANPD -->
+  <rect x="310" y="90" width="100" height="90" rx="8" fill="#e8eaf6" stroke="#4361ee" stroke-width="1.5"/>
+  <text x="360" y="112" text-anchor="middle" font-size="12" font-weight="700" fill="#283593">ANPD</text>
+  <text x="360" y="128" text-anchor="middle" font-size="10" fill="#444">从已生成</text>
+  <text x="360" y="142" text-anchor="middle" font-size="10" fill="#444">上下文查找</text>
+  <text x="360" y="157" text-anchor="middle" font-size="9.5" fill="#777">动态更新</text>
+  <text x="360" y="170" text-anchor="middle" font-size="9.5" fill="#777">确定性起草</text>
+  <line x1="360" y1="180" x2="360" y2="192" stroke="#4361ee" stroke-width="1.5"/>
+
+  <!-- Token Recycle -->
+  <rect x="460" y="250" width="100" height="82" rx="8" fill="#e8eaf6" stroke="#4361ee" stroke-width="1.5"/>
+  <text x="510" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#283593">Token</text>
+  <text x="510" y="285" text-anchor="middle" font-size="11" font-weight="700" fill="#283593">Recycle</text>
+  <text x="510" y="301" text-anchor="middle" font-size="10" fill="#444">存 top-k ID</text>
+  <text x="510" y="315" text-anchor="middle" font-size="9.5" fill="#777">部分概率信息</text>
+  <text x="510" y="328" text-anchor="middle" font-size="9.5" fill="#777">replace 策略</text>
+  <line x1="510" y1="208" x2="510" y2="250" stroke="#4361ee" stroke-width="1.5"/>
+
+  <!-- STAND -->
+  <rect x="596" y="72" width="130" height="110" rx="8" fill="#fce4ec" stroke="#f72585" stroke-width="2"/>
+  <text x="661" y="96"  text-anchor="middle" font-size="13" font-weight="700" fill="#880e4f">STAND</text>
+  <text x="661" y="114" text-anchor="middle" font-size="10.5" font-weight="600" fill="#c2185b">存完整 logit 分布</text>
+  <text x="661" y="130" text-anchor="middle" font-size="10" fill="#444">随机 + Gumbel-TopK</text>
+  <text x="661" y="146" text-anchor="middle" font-size="10" fill="#444">数据驱动树优化</text>
+  <text x="661" y="162" text-anchor="middle" font-size="9.5" fill="#880e4f">多轨迹聚合：越跑越准</text>
+  <text x="661" y="175" text-anchor="middle" font-size="9.5" fill="#880e4f">16 traj 领先 Recycle 21%</text>
+  <line x1="661" y1="182" x2="661" y2="192" stroke="#f72585" stroke-width="2"/>
+
+  <!-- Key diff annotations -->
+  <text x="430" y="340" text-anchor="middle" font-size="11" fill="#f72585" font-weight="600">核心进步：确定性 → 随机性起草，n-gram 值 → n-gram 分布，固定树 → 数据驱动树</text>
+</svg>

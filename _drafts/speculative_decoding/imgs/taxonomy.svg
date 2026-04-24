@@ -1,0 +1,140 @@
+<svg viewBox="0 0 860 480" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+  <!-- Background -->
+  <rect width="860" height="480" fill="#fafafa" rx="8"/>
+
+  <!-- Title -->
+  <text x="430" y="36" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">投机解码方法分类</text>
+
+  <!-- Root node -->
+  <rect x="310" y="56" width="240" height="44" rx="10" fill="#4361ee" stroke="none"/>
+  <text x="430" y="83" text-anchor="middle" font-size="14" font-weight="600" fill="#fff">投机解码 Speculative Decoding</text>
+
+  <!-- Line from root to two branches -->
+  <line x1="430" y1="100" x2="430" y2="116" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="210" y1="116" x2="650" y2="116" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="210" y1="116" x2="210" y2="132" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="650" y1="116" x2="650" y2="132" stroke="#adb5bd" stroke-width="1.5"/>
+
+  <!-- Model-Based -->
+  <rect x="100" y="132" width="220" height="40" rx="8" fill="#7209b7" stroke="none"/>
+  <text x="210" y="157" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Model-Based（需训练 Draft Model）</text>
+
+  <!-- Model-Free -->
+  <rect x="540" y="132" width="220" height="40" rx="8" fill="#f72585" stroke="none"/>
+  <text x="650" y="157" text-anchor="middle" font-size="13" font-weight="600" fill="#fff">Model-Free（无需额外模型）</text>
+
+  <!-- Model-Based children lines -->
+  <line x1="210" y1="172" x2="210" y2="188" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="120" y1="188" x2="300" y2="188" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="120" y1="188" x2="120" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="210" y1="188" x2="210" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="300" y1="188" x2="300" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+
+  <!-- Model-Based leaf 1 -->
+  <rect x="48" y="204" width="144" height="36" rx="7" fill="#b5179e" stroke="none"/>
+  <text x="120" y="226" text-anchor="middle" font-size="11.5" fill="#fff">Draft Model</text>
+  <text x="120" y="240" text-anchor="middle" font-size="10" fill="#ffcce7">Leviathan 2023</text>
+
+  <!-- Model-Based leaf 2 -->
+  <rect x="138" y="204" width="144" height="36" rx="7" fill="#b5179e" stroke="none"/>
+  <text x="210" y="226" text-anchor="middle" font-size="11.5" fill="#fff">Multi-Head</text>
+  <text x="210" y="240" text-anchor="middle" font-size="10" fill="#ffcce7">Medusa · Hydra</text>
+
+  <!-- Model-Based leaf 3 -->
+  <rect x="228" y="204" width="144" height="36" rx="7" fill="#b5179e" stroke="none"/>
+  <text x="300" y="226" text-anchor="middle" font-size="11.5" fill="#fff">Feature-Level</text>
+  <text x="300" y="240" text-anchor="middle" font-size="10" fill="#ffcce7">EAGLE 1/2/3</text>
+
+  <!-- Model-Free children lines -->
+  <line x1="650" y1="172" x2="650" y2="188" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="490" y1="188" x2="810" y2="188" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="490" y1="188" x2="490" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="570" y1="188" x2="570" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="650" y1="188" x2="650" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="730" y1="188" x2="730" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+  <line x1="810" y1="188" x2="810" y2="204" stroke="#adb5bd" stroke-width="1.5"/>
+
+  <!-- MF leaf 1: Prompt Lookup -->
+  <rect x="420" y="204" width="140" height="60" rx="7" fill="#4cc9f0" stroke="none"/>
+  <text x="490" y="223" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Prompt N-gram</text>
+  <text x="490" y="238" text-anchor="middle" font-size="10" fill="#e0f7fe">PLD</text>
+  <text x="490" y="253" text-anchor="middle" font-size="10" fill="#e0f7fe">2023</text>
+
+  <!-- MF leaf 2: Context N-gram -->
+  <rect x="500" y="204" width="140" height="60" rx="7" fill="#4361ee" stroke="none"/>
+  <text x="570" y="223" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Context N-gram</text>
+  <text x="570" y="238" text-anchor="middle" font-size="10" fill="#d0d8ff">ANPD · Token Recycle</text>
+  <text x="570" y="253" text-anchor="middle" font-size="10" fill="#d0d8ff">SAM · STAND ✦</text>
+
+  <!-- MF leaf 3: Jacobi/Parallel -->
+  <rect x="580" y="204" width="140" height="60" rx="7" fill="#06d6a0" stroke="none"/>
+  <text x="650" y="223" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Jacobi / Parallel</text>
+  <text x="650" y="238" text-anchor="middle" font-size="10" fill="#d0fff4">Lookahead</text>
+  <text x="650" y="253" text-anchor="middle" font-size="10" fill="#d0fff4">Jacobi Decoding</text>
+
+  <!-- MF leaf 4: Retrieval -->
+  <rect x="660" y="204" width="140" height="60" rx="7" fill="#f77f00" stroke="none"/>
+  <text x="730" y="223" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Retrieval-Based</text>
+  <text x="730" y="238" text-anchor="middle" font-size="10" fill="#fff3e0">REST</text>
+  <text x="730" y="253" text-anchor="middle" font-size="10" fill="#fff3e0">DOUBLE ✦</text>
+
+  <!-- MF leaf 5: Self-Spec -->
+  <rect x="740" y="204" width="140" height="60" rx="7" fill="#e63946" stroke="none"/>
+  <text x="810" y="223" text-anchor="middle" font-size="11.5" font-weight="600" fill="#fff">Self-Speculative</text>
+  <text x="810" y="238" text-anchor="middle" font-size="10" fill="#ffd6d8">Skip-Layer</text>
+  <text x="810" y="253" text-anchor="middle" font-size="10" fill="#ffd6d8">PaSS</text>
+
+  <!-- Timeline section -->
+  <rect x="40" y="308" width="780" height="140" rx="10" fill="#f0f4ff" stroke="#dee2e6" stroke-width="1"/>
+  <text x="430" y="332" text-anchor="middle" font-size="13" font-weight="700" fill="#1a1a2e">Model-Free 方法演进时间线</text>
+
+  <!-- Timeline axis -->
+  <line x1="70" y1="380" x2="800" y2="380" stroke="#4361ee" stroke-width="2"/>
+  <polygon points="800,376 812,380 800,384" fill="#4361ee"/>
+
+  <!-- Timeline nodes -->
+  <!-- 2023 PLD -->
+  <circle cx="120" cy="380" r="7" fill="#4cc9f0"/>
+  <line x1="120" y1="373" x2="120" y2="348" stroke="#4cc9f0" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="120" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#4cc9f0">PLD</text>
+  <text x="120" y="399" text-anchor="middle" font-size="10" fill="#666">2023</text>
+
+  <!-- 2023 REST -->
+  <circle cx="200" cy="380" r="7" fill="#f77f00"/>
+  <line x1="200" y1="387" x2="200" y2="432" stroke="#f77f00" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="200" y="445" text-anchor="middle" font-size="10" font-weight="600" fill="#f77f00">REST</text>
+  <text x="200" y="399" text-anchor="middle" font-size="10" fill="#666">2023</text>
+
+  <!-- 2024 Lookahead -->
+  <circle cx="310" cy="380" r="7" fill="#06d6a0"/>
+  <line x1="310" y1="373" x2="310" y2="348" stroke="#06d6a0" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="310" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#06d6a0">Lookahead</text>
+  <text x="310" y="399" text-anchor="middle" font-size="10" fill="#666">2024</text>
+
+  <!-- 2024 ANPD -->
+  <circle cx="400" cy="380" r="7" fill="#4361ee"/>
+  <line x1="400" y1="387" x2="400" y2="432" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="400" y="445" text-anchor="middle" font-size="10" font-weight="600" fill="#4361ee">ANPD</text>
+  <text x="400" y="399" text-anchor="middle" font-size="10" fill="#666">2024</text>
+
+  <!-- 2024 Token Recycle -->
+  <circle cx="490" cy="380" r="7" fill="#4361ee"/>
+  <line x1="490" y1="373" x2="490" y2="348" stroke="#4361ee" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="490" y="343" text-anchor="middle" font-size="10" font-weight="600" fill="#4361ee">Token Recycle</text>
+  <text x="490" y="399" text-anchor="middle" font-size="10" fill="#666">2024</text>
+
+  <!-- 2025 STAND -->
+  <circle cx="610" cy="380" r="9" fill="#f72585" stroke="#fff" stroke-width="2"/>
+  <line x1="610" y1="387" x2="610" y2="432" stroke="#f72585" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="610" y="445" text-anchor="middle" font-size="11" font-weight="700" fill="#f72585">STAND ✦</text>
+  <text x="610" y="399" text-anchor="middle" font-size="10" fill="#666">2025</text>
+
+  <!-- 2026 DOUBLE -->
+  <circle cx="740" cy="380" r="9" fill="#f77f00" stroke="#fff" stroke-width="2"/>
+  <line x1="740" y1="373" x2="740" y2="348" stroke="#f77f00" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="740" y="343" text-anchor="middle" font-size="11" font-weight="700" fill="#f77f00">DOUBLE ✦</text>
+  <text x="740" y="399" text-anchor="middle" font-size="10" fill="#666">2026</text>
+
+  <!-- Legend -->
+  <text x="820" y="380" text-anchor="start" font-size="11" fill="#4361ee">→ 时间</text>
+</svg>

@@ -1,0 +1,88 @@
+<svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg" font-family="'Helvetica Neue',Arial,sans-serif">
+  <rect width="860" height="380" fill="#fafafa" rx="8"/>
+  <text x="430" y="34" text-anchor="middle" font-size="17" font-weight="700" fill="#1a1a2e">DOUBLE：突破 PSD 理论加速上限</text>
+
+  <!-- ===== LEFT: PSD Ceiling Theorem ===== -->
+  <rect x="24" y="52" width="260" height="300" rx="10" fill="#fff3e0" stroke="#ffb74d" stroke-width="1.2"/>
+  <text x="154" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#e65100">PSD 理论上限（定理）</text>
+
+  <text x="154" y="100" text-anchor="middle" font-size="11" fill="#555">设 C = T_target / T_draft（速度比）</text>
+
+  <rect x="44" y="110" width="220" height="50" rx="6" fill="#ffe0b2"/>
+  <text x="154" y="133" text-anchor="middle" font-size="12" font-weight="600" fill="#bf360c">S_PSD ≤ C</text>
+  <text x="154" y="152" text-anchor="middle" font-size="10" fill="#777">（无论接受率多高都无法超越）</text>
+
+  <text x="154" y="180" text-anchor="middle" font-size="11" fill="#444">实际约束：</text>
+  <text x="44" y="200" font-size="10.5" fill="#555">• 7B draft + 33B target：C ≈ 1.6-2.0</text>
+  <text x="44" y="218" font-size="10.5" fill="#555">• 0.6B draft + 14B target：C ≈ 1.5</text>
+  <text x="44" y="236" font-size="10.5" fill="#555">• 参数量差距越小，上限越低</text>
+
+  <text x="154" y="262" text-anchor="middle" font-size="11" fill="#e65100">← 现有 PSD 方法（PEARL 等）</text>
+  <text x="154" y="280" text-anchor="middle" font-size="11" fill="#e65100">   被困在这个天花板之下</text>
+
+  <rect x="44" y="296" width="220" height="44" rx="6" fill="#fff" stroke="#ffb74d" stroke-width="1.2"/>
+  <text x="154" y="316" text-anchor="middle" font-size="11" fill="#bf360c">典型 pipeline 问题：</text>
+  <text x="154" y="332" text-anchor="middle" font-size="11" fill="#bf360c">mid-sequence rejection 造成浪费</text>
+
+  <!-- ===== MIDDLE: DOUBLE mechanism ===== -->
+  <rect x="300" y="52" width="260" height="300" rx="10" fill="#e8eaf6" stroke="#9fa8da" stroke-width="1.2"/>
+  <text x="430" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#1a237e">DOUBLE 两大机制</text>
+
+  <!-- Mechanism 1 -->
+  <rect x="316" y="88" width="228" height="110" rx="8" fill="#fff" stroke="#7986cb" stroke-width="1.2"/>
+  <text x="430" y="108" text-anchor="middle" font-size="11.5" font-weight="700" fill="#283593">① 迭代检索起草</text>
+  <text x="320" y="124" font-size="10.5" fill="#333">Draft 执行 γ 次检索迭代：</text>
+  <text x="320" y="140" font-size="10.5" fill="#333">  x^(j) = x^(j-1) ⊕ Retrieval(x^(j-1))</text>
+  <text x="320" y="156" font-size="10.5" fill="#555">每次更新上下文再检索，生成</text>
+  <text x="320" y="172" font-size="10.5" fill="#555">C × (1 + AMT) >> C 个 token</text>
+  <text x="430" y="192" text-anchor="middle" font-size="10" fill="#1a237e">→ 草稿长度超越速度比 C</text>
+
+  <!-- Mechanism 2 -->
+  <rect x="316" y="210" width="228" height="110" rx="8" fill="#fff" stroke="#7986cb" stroke-width="1.2"/>
+  <text x="430" y="230" text-anchor="middle" font-size="11.5" font-weight="700" fill="#283593">② Target-Guided Verification</text>
+  <text x="320" y="248" font-size="10.5" fill="#333">Target model 做单步检索：</text>
+  <text x="320" y="264" font-size="10.5" fill="#555">提前生成 multi-token guidance y</text>
+  <text x="320" y="280" font-size="10.5" fill="#555">用于辅助 draft 验证</text>
+  <text x="320" y="296" font-size="10.5" fill="#555">大幅减少 mid-sequence rejection</text>
+  <text x="430" y="316" text-anchor="middle" font-size="10" fill="#1a237e">→ 减少计算浪费</text>
+
+  <!-- Sync Parallel Execution -->
+  <rect x="316" y="332" width="228" height="28" rx="6" fill="#e8f5e9"/>
+  <text x="430" y="350" text-anchor="middle" font-size="10.5" fill="#1b5e20">③ 同步并行执行（消除 pipeline bubble）</text>
+
+  <!-- ===== RIGHT: Results ===== -->
+  <rect x="576" y="52" width="260" height="300" rx="10" fill="#e8f5e9" stroke="#81c784" stroke-width="1.2"/>
+  <text x="706" y="76" text-anchor="middle" font-size="13" font-weight="700" fill="#1b5e20">DOUBLE 实验结果</text>
+
+  <text x="706" y="100" text-anchor="middle" font-size="11" fill="#555">HumanEval + CNN/DM</text>
+
+  <!-- Bar chart placeholder -->
+  <!-- LLaMA3.3-70B -->
+  <text x="596" y="124" font-size="11" font-weight="600" fill="#333">LLaMA3.3-70B</text>
+
+  <rect x="596" y="130" width="46" height="18" rx="3" fill="#adb5bd"/>
+  <text x="642" y="143" font-size="10" fill="#555"> SPS: 2.1×</text>
+
+  <rect x="596" y="152" width="76" height="18" rx="3" fill="#9fa8da"/>
+  <text x="672" y="165" font-size="10" fill="#555"> PEARL: 3.5×</text>
+
+  <rect x="596" y="174" width="130" height="20" rx="3" fill="#f72585"/>
+  <text x="726" y="189" font-size="10.5" font-weight="700" fill="#880e4f"> DOUBLE: 5.3×</text>
+  <text x="596" y="205" font-size="10" fill="#2e7d32">（领先 EAGLE-3 无需训练！）</text>
+
+  <!-- Qwen3-32B -->
+  <text x="596" y="230" font-size="11" font-weight="600" fill="#333">Qwen3-32B</text>
+
+  <rect x="596" y="236" width="46" height="18" rx="3" fill="#adb5bd"/>
+  <text x="642" y="249" font-size="10" fill="#555"> SPS: 1.6×</text>
+
+  <rect x="596" y="258" width="56" height="18" rx="3" fill="#9fa8da"/>
+  <text x="652" y="271" font-size="10" fill="#555"> PEARL: 2.0×</text>
+
+  <rect x="596" y="280" width="96" height="20" rx="3" fill="#f72585"/>
+  <text x="692" y="295" font-size="10.5" font-weight="700" fill="#880e4f"> DOUBLE: 2.8×</text>
+
+  <!-- Key properties -->
+  <rect x="592" y="316" width="228" height="28" rx="6" fill="#c8e6c9"/>
+  <text x="706" y="334" text-anchor="middle" font-size="11" font-weight="600" fill="#1b5e20">训练无关 · 无损 · 不需要 draft model</text>
+</svg>
